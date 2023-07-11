@@ -74,6 +74,6 @@ public class User implements Serializable{
 	@JoinTable(name="user_role",
 	joinColumns=@javax.persistence.JoinColumn(name="user_id"),
 	inverseJoinColumns = @javax.persistence.JoinColumn(name ="role_id"))
-	private List<Role> role;
+	private List<Role> roles;
 
 }
