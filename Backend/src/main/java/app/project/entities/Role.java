@@ -28,7 +28,7 @@ public class Role implements Serializable{
 	
 	 @Id
 	 @GeneratedValue(strategy = GenerationType.AUTO)
-	 private long id;
+	 private Long id;
 	 
 	 private String RoleName;
 	 
