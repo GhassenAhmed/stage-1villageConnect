@@ -41,7 +41,6 @@ public class User implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 	
-	@ColumnDefault(value="ahmed")
 	private String FirstName;
 	private String LastName;
 	private String Email;

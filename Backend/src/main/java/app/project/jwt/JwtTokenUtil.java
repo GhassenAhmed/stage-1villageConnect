@@ -1,37 +1,32 @@
 package app.project.jwt;
 
 import java.io.Serializable;
-import java.util.Date;
 
-
-import java.util.Base64;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Base64;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtTokenUtil implements Serializable {
+public class jwtTokenUtil implements Serializable{
 	
-	 /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+	private static final int JWT_TOKEN_VALIDITY = 5 * 60 * 60;
 	 
 	 @Value("${jwt.secret}")
 	 private static String secret;
 	 
-	  public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+	 public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
 	        final Claims claims = getAllClaimsFromToken(token);
 	        return claimsResolver.apply(claims);
 	  }
@@ -42,6 +37,7 @@ public class JwtTokenUtil implements Serializable {
 	  }
 	    
 	 private Claims getAllClaimsFromToken(String token) {
+		  jwtTokenUtil.secret = "MyEduConnect";
 		  return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
 	  }
 	 
@@ -52,8 +48,8 @@ public class JwtTokenUtil implements Serializable {
 	  }
 	  
 	   private String doGenerateToken(Map<String, Object> claims, String subject) {
-	        JwtTokenUtil.secret = "MyEduConnect";
-	        String encodedString = Base64.getEncoder().encodeToString(JwtTokenUtil.secret.getBytes());
+	        jwtTokenUtil.secret = "MyEduConnect";
+	        String encodedString = Base64.getEncoder().encodeToString(jwtTokenUtil.secret.getBytes());
 	        return Jwts.builder()
 	                .setClaims(claims)
 	                .setSubject(subject)
@@ -78,6 +74,4 @@ public class JwtTokenUtil implements Serializable {
 	        final String username = getUsernameFromToken(token);
 	        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	    }
-	  
-	  
 }
