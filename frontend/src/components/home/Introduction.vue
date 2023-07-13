@@ -66,7 +66,7 @@
         </div>
 
         <div class="subject" id="categorie">
-            <h3 class="">You need it,we've got it</h3>
+            <h3 class="">Vous en avez besoin, nous l'avons.</h3>
         </div>
 
         <div class="categories">
