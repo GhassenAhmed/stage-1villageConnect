@@ -16,7 +16,7 @@
                             <span class="title-word title-word-2">age</span>
                             <span class="title-word title-word-3">Connect</span>
                         </div>
-                        <button class="sign-btn" style="font-family: font-family: 'Courier New', Courier, monospace;">Commencer</button>  
+                        <button class="sign-btn" style="font-family: font-family: 'Courier New', Courier, monospace;"><router-link to="/signup" style="text-decoration: none;color:#0c1a22;"><span>Commencer</span></router-link></button>  
                     </div>     
                 </v-flex>
                 <v-flex xl4 lg4 md4 sm12 xs12>
