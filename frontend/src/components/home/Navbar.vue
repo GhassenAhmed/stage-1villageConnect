@@ -50,17 +50,17 @@
                                     :key="link.title"
                                     >
                                         <v-list-item-title>
-                                            <v-btn plain router :to="link.route">{{link.title}} </v-btn>
+                                            <v-btn plain> <a :href="link.to" style="color:#0c1a22">{{link.title}}</a> </v-btn>
                                         </v-list-item-title>
                                     </v-list-item>
                                     <v-list-item>
                                         <v-list-item-title>
-                                            <v-btn  router color="#7b88d1" class="hidden-md-and-up">Inscrire</v-btn>
+                                            <v-btn color="#7b88d1" class="hidden-md-and-up"><span><router-link to="/signup" style="color:#0c1a22;">Inscrire</router-link></span></v-btn>
                                         </v-list-item-title>
                                     </v-list-item>
                                 </v-list>
                             </v-menu>
-                        <button class="sign-btn hidden-sm-and-down">Inscrire</button>
+                            <button class="sign-btn hidden-sm-and-down" > <span><router-link to="/signup" style="color:#0c1a22;">Inscrire</router-link></span></button>
                 
             </v-toolbar>
         </div>
@@ -77,10 +77,11 @@ export default {
     data(){
         return{
             links:[
-            {title:'Services',icon:'mdi-room-service-outline',tooltip:'Assistance, aide',to:"service1"},
-            {title:'Categories',icon:'mdi-account-group-outline',tooltip:'Regroupement, organisation',to:"categorie"},
-            {title:'A Propos',icon:'mdi-shape-circle-plus',tooltip:'En savoir plus sur nous',to:"about"}
-        ]
+            {title:'Services',icon:'mdi-room-service-outline',tooltip:'Assistance, aide',to:"#service1"},
+            {title:'Categories',icon:'mdi-account-group-outline',tooltip:'Regroupement, organisation',to:"#categorie"},
+            {title:'A Propos',icon:'mdi-shape-circle-plus',tooltip:'En savoir plus sur nous',to:"#about"}
+        ],
+        route:"/signup"
         }
     },  
     methods:{
@@ -119,7 +120,7 @@ li:hover {
 
 
 .sign-btn {
-  color: #0c1a22;
+  color: #0c1a22 !important;
   border: 3px solid #7b88d1;
   padding: 5px 20px;
   font-size: 5px;
