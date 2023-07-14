@@ -60,7 +60,7 @@
                                     </v-list-item>
                                 </v-list>
                             </v-menu>
-                            <button class="sign-btn hidden-sm-and-down" > <span><router-link to="/signup" style="color:#0c1a22;">Inscrire</router-link></span></button>
+                            <router-link to="/signup" style="color:#0c1a22;"> <button class="sign-btn hidden-sm-and-down" > <span>Inscrire</span></button></router-link>
                 
             </v-toolbar>
         </div>
