@@ -14,7 +14,6 @@ export default {
 </script>
 <style scoped>
 .signup{
-    height: 100vh;
     box-sizing: border-box;
     overflow: hidden;
     scroll-behavior: smooth;
