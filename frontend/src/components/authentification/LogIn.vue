@@ -11,7 +11,7 @@
             </v-btn>
             </router-link>
         </v-toolbar>
-        <v-container style="background-color: #fff;">
+        <v-container>
             <v-layout class="mt-15">
                 <v-flex>
                    <h1 style="font-size: 25px;margin-bottom: 10px;">Connectez-vous</h1>
