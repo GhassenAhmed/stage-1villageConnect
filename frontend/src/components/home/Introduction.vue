@@ -98,7 +98,7 @@
                     </div>
                 </v-flex>
                 <v-flex xl6 lg6 md6 sm12 xs12 class="mt-7 hidden-sm-and-down">
-                    <img src="../../assets/service.png" width="600px" alt="">
+                    <img src="../../assets/about.png" width="600px" alt="">
                 </v-flex>
             </v-layout>
         </div>
