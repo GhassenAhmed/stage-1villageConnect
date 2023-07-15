@@ -30,24 +30,6 @@
                                             placeholder="Enter FirstName"
                                     ></v-text-field>
                                     <v-text-field
-                                            name="Email"
-                                            label="E-mail"
-                                            append-icon="mdi-account"
-                                            type="text"
-                                            outlined
-                                            dense
-                                            placeholder="Enter E-mail"
-                                    ></v-text-field>
-                                    <v-text-field
-                                        name="file"
-                                        id="file"
-                                        label="Your Photo"
-                                        type="file"
-                                    ></v-text-field>
-                                </v-flex>
-
-                                <v-flex class="mt-5 mr-5">
-                                    <v-text-field
                                             name="Name"
                                             label="LastName"
                                             append-icon="mdi-rename-outline"
@@ -55,6 +37,19 @@
                                             dense
                                             outlined
                                             placeholder="Enter LastName"
+                                    ></v-text-field>
+                                    
+                                </v-flex>
+
+                                <v-flex class="mt-5 mr-5">
+                                    <v-text-field
+                                            name="Email"
+                                            label="E-mail"
+                                            append-icon="mdi-account"
+                                            type="text"
+                                            outlined
+                                            dense
+                                            placeholder="Enter E-mail"
                                     ></v-text-field>
                                     <v-text-field
                                         name="Password"
@@ -65,6 +60,12 @@
                                         dense
                                         outlined
                                         placeholder="Enter Password"
+                                    ></v-text-field>
+                                    <v-text-field
+                                        name="file"
+                                        id="file"
+                                        label="Your Photo"
+                                        type="file"
                                     ></v-text-field>
                                 </v-flex>
                         </v-layout>
