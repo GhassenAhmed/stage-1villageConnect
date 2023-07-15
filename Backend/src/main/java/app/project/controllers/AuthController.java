@@ -15,6 +15,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,10 +26,11 @@ import app.project.entities.User;
 import app.project.authenticate.Credentials;
 import app.project.repositories.RoleRepository;
 import app.project.repositories.UserRepository;
+import app.project.repositories.UserRoleRepository;
 import app.project.secutity.UserDetailsServiceImpl;
 import app.project.services.UserService;
 
-
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class AuthController {
 
@@ -52,12 +54,15 @@ public class AuthController {
 	 
 	 @Autowired
 	 private RoleRepository roleRepository;
+	 
+	 @Autowired
+	 UserRoleRepository userRoleRepository;
 	
 	@PostMapping("/signUp")
 	public ResponseEntity<?> SignUp(@RequestBody User user){
 		/*List<Role> roleList = new ArrayList();
 		roleList.add(roleRepository.getRoleClient());*/
-		if(userRepositiry.getUserByemail(user.getEmail())!=null) {
+		if(userRepositiry.getUserByemail(user.getEmail())==null) {
 			return new ResponseEntity<String>("Email already Used",HttpStatus.CONFLICT);
 		}
 		
