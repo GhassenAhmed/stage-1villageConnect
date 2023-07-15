@@ -1,13 +1,9 @@
 import { defineStore } from 'pinia'
+import { ref,computed } from "vue"
 
-export const useCounterStore = defineStore('counter', {
-  state: () => ({ count: 0 }),
-  getters: {
-    double: state => state.count * 2,
-  },
-  actions: {
-    increment() {
-      this.count++
-    },
-  },
+export const CurentView = defineStore('current', ()=> {
+  const view=ref(localStorage.getItem('view')??'stat');
+  
+  const getView=computed(()=>view.value);
+  return{view,getView,setView,suppView}
 })
