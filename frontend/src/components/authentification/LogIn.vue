@@ -67,6 +67,12 @@
 
 export default {
 
+    data(){
+        return{
+            show:false,
+            loading:false
+        }
+    }
 }
 </script>
 <style scoped>
