@@ -10,6 +10,7 @@ export default {
     components:{
         SignUp
     },
+   
 }
 </script>
 <style scoped>
