@@ -17,12 +17,13 @@
                    <h1 style="font-size: 25px;margin-bottom: 10px;">Creer un compte</h1>
                    <p>Accédez à des fonctionnalités exclusives en créant un compte.</p>
                    
-                   <form @submit.prevent="" enctype="multipart/form-data">
+                   <form @submit.prevent="Register()" enctype="multipart/form-data">
                         <v-layout  wrap row class="pa-4">
                                 <v-flex class="mt-5 mr-5">
                                     <v-text-field
                                             name="Name"
                                             label="FirstName"
+                                            v-model="form.firstName"
                                             append-icon="mdi-rename-outline"
                                             type="text"
                                             dense
@@ -32,6 +33,7 @@
                                     <v-text-field
                                             name="Name"
                                             label="LastName"
+                                            v-model="form.lastName"
                                             append-icon="mdi-rename-outline"
                                             type="text"
                                             dense
@@ -45,6 +47,7 @@
                                     <v-text-field
                                             name="Email"
                                             label="E-mail"
+                                            v-model="form.email"
                                             append-icon="mdi-account"
                                             type="text"
                                             outlined
@@ -54,6 +57,7 @@
                                     <v-text-field
                                         name="Password"
                                         label="Password"
+                                        v-model="form.password"
                                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                         :type="show ? 'text' : 'password'"
                                         @click:append="show = !show"
@@ -65,6 +69,7 @@
                                         name="file"
                                         id="file"
                                         label="Your Photo"
+                                        @change="base64()"
                                         type="file"
                                     ></v-text-field>
                                 </v-flex>
@@ -90,8 +95,54 @@
 </template>
 <script>
 
+import authService from "@/services/AuthServices.js"
 export default {
+    data(){
+        return{
+            form:{
+                firstName:"",
+                lastName:"",
+                email:"",
+                password:"",
+                photo:""
 
+            },
+            show:false,
+            loading:false,
+        }
+    },
+    methods:{
+        base64(){
+            this.$v.form.photo.$touch();
+            const file = document.querySelector("#file").files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+               this.form.photo = reader.result;
+           };
+           reader.readAsDataURL(file);
+        },
+        Register(){
+               this.loading=true;
+               authService.StoreUser({
+                  "firstName":this.form.firstName,
+                  "lastName":this.form.lastName,
+                  "email":this.form.email,
+                  "password":this.form.password,
+                  "photo":this.form.photo,
+                }).then((res)=>{
+                      this.form.firstName="";
+                      this.form.lastName="";
+                      this.form.email="";
+                      this.form.password="";
+                      this.form.photo="";
+                      this.loading=false;
+                      this.$router.push({name:"login",query:{content:"Register successfully"}});
+                  }).catch((error)=>{
+                       this.loading=false;
+                       console.log(error);
+                  })
+          },
+    }
 }
 </script>
 <style scoped>
