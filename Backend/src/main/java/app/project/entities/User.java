@@ -46,7 +46,6 @@ public class User implements Serializable{
 	private String Email;
 	private String Password;
 	
-	@ColumnDefault(value="null")
 	@Column(length=999999999)
 	private String photo;
 	
