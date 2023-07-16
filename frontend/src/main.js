@@ -4,12 +4,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
+import Vuelidate from "./plugins/vuelidate";
 import { createPinia, PiniaVuePlugin } from 'pinia'
-import VueCompositionAPI from '@vue/composition-api'
+
 
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
-Vue.use(VueCompositionAPI)
+
 
 Vue.config.productionTip = false
 
@@ -18,5 +19,6 @@ new Vue({
   store,
   vuetify,
   pinia,
+  Vuelidate,
   render: h => h(App)
 }).$mount('#app')
