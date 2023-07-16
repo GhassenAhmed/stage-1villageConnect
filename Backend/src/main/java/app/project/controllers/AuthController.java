@@ -60,25 +60,24 @@ public class AuthController {
 	
 	@PostMapping("/signUp")
 	public ResponseEntity<?> SignUp(@RequestBody User user){
-		/*List<Role> roleList = new ArrayList();
-		roleList.add(roleRepository.getRoleClient());*/
+		List<Role> roleList = roleRepository.getRoleClient();
 		if(userRepositiry.getUserByemail(user.getEmail())==null) {
 			return new ResponseEntity<String>("Email already Used",HttpStatus.CONFLICT);
 		}
 		
-		User u = new User();
-		u.setFirstName(user.getFirstName());
-		u.setLastName(user.getLastName());
-		u.setEmail(user.getEmail());
-		u.setPassword(SecurityConfig.passwordEncoder().encode(user.getPassword()));
-		if(u.getPhoto()==null) {
-			u.setPhoto(user.getFirstName().toUpperCase().charAt(0)+""+user.getLastName().toUpperCase().charAt(0));
+		User newUser = new User();
+		newUser.setFirstName(user.getFirstName());
+		newUser.setLastName(user.getLastName());
+		newUser.setEmail(user.getEmail());
+		newUser.setPassword(SecurityConfig.passwordEncoder().encode(user.getPassword()));
+		if(user.getPhoto()==null) {
+			newUser.setPhoto(user.getFirstName().toUpperCase().charAt(0)+""+user.getLastName().toUpperCase().charAt(0));
 		}else {
-			u.setPhoto(user.getPhoto());
+			newUser.setPhoto(user.getPhoto());
 		}
-		u.setRoles(user.getRoles());
-		userRepositiry.save(u);
-		return new ResponseEntity<>(u,HttpStatus.OK);
+		newUser.setRoles(roleList);
+		userRepositiry.save(newUser);
+		return new ResponseEntity<>(newUser,HttpStatus.OK);
 	}
 	
 	
