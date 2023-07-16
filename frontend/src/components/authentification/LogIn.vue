@@ -72,7 +72,8 @@ export default {
             show:false,
             loading:false
         }
-    }
+    },
+
 }
 </script>
 <style scoped>
