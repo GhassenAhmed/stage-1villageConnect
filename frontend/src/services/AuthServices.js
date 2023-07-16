@@ -7,6 +7,9 @@ export default {
     StoreUser(user) {
         return Axios.post("signUp", user);
     },
+    async login(email,password){
+        
+   }
 
 }
 
