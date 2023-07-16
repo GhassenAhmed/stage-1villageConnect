@@ -25,11 +25,13 @@
                                             label="FirstName"
                                             v-model="form.firstName"
                                             append-icon="mdi-rename-outline"
+                                            :error-messages="firstNameError"
                                             type="text"
                                             dense
                                             outlined
                                             placeholder="Enter FirstName"
                                     ></v-text-field>
+                                    
                                     <v-text-field
                                             name="Name"
                                             label="LastName"
@@ -65,13 +67,14 @@
                                         outlined
                                         placeholder="Enter Password"
                                     ></v-text-field>
-                                    <v-text-field
+                                    <input
                                         name="file"
                                         id="file"
                                         label="Your Photo"
                                         @change="base64()"
                                         type="file"
-                                    ></v-text-field>
+                                        ref="photo"
+                                    >
                                 </v-flex>
                         </v-layout>
                         <hr color="#2B3277" size="1px" class="mb-3">
@@ -94,8 +97,8 @@
     </div>
 </template>
 <script>
-
 import authService from "@/services/AuthServices.js"
+import {required,email} from "vuelidate/lib/validators";
 export default {
     data(){
         return{
@@ -111,9 +114,18 @@ export default {
             loading:false,
         }
     },
+    validations:{
+        form:{
+                firstName:{required},
+                lastName:{required},
+                email:{required,email},
+                password:{required},
+                photo:""
+
+            }
+    },
     methods:{
         base64(){
-            this.$v.form.photo.$touch();
             const file = document.querySelector("#file").files[0];
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -122,7 +134,13 @@ export default {
            reader.readAsDataURL(file);
         },
         Register(){
+                this.$v.form.$touch();
+                if(this.$v.form.$invalid){
+                    this.loading=false;
+                    return;
+                }
                this.loading=true;
+               console.log(this.form.photo);
                authService.StoreUser({
                   "firstName":this.form.firstName,
                   "lastName":this.form.lastName,
@@ -141,6 +159,14 @@ export default {
                        this.loading=false;
                        console.log(error);
                   })
+          },
+    },
+    computed:{
+        firstNameError(){
+              const error=[];
+              if(!this.$v.form.firstName.$dirty) return error;
+              !this.$v.form.firstName.required && error.push("firstName required");
+              return error;
           },
     }
 }
