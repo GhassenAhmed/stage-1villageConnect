@@ -30,6 +30,7 @@ import app.project.repositories.UserRepository;
 import app.project.repositories.UserRoleRepository;
 import app.project.secutity.UserDetailsServiceImpl;
 import app.project.services.UserService;
+import net.minidev.json.JSONObject;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -114,7 +115,11 @@ public class AuthController {
 		
 		String token=jwtTokenUtil.generateToken(userDetails);
 		
-		return new ResponseEntity<>(token,HttpStatus.OK);
+		JSONObject objet = new JSONObject();
+		objet.appendField("token",token);
+		objet.appendField("user",user);
+		
+		return new ResponseEntity<>(objet,HttpStatus.OK);
 		
 	}
 	
