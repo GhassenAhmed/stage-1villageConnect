@@ -70,9 +70,15 @@
 <script>
 import authService from '@/services/AuthServices';
 import {required,email} from "vuelidate/lib/validators";
-
+import { AuthUser } from "../../store/AuthStore.js";
 export default {
     name:"login",
+    setup(){
+        const store=AuthUser();
+        return{
+            store
+        }
+    },
     data(){
         return{
             show:false,
@@ -82,7 +88,6 @@ export default {
         }
     },
     validations:{
-
         email:{
             required,
             email,
@@ -100,11 +105,12 @@ export default {
             }
                 this.loading=true;
                 authService.login(this.email,this.password).then((res)=>{
-                    console.log(this.email,this.password);
+                if(this.store.IsClient){
+                    console.log("client");
+                }
                 this.loading=false;
               }).catch((error)=>{
                 this.loading=false;
-                this.message_error=error.response.data;
                 this.snackbar=true;
               })
           },
