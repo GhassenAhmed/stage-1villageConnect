@@ -17,7 +17,7 @@
                    <h1 style="font-size: 25px;margin-bottom: 10px;">Connectez-vous</h1>
                    <p>Bienvenue sur VillageConnect, veuillez saisir vos informations de connexion ci-dessous.
                    <br> pour commencer à utiliser l'application.</p>
-                   <form @submit.prevent="" enctype="multipart/form-data">
+                   <form @submit.prevent="Login()">
                         <v-layout  wrap row class="pa-4">
                                 <v-flex class="mt-5 mr-5">
                                     <v-text-field
@@ -26,6 +26,8 @@
                                             append-icon="mdi-account"
                                             type="text"
                                             outlined
+                                            v-model="email"
+                                            :message_error="email_error"
                                             dense
                                             placeholder="Enter E-mail"
                                     ></v-text-field>
@@ -35,10 +37,12 @@
                                     <v-text-field
                                         name="Password"
                                         label="Password"
+                                        v-model="password"
                                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                         :type="show ? 'text' : 'password'"
                                         @click:append="show = !show"
                                         dense
+                                        :message_error="password_error"
                                         outlined
                                         placeholder="Enter Password"
                                     ></v-text-field>
@@ -64,17 +68,63 @@
     </div>
 </template>
 <script>
+import authService from '@/services/AuthServices';
+import {required,email} from "vuelidate/lib/validators";
 
 export default {
-
+    name:"login",
     data(){
         return{
             show:false,
-            loading:false
+            loading:false,
+            email:"",
+            password:""
         }
     },
+    validations:{
 
-}
+        email:{
+            required,
+            email,
+        },
+        password:{
+            required
+        }
+      },
+      methods:{
+        Login(){
+            this.$v.email.$touch();
+            this.$v.password.$touch();
+            if(this.$v.email.$invalid && this.$v.password.$invalid){
+                return;
+            }
+                this.loading=true;
+                authService.login(this.email,this.password).then((res)=>{
+                    console.log(this.email,this.password);
+                this.loading=false;
+              }).catch((error)=>{
+                this.loading=false;
+                this.message_error=error.response.data;
+                this.snackbar=true;
+              })
+          },
+      },
+      computed:{
+        email_error(){
+            const error=[];
+            if(!this.$v.email.$dirty) return error;
+            !this.$v.email.required && error.push("Email Required");
+            !this.$v.email.email && error.push("Email invalid");
+            return error;
+        },
+        password_error(){
+            const error=[];
+             if (!this.$v.password.$dirty) return error;
+             !this.$v.password.required && error.push('Password Required');
+             return error;
+        },
+      }
+      }
 </script>
 <style scoped>
 .container{
