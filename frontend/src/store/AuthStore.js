@@ -17,7 +17,40 @@ export const AuthUser = defineStore('auth', ()=> {
     const getIsClient=computed(()=>IsClient.value);
     const getIsServiceProvider=computed(()=>IsServiceProvider.value);
 
+    function logIn(t,u,IsAdm,IsCli,IsServ){
+        token.value=t;
+        user.value=u;
+        isAuth.value=true;
+        IsAdmin.value=IsAdm;
+        IsClient.value=IsCli;
+        IsServiceProvider.value=IsServ;
+
+        localStorage.setItem('token',t);
+        localStorage.setItem('IsAdmin',IsAdm);
+        localStorage.setItem('IsClient',IsCli);
+        localStorage.setItem('IsServiceProvider',IsServ);
+        localStorage.setItem('user',JSON.stringify(u));
+    }
+
+    function logOut(){
+        token.value=null;
+        user.value=null;
+        isAuth.value=false;
+        IsAdmin.value=false;
+        IsClient.value=false;
+        IsServiceProvider.value=false;
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('IsAdmin');
+        localStorage.removeItem('IsClient');
+        localStorage.removeItem('IsServiceProvider');
+        localStorage.removeItem('user');
+    }
 
 
-
+    return {
+        token,user,isAuth,IsAdmin,IsClient,IsServiceProvider,
+        getUser,gettoken,getisauth,getIsadmin,getIsClient,getIsServiceProvider,
+        logIn,logOut
+    }
 })
