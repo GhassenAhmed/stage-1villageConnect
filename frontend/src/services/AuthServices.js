@@ -7,9 +7,13 @@ export default {
     StoreUser(user) {
         return Axios.post("signUp", user);
     },
-    async login(email,password){
-        
-   }
+    VerifyEmail(email) {
+        return Axios.post("verify?email=" + email);
+    },
+    async login(email, password) {
+        await Axios.post("logIn", { email, password });
+    },
+
 
 }
 
