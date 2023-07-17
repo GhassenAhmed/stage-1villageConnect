@@ -6,8 +6,9 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import Vuelidate from "./plugins/vuelidate";
 import { createPinia, PiniaVuePlugin } from 'pinia'
+import { interceptors } from "./interceptor/interceptor.js";
 
-
+interceptors();
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
 
