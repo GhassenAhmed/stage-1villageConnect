@@ -22,25 +22,26 @@
                                 <v-flex class="mt-5 mr-5">
                                     <v-text-field
                                             name="Name"
-                                            label="FirstName"
+                                            label="Prénom"
                                             v-model="form.firstName"
                                             append-icon="mdi-rename-outline"
                                             :error-messages="firstNameError"
                                             type="text"
                                             dense
                                             outlined
-                                            placeholder="Enter FirstName"
+                                            placeholder="Entrez votre Prénom"
                                     ></v-text-field>
                                     
                                     <v-text-field
                                             name="Name"
-                                            label="LastName"
+                                            label="Nom"
                                             v-model="form.lastName"
+                                            :error-messages="LastNameError"
                                             append-icon="mdi-rename-outline"
                                             type="text"
                                             dense
                                             outlined
-                                            placeholder="Enter LastName"
+                                            placeholder="Entrez votre Nom"
                                     ></v-text-field>
                                     
                                 </v-flex>
@@ -50,6 +51,7 @@
                                             name="Email"
                                             label="E-mail"
                                             v-model="form.email"
+                                            :error-messages="email_error"
                                             append-icon="mdi-account"
                                             type="text"
                                             outlined
@@ -63,6 +65,7 @@
                                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                         :type="show ? 'text' : 'password'"
                                         @click:append="show = !show"
+                                        :error-messages="password_error"
                                         dense
                                         outlined
                                         placeholder="Enter Password"
@@ -71,10 +74,14 @@
                                         name="file"
                                         id="file"
                                         label="Your Photo"
+                                        :error-messages="photo_error"
                                         @change="base64()"
                                         type="file"
                                         ref="photo"
                                     >
+                                    <div class="err" style="color: red;" v-if="photo_err">
+                                        L'image doit être du type (jpg, jpeg, png, svg, gif)
+                                    </div>
                                 </v-flex>
                         </v-layout>
                         <hr color="#2B3277" size="1px" class="mb-3">
@@ -97,8 +104,9 @@
     </div>
 </template>
 <script>
+import userInfosService from "@/services/UserInfos.js";
 import authService from "@/services/AuthServices.js"
-import {required,email} from "vuelidate/lib/validators";
+import {required,email,minLength,maxLength} from "vuelidate/lib/validators";
 export default {
     data(){
         return{
@@ -112,15 +120,57 @@ export default {
             },
             show:false,
             loading:false,
+            photo_err:false
         }
     },
     validations:{
         form:{
-                firstName:{required},
-                lastName:{required},
-                email:{required,email},
-                password:{required},
-                photo:""
+                firstName:{
+                    required,
+                    minLength:minLength(3),
+                    maxLength:maxLength(8),
+                },
+                lastName:{
+                    required,
+                    minLength:minLength(3),
+                    maxLength:maxLength(8),
+                },
+                email:{
+                    required,
+                    email,
+                    async exist(val){
+                      if(val==""){
+                          return true;
+                      }
+                      const response=await userInfosService.TestEmail(val);
+                      return response.data;
+                  }
+                },
+                password:{
+                    required,
+                    minLength:minLength(6),
+                    maxLength:maxLength(10),
+                    containsUppercase: function(value) {
+                        return /[A-Z]/.test(value);
+                    },
+                    containsLowercase: function(value) {
+                        return /[a-z]/.test(value);
+                    },
+                    containsNumber: function(value) {
+                        return /[0-9]/.test(value);
+                    },
+                    containsSpecial: function(value) {
+                        return /[#?!@$%^&*-]/.test(value);
+                    }
+                },
+                photo:{
+                    typeFile(val){
+                     const tab_ext_dispo=['jpg','gif','png','svg','jpeg'];
+                     const extention=val.split(';')[0].split('/')[1];
+                     return tab_ext_dispo.find((v)=>v==extention) ? true : false ;
+                  }
+                }
+
 
             }
     },
@@ -165,7 +215,44 @@ export default {
         firstNameError(){
               const error=[];
               if(!this.$v.form.firstName.$dirty) return error;
-              !this.$v.form.firstName.required && error.push("firstName required");
+              !this.$v.form.firstName.required && error.push("Prénom requis");
+              !this.$v.form.firstName.maxLength && error.push("Veuillez entrer le prénom  avec un maximum de 10 caractères");
+              this.$v.form.firstName.minlength && error.push("Veuillez entrer le prénom  avec un minimum de 3 caractères ");
+              return error;
+          },
+
+          LastNameError(){
+              const error=[];
+              if(!this.$v.form.lastName.$dirty) return error;
+              !this.$v.form.lastName.required && error.push("Prénom requis");
+              !this.$v.form.lastName.maxLength && error.push("Veuillez entrer le nom  avec un maximum de 10 caractères");
+              this.$v.form.lastName.minlength && error.push("Veuillez entrer le nom  avec un minimum de 3 caractères ");
+              return error;
+          },
+          password_error(){
+              const error=[];
+               if (!this.$v.form.password.$dirty) return error;
+               !this.$v.form.password.required && error.push('Mot de passe requis');
+               !this.$v.form.password.maxLength && error.push('Veuillez entrer un mot de passe avec un maximum de 10 caractères');
+               !this.$v.form.password.minLength && error.push('Veuillez entrer un mot de passe comportant au moins 6 caractères ');
+               !this.$v.form.password.containsUppercase && error.push('Le mot de passe doit contenir des lettres majuscules');
+               !this.$v.form.password.containsLowercase && error.push('Le mot de passe doit contenir des lettres minuscules');
+               !this.$v.form.password.containsNumber && error.push('Le mot de passe doit contenir des chiffres');
+               !this.$v.form.password.containsSpecial && error.push('Le mot de passe doit contenir un caractère spécial');
+               return error;
+          },
+          photo_error(){
+              const error=[];
+              if(!this.$v.form.photo.$dirty) return error;
+              !this.$v.form.photo.typeFile && error.push("L'image doit être du type (jpg, jpeg, png, svg, gif)")&&this.photo_err==true;
+              return error; 
+          },
+          email_error(){
+              const error=[];
+              if(!this.$v.form.email.$dirty) return error;
+              !this.$v.form.email.required && error.push("Email requis");
+              !this.$v.form.email.email && error.push("Email invalide");
+              !this.$v.form.email.exist && error.push("Email déjà utilisé");
               return error;
           },
     }
