@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -53,9 +54,10 @@ public class Service implements Serializable {
 	
 	
 	@ManyToOne
-	@JoinColumn(name="service_id")
-	private Service service;
+	@JoinColumn(name="categorie_id")
+	private Categorie categorie;
 	
-	
+	@OneToOne(mappedBy = "service")
+	private Schedule schedule;
 	
 }
