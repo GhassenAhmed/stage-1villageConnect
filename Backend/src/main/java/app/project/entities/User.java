@@ -12,8 +12,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -74,5 +76,9 @@ public class User implements Serializable{
 	joinColumns=@javax.persistence.JoinColumn(name="user_id"),
 	inverseJoinColumns = @javax.persistence.JoinColumn(name ="role_id"))
 	private List<Role> roles;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="service_id",referencedColumnName = "id")
+	private Service service;
 
 }
