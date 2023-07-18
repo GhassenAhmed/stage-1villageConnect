@@ -105,10 +105,8 @@ export default {
             }
                 this.loading=true;
                 authService.login(this.email,this.password).then((res)=>{
-                if(this.store.IsClient){
-                    console.log("client");
-                }
                 this.loading=false;
+                this.$router.push("/home");
               }).catch((error)=>{
                 this.loading=false;
                 this.snackbar=true;
