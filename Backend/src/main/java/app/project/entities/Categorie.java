@@ -39,6 +39,6 @@ public class Categorie implements Serializable{
 	@UpdateTimestamp
 	private Timestamp updated_at;
 	
-	@OneToMany(mappedBy = "service")
+	@OneToMany(mappedBy = "categorie")
 	private Set<Service> services;
 }
