@@ -41,6 +41,7 @@ public class Service implements Serializable {
 	private boolean isOnline;
 	private int yearsInBusiness;
 	private String pricesRange;
+
 	
 	@ColumnDefault(value="false")
 	private boolean isBackgroundVerified;
@@ -59,5 +60,11 @@ public class Service implements Serializable {
 	
 	@OneToOne(mappedBy = "service")
 	private Schedule schedule;
+	
+	@OneToOne(mappedBy = "service")
+	private Adresse adresse;
+	
+	@OneToOne(mappedBy = "service")
+	private User user;
 	
 }
