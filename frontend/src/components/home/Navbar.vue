@@ -11,7 +11,7 @@
                         <v-spacer></v-spacer>
                         <v-tooltip bottom>
                             <template v-slot:activator="{ on, attrs }">
-                                <a href="#service"><li class="mr-7 ml-7 hidden-md-and-down" v-bind="attrs" v-on="on">Services <v-icon large color="#0c1a22">mdi-room-service-outline</v-icon></li></a>
+                                <a href="#service1"><li class="mr-7 ml-7 hidden-md-and-down" v-bind="attrs" v-on="on">Services <v-icon large color="#0c1a22">mdi-room-service-outline</v-icon></li></a>
                             </template>
                             <span>Assistance, aide</span>
                         </v-tooltip>
