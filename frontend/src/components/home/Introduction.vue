@@ -3,14 +3,9 @@
     <v-container class="py-15 container--fluid">
         <div class="introduction px-15">
             <v-layout flex  wrap class="pa-5 ma-5">
-                <v-flex xl4 lg4 md12 sm12 xs12>
-                    <div class="img1 hidden-md-and-down">
-                        <img src="../../assets/intro1.png" height="400px" alt="">
-                    </div>
-                </v-flex>
-                <v-flex xl4 lg4 md12 sm12 xs12>
-                    <div class="p">
-                        <span id="p1">{{ p1 }}</span> <br>
+                <v-flex xl6 lg6  md6 sm12 xs12>
+                    <div class="p" style=" padding-top: 50px;">
+                        <span id="p1" class="">{{ p1 }}</span> <br>
                         <div class="title">
                             <span class="title-word title-word-1">Vill</span>
                             <span class="title-word title-word-2">age</span>
@@ -19,9 +14,9 @@
                         <button class="sign-btn" style="font-family: font-family: 'Courier New', Courier, monospace;"><router-link to="/signup" style="text-decoration: none;color:#0c1a22;"><span>Commencer</span></router-link></button>  
                     </div>     
                 </v-flex>
-                <v-flex xl4 lg4 md4 sm12 xs12>
-                    <div class="img2 hidden-md-and-down">
-                        <img src="../../assets/intro2.png" height="400px" alt="">
+                <v-flex xl6 lg6 md6 sm12 xs12>
+                    <div class="img2 hidden-sm-and-down">
+                        <img src="../../assets/intro2.png" width="400px" alt="" id="img1">
                     </div>
                 </v-flex>
             </v-layout>
@@ -38,9 +33,9 @@
                                 <v-flex xl3 lg3 md6 sm12 xs12 class="px-5 py-4 text-center" v-for="service in services" :key="service.name" data-aos="fade-down">
                                     <div class="card-body">
                                         <div class="img">
-                                            <v-img :src="service.image" width="500px" height="300px"></v-img>
+                                            <v-img :src="service.image" width="300px" height="200px" id="imgService"></v-img>
                                         </div>   
-                                        <p class="py-5 m-5" style="font-family:Tahoma, Geneva, sans-serif ;">{{service.desc}}</p>
+                                        <p class="py-5 m-5" id="pService" style="font-family:Tahoma, Geneva, sans-serif ;">{{service.desc}}</p>
                                     </div>
                                 </v-flex>     
                     </v-layout>
@@ -140,6 +135,8 @@ h4{
 }
 *{
     scroll-behavior: smooth;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 .content h3{
     font-size: 33px;
@@ -170,7 +167,6 @@ h4{
 }
 
 .p{
-    padding: 50px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 25px;
     letter-spacing: 2px;
@@ -181,6 +177,8 @@ h4{
 #p1{
     font-weight: bold;
     text-align: center;
+    margin-top: 50px;
+    font-size: 30px;
     color: #0c1a22;
     font-family: 'Courier New', Courier, monospace;
 }
@@ -283,7 +281,7 @@ h4{
     transition: transform 0.3s ease;
     width: auto;
     padding: 40px;
-    height: 550px;
+    height: auto;
 }
 .card-body p{
     font-size: 17px;
@@ -317,4 +315,44 @@ h4{
     background-color: #f7f0ed;
     margin-top: 100px;
 }
+@media screen and (max-width : 473px)
+{
+    #p1{
+        font-size: 5.2vw;
+    }
+    .title-word{
+        font-size: 5.2vw;
+    }
+    .sign-btn {
+    float: inline-start;
+    color: #0c1a22;
+    border: 1px solid #94bfef;
+    font-size: 4.2vw;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    font-size: 14px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 40px;
+    background-color: #94bfef;
+    font-family:  Tahoma, Geneva, sans-serif;
+    font-weight: lighter;
+    margin-left: -10px;
+}
+.sign-btn span{
+    font-size: 4.2vw;
+}
+.card-body{
+    height: auto;
+}
+
+#imgService{
+    width: max-content;
+}
+#pService{
+    font-size: 4.2vw;
+    text-align:start;
+}
+}
+ 
 </style>
