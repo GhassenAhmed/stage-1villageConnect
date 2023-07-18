@@ -2,10 +2,11 @@
     <div class="navbar">
         <div class="nav">
             <v-toolbar flat class="toolbar">
-                     
-                    <div class="logo">
+                    
+                <v-toolbar-title>
                         <img src="../../assets/logo.png" id="logo-nav" width="220px">
-                    </div>
+                </v-toolbar-title>
+                    
                         
                         <v-spacer></v-spacer>
                         <v-tooltip bottom>
@@ -137,7 +138,5 @@ li:hover {
   background-color: #7b88d1;
 
 }
-.logo{
-    margin-left: 100px;
-}
+
 </style>
