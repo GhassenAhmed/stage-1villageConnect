@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-            <v-app-bar app flat style="background-color: #ffffff;margin-top: 20px;height: 100px;"> 
+            <v-app-bar  flat style="background-color: #ffffff;margin-top: 20px;height: 100px;border-bottom: 0.1mm solid #CFD0D3;"> 
             <v-app-bar-nav-icon @click="drawer = true" 
                                 class="d-flex d-sm-none" 
                                 ></v-app-bar-nav-icon>
@@ -60,7 +60,7 @@
                     class="ml-10 white--text hidden-xs-only"
                     >GA</v-avatar>
             </v-app-bar>
-
+            
             <v-navigation-drawer
             v-model="drawer"
             absolute
@@ -79,11 +79,16 @@
                 </v-list-item-group>
             </v-list>
             </v-navigation-drawer>
-        
+            <Content style="margin-top: 12px;"></Content>
     </div>
 </template>
 <script>
+import Content from '../../components/service/Content.vue'
 export default {
+    name:'ServiceView',
+components:{
+    Content
+},
 data(){
     return{
         drawer: false,
