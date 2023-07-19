@@ -1,74 +1,94 @@
 <template>
-    <div class="home">
-       
-                <!-- <v-layout row wrap>
-                    <v-flex xl4 lg4 md4 sm6 xs6>
-                        <div class="logo  mt-5 ml-15" style="width: auto;">
-                            <img src="../../assets/logo.png" id="logo-nav"  style="max-width: 170px;" class="text-center-sm">
-                        </div>
-                    </v-flex>
-                    <v-flex xl4 lg4 md4 sm12 xs12>
+    <div id="app">
+            <v-app-bar app flat style="background-color: #ffffff;margin-top: 20px;height: 100px;"> 
+            <v-app-bar-nav-icon @click="drawer = true" 
+                                class="d-flex d-sm-none" 
+                                ></v-app-bar-nav-icon>
+                <v-toolbar-title><img src="../../assets/logo.png" id="logo-nav"  style="max-width: 200px;" class="text-center-sm hidden-sm-and-down"></v-toolbar-title>
                         <v-autocomplete
-                        filled
-                        rounded
-                        item-text="name"
-                        item-value="id"
-                        label="Search for a coin..."
-                        solo
-                        style="height: 60px;max-width: auto;"
-                        
-                        >
-                        <template v-slot:no-data>
-                            <v-list-item>
-                            <v-list-item-title>
-                            
-                            </v-list-item-title>
-                            </v-list-item>
-                        </template>
-                        <template v-slot:selection="{ attr, on, item, selected }">
-                            <v-chip
-                            v-bind="attr"
-                            :input-value="selected"
-                            color="blue-grey"
-                            class="white--text"
-                            v-on="on"
-                            >
-                            <v-icon left>
-                                mdi-bitcoin
-                            </v-icon>
-                            <span v-text="item.name"></span>
-                            </v-chip>
-                        </template>
+                               elevation=0
+                                label="Tapez votre village..."
+                                solo
+                                style="height: 60px;max-width: auto;"
+                                class="ml-lg-14 ml-md-12 ml-sm-10" 
+                                >
+                                <template v-slot:no-data>
+                                    <v-list-item>
+                                    <v-list-item-title>
+                                    
+                                    </v-list-item-title>
+                                    </v-list-item>
+                                </template>
+                                <template v-slot:selection="{ attr, on, item, selected }">
+                                    <v-chip
+                                    v-bind="attr"
+                                    :input-value="selected"
+                                    color="blue-grey"
+                                    class="white--text"
+                                    v-on="on"
+                                    >
+                                    <v-icon left>
+                                        mdi-bitcoin
+                                    </v-icon>
+                                    <span v-text="item.name"></span>
+                                    </v-chip>
+                                </template>
                         </v-autocomplete>
-                    </v-flex>
+                <v-spacer></v-spacer>
+        
+                <v-btn icon class="hidden-sm-and-down">
+                    <v-icon   X Small >
+                        mdi-bell-outline
+                    </v-icon>
+                </v-btn>
+        
+                <v-btn icon class="hidden-sm-and-down">
+                    <v-icon class=""  X Small>
+                        mdi-email-outline
+                    </v-icon>
+                </v-btn>
 
-                    <v-flex xl4 lg4 md4 class="hidden-sm-and-down">
-                        <div class="div float-end">
-                            <v-icon class="ml-10 hidden-sm-and-down"  X Small >
-                                mdi-bell-outline
-                            </v-icon>
+                <v-btn icon class="hidden-sm-and-down">
+                    <v-icon  X Small>
+                         mdi-heart-outline
+                    </v-icon>
+                </v-btn>
+                
+                    <v-avatar
+                    color="primary"
+                    size="50"
+                    class="ml-10 white--text hidden-xs-only"
+                    >GA</v-avatar>
+            </v-app-bar>
 
-                            <v-icon class="ml-10 hidden-sm-and-down"  X Small>
-                                mdi-email-outline
-                            </v-icon>
+            <v-navigation-drawer
+            v-model="drawer"
+            absolute
+            temporary
+            >
+            <v-list
+                nav
+                dense
+            >
+                <v-list-item-group
+                >
+                <v-list-item >
+                    <v-list-item-title></v-list-item-title>
+                </v-list-item>
 
-                            <v-icon class="ml-10 hidden-sm-and-down" X Small>
-                                mdi-heart-outline
-                            </v-icon>
-                            
-                            <v-avatar
-                            color="primary"
-                            size="50"
-                            class="ml-10"
-                            ></v-avatar>
-                        </div>
-                    </v-flex>
-                </v-layout> -->
+                </v-list-item-group>
+            </v-list>
+            </v-navigation-drawer>
+        
     </div>
 </template>
 <script>
 export default {
-
+data(){
+    return{
+        drawer: false,
+    }
+}
 }
 </script>
 
@@ -79,12 +99,7 @@ export default {
     overflow: hidden;
     box-sizing: border-box;
 }
-a{
-    text-decoration: none;
-}
 
-.navbar{
-    height: 400px;
-}
+
 
 </style>
