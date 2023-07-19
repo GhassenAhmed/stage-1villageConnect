@@ -26,9 +26,90 @@
                 </v-layout>
             </div>
 
-            <div class="mostRaited" style="height: 400px;border: 0.1mm solid #CFD0D3;border-radius: 10px; margin-top: 50px;">
+            <!-- ----------------------------------------Most raited div------------------------------  -->
+            <div class="mostRaited" style="height: auto;border: 0.1mm solid #CFD0D3;border-radius: 10px;margin-top: 50px;">
+                <p style="font-size: 30px;padding-left:  70px;padding-top: 20px;">Most raited !</p>
+                <div class="card d-flex wrap">
+                    <v-card
+                    :loading="loading"
+                    class="mx-auto my-5"
+                    max-width="250"
+                    min-width="100"
+                    v-for="i in 3"
+                    :key="i"
+                >
+                    <template slot="progress">
+                    <v-progress-linear
+                        color="deep-purple"
+                        height="5"
+                        indeterminate
+                    ></v-progress-linear>
+                    </template>
 
+                    <v-img
+                    height="150"
+                    src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                    ></v-img>
+
+                    <v-card-title>Cafe Badilico</v-card-title>
+                    <v-divider class="mx-4"></v-divider>
+                    <v-card-text>
+                    <v-chip-group
+                        v-model="selection"
+                        active-class="deep-purple accent-4 white--text"
+                        column
+                    >
+                        <v-chip>5:30PM</v-chip>
+                    </v-chip-group>
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-btn
+                        color="deep-purple lighten-2"
+                        text
+                        @click="reserve"
+                    >
+                        Reserve
+                    </v-btn>
+                    </v-card-actions>
+                    </v-card>
+                </div>
             </div>
+            <!-- ---------------------------------------- /Most raited div------------------------------  -->
+
+
+            <!-- ----------------------------------------verified div------------------------------  -->
+            <div class="verified" style="height: auto;border-radius: 10px;margin-top: 50px;background-color: #FAFAFA;">
+                <p style="font-size: 30px;padding-left:  70px;padding-top: 20px;">Verified!</p>
+                <div class="card d-flex">
+                        <v-card
+                        v-for="i in 3"
+                        :key="i"
+                        :loading="loading"
+                        class="mx-auto my-5"
+                        max-width="250"
+                        min-width="100"
+                        style="background-color: #FAFAFA;"
+                        >
+                        <template slot="progress">
+                        <v-progress-linear
+                            color="deep-purple"
+                            height="5"
+                            indeterminate
+                        ></v-progress-linear>
+                        </template>
+
+                        <v-img
+                        height="150"
+                        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                        ></v-img>
+                        <v-card-title>business</v-card-title>
+                        <v-card-text>Lorem ipsum dolor sit.</v-card-text>
+                        </v-card>
+                        
+                    </div>  
+                </div>
+            <!-- ---------------------------------------- /verified div------------------------------  -->
         </v-container>
     </div>
 </template>
