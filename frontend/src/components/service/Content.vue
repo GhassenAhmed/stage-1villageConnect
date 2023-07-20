@@ -2,11 +2,21 @@
     <div class="content">
         
         <v-layout class="hidden-sm-and-down">
+            
             <div class="categories d-flex align-center justify-space-around" style="width: 100%; border-bottom: 0.1mm solid #CFD0D3;">
-                <li v-for="i in 5" :key="i" style="list-style-type: none; margin: 0px 10px 20px ;">Hotel</li>
+                <v-btn small plain :disabled="testPrev==true"  @click="changerPage(pageCurrent-1 )" style="margin: 0px 10px 20px ;">
+                    <v-icon>
+                        mdi-chevron-left
+                    </v-icon>
+                </v-btn> 
+                <li v-for="categorie in categories" :key="categorie.id" style="list-style-type: none; margin: 0px 10px 20px ;">{{categorie.categorieName}}</li>
+                <v-btn small plain :disabled="testNext==true"  @click="changerPage(pageCurrent+1)" style="margin: 0px 10px 20px ;">
+                    <v-icon>
+                        mdi-chevron-right
+                    </v-icon>
+                </v-btn>
             </div>
-        </v-layout>
-        
+        </v-layout> 
         <v-container style="margin-top: 50px;">
             <p style="font-size: 40px;">Hello!Ghassen</p>
             <div class="introduction" style="border: 0.1mm solid #CFD0D3; height: auto;border-radius: 10px;padding: 20px 25px 20px 25px;">
@@ -31,7 +41,7 @@
                 <p style="font-size: 30px;padding-left:  70px;padding-top: 20px;">Most raited !</p>
                 <div class="card d-flex wrap">
                     <v-card
-                    :loading="loading"
+                    
                     class="mx-auto my-5"
                     max-width="250"
                     min-width="100"
@@ -55,7 +65,7 @@
                     <v-divider class="mx-4"></v-divider>
                     <v-card-text>
                     <v-chip-group
-                        v-model="selection"
+                        
                         active-class="deep-purple accent-4 white--text"
                         column
                     >
@@ -67,7 +77,7 @@
                     <v-btn
                         color="deep-purple lighten-2"
                         text
-                        @click="reserve"
+                        @click=""
                     >
                         Reserve
                     </v-btn>
@@ -85,7 +95,7 @@
                         <v-card
                         v-for="i in 3"
                         :key="i"
-                        :loading="loading"
+                        
                         class="mx-auto my-5"
                         max-width="250"
                         min-width="100"
@@ -114,8 +124,44 @@
     </div>
 </template>
 <script>
+import CategorieServices from '@/services/CategorieServices';
 export default {
-
+    created(){
+    this.getCategories();
+},
+    data(){
+        return{
+            categories:[],
+            page:1,
+            pageCurrent:0,
+            per_page:5,
+            countPage:[],
+            testNext:true,
+            testPrev:true,
+        }
+    },
+    methods:{
+        getCategories(){
+            CategorieServices.getCategories(this.pageCurrent,this.per_page).then((res)=>{
+                this.countPage=res.data.count_page;
+                this.categories=res.data.categorie.content;
+                console.log(this.categories);
+                this.pageCurrent=res.data.page;
+                this.testNext=res.data.categorie.last;
+                this.testPrev=res.data.categorie.first;
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        changerPage(num){
+            if(num<0){
+            num=0;
+            }
+            this.pageCurrent=num;
+            this.getCategories();
+        },
+        
+    },
 }
 </script>
 <style scoped>
