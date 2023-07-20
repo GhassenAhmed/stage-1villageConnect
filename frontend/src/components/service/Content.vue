@@ -4,13 +4,13 @@
         <v-layout class="hidden-sm-and-down">
             
             <div class="categories d-flex align-center justify-space-around" style="width: 100%; border-bottom: 0.1mm solid #CFD0D3;">
-                <v-btn small plain :disabled="testPrev==true"  @click="changerPage(pageCurrent-1 )" style="margin: 0px 10px 20px ;">
+                <v-btn small plain :disabled="testPrev==true"  @click="changerPage(pageCurrent-1 )" style="margin: 0px 0px 20px ;">
                     <v-icon>
                         mdi-chevron-left
                     </v-icon>
                 </v-btn> 
-                <li v-for="categorie in categories" :key="categorie.id" style="list-style-type: none; margin: 0px 10px 20px ;">{{categorie.categorieName}}</li>
-                <v-btn small plain :disabled="testNext==true"  @click="changerPage(pageCurrent+1)" style="margin: 0px 10px 20px ;">
+                <li v-for="categorie in categories" :key="categorie.id" style="list-style-type: none; margin: 0px 0px 20px ;">{{categorie.categorieName}}</li>
+                <v-btn small plain :disabled="testNext==true"  @click="changerPage(pageCurrent+1)" style="margin: 0px 0px 20px ;">
                     <v-icon>
                         mdi-chevron-right
                     </v-icon>
