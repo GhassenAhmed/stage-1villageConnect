@@ -3,6 +3,7 @@ package app.project.entities;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,7 +42,11 @@ public class Service implements Serializable {
 	private boolean isOnline;
 	private int yearsInBusiness;
 	private String pricesRange;
-
+	
+	@Column(length=999999999)
+	private String photo;
+	@ColumnDefault(value="0")
+	private int raiting;
 	
 	@ColumnDefault(value="false")
 	private boolean isBackgroundVerified;
