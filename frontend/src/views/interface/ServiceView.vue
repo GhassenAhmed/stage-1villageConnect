@@ -88,7 +88,7 @@
                 </v-list-item-group>
             </v-list>
             </v-navigation-drawer>
-            <Content style="margin-top: 12px;"></Content>
+            <Content style="margin-top: 10px;"></Content>
     </div>
 </template>
 <script>
