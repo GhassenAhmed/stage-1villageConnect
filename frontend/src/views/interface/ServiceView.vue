@@ -69,7 +69,6 @@
                     class="ml-10 white--text hidden-xs-only"
                     >GA</v-avatar>
             </v-app-bar>
-            
             <v-navigation-drawer
             v-model="drawer"
             absolute
