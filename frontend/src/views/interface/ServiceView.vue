@@ -5,7 +5,8 @@
                                 class="d-flex d-sm-none" 
                                 ></v-app-bar-nav-icon>
                 <v-toolbar-title><img src="../../assets/logo.png" id="logo-nav"  style="max-width: 200px;" class="text-center-sm hidden-sm-and-down"></v-toolbar-title>
-                        <v-autocomplete
+                        <!-- <v-autocomplete
+                                fill
                                elevation=0
                                 label="Tapez votre village..."
                                 solo
@@ -33,8 +34,16 @@
                                     <span v-text="item.name"></span>
                                     </v-chip>
                                 </template>
-                        </v-autocomplete>
-                <v-spacer></v-spacer>
+                        </v-autocomplete> -->
+                        <v-autocomplete
+                        filled
+                        rounded
+                        style="height: 60px;max-width: auto;"
+                        class="ml-lg-14 ml-md-12 ml-sm-10" 
+                        v-model="value"
+                        :items="items"
+                        ></v-autocomplete>
+                        <v-spacer></v-spacer>
         
                 <v-btn icon class="hidden-sm-and-down">
                     <v-icon   X Small >
@@ -92,6 +101,7 @@ components:{
 data(){
     return{
         drawer: false,
+        items: ['foo', 'bar', 'fizz', 'buzz'],
     }
 }
 }
