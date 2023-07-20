@@ -101,7 +101,7 @@ components:{
 data(){
     return{
         drawer: false,
-        items: ['foo', 'bar', 'fizz', 'buzz'],
+        items: ['foo', 'bar', 'fizz', 'buzz'], 
     }
 }
 }
