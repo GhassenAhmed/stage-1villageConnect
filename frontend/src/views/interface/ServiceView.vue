@@ -4,7 +4,7 @@
             <v-app-bar-nav-icon @click="drawer = true" 
                                 class="d-flex d-sm-none" 
                                 ></v-app-bar-nav-icon>
-                <v-toolbar-title><img src="../../assets/logo.png" id="logo-nav"  style="max-width: 200px;" class="text-center-sm hidden-sm-and-down"></v-toolbar-title>
+                <v-toolbar-title class="text-center-sm hidden-sm-and-down" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
                         <!-- <v-autocomplete
                                 fill
                                elevation=0
@@ -113,7 +113,7 @@ methods:{
 
 <style scoped>
 *{
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family:cursive;
     scroll-behavior: smooth;
     overflow: hidden;
     box-sizing: border-box;
