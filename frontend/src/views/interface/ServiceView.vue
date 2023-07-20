@@ -40,8 +40,8 @@
                         rounded
                         style="height: 60px;max-width: auto;"
                         class="ml-lg-14 ml-md-12 ml-sm-10" 
-                        v-model="value"
-                        :items="items"
+                        
+                        
                         ></v-autocomplete>
                         <v-spacer></v-spacer>
         
@@ -101,9 +101,13 @@ components:{
 data(){
     return{
         drawer: false,
-        items: ['foo', 'bar', 'fizz', 'buzz'], 
+        
     }
-}
+},
+methods:{
+   
+    
+},
 }
 </script>
 
