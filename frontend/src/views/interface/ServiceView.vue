@@ -31,11 +31,58 @@
                     </v-icon>
                 </v-btn>
                 
-                    <v-avatar
-                    color="primary"
-                    size="50"
-                    class="ml-10 white--text hidden-xs-only"
-                    >GA</v-avatar>
+                <v-menu offset-y 
+                transition="slide-x-transition" 
+                left
+                >
+                    <template v-slot:activator="{ on, attrs }">
+                    <v-btn   plain v-bind="attrs"
+                     v-on="on"
+                     >
+                         <v-avatar   size="43px">
+                             <img :src="store.user['photo']">
+                         </v-avatar>
+                     </v-btn>
+                    </template>
+                    <v-list>
+                    <v-list-item>
+                        <v-list-item-title>
+                            <v-btn
+                                plain
+                                block
+                                class="py-3"
+                            >
+                            {{store.user['firstName']}}
+                            </v-btn>
+                        </v-list-item-title>
+                     </v-list-item>
+                    <v-list-item>
+                        
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                                
+                            >
+                                <v-icon class="pa-2">mdi-wrench</v-icon>
+                                <span class="">Profile</span>
+                            </v-btn>
+                        </v-list-item-action>
+                        
+                    </v-list-item>
+                    <v-list-item >
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                                @click="logout()"
+                            >
+                                <v-icon class="pa-2">mdi-logout</v-icon>
+                                <span >log out</span>
+                            </v-btn>
+                        </v-list-item-action>
+                    </v-list-item>
+
+                    </v-list>
+                </v-menu>
             </v-app-bar>
             <v-navigation-drawer
             v-model="drawer"
@@ -60,7 +107,14 @@
 </template>
 <script>
 import Content from '../../components/service/Content.vue'
+import { AuthUser } from "@/store/AuthStore";
 export default {
+    setup(){
+        const store=AuthUser();
+        return{
+            store
+        }
+    },
     name:'ServiceView',
 components:{
     Content
