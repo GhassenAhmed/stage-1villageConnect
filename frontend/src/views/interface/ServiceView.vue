@@ -5,36 +5,6 @@
                                 class="d-flex d-sm-none" 
                                 ></v-app-bar-nav-icon>
                 <v-toolbar-title class="text-center-sm hidden-sm-and-down" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
-                        <!-- <v-autocomplete
-                                fill
-                               elevation=0
-                                label="Tapez votre village..."
-                                solo
-                                style="height: 60px;max-width: auto;"
-                                class="ml-lg-14 ml-md-12 ml-sm-10" 
-                                >
-                                <template v-slot:no-data>
-                                    <v-list-item>
-                                    <v-list-item-title>
-                                    
-                                    </v-list-item-title>
-                                    </v-list-item>
-                                </template>
-                                <template v-slot:selection="{ attr, on, item, selected }">
-                                    <v-chip
-                                    v-bind="attr"
-                                    :input-value="selected"
-                                    color="blue-grey"
-                                    class="white--text"
-                                    v-on="on"
-                                    >
-                                    <v-icon left>
-                                        mdi-bitcoin
-                                    </v-icon>
-                                    <span v-text="item.name"></span>
-                                    </v-chip>
-                                </template>
-                        </v-autocomplete> -->
                         <v-autocomplete
                         filled
                         rounded
