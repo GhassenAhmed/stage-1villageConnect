@@ -10,8 +10,6 @@
                         rounded
                         style="height: 60px;max-width: auto;"
                         class="ml-lg-14 ml-md-12 ml-sm-10" 
-                        
-                        
                         ></v-autocomplete>
                         <v-spacer></v-spacer>
         
