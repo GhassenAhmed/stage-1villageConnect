@@ -6,6 +6,7 @@
                                 ></v-app-bar-nav-icon>
                 <v-toolbar-title class="text-center-sm hidden-sm-and-down" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
                         <v-autocomplete
+                        :items="villagesNames"
                         filled
                         rounded
                         style="height: 60px;max-width: auto;"
@@ -108,12 +109,16 @@
 <script>
 import Content from '../../components/service/Content.vue'
 import { AuthUser } from "@/store/AuthStore";
+import VillageServices from "@/services/VillageServices";
 export default {
     setup(){
         const store=AuthUser();
         return{
             store
         }
+    },
+    created(){
+        this.getVillages();
     },
     name:'ServiceView',
 components:{
@@ -122,11 +127,22 @@ components:{
 data(){
     return{
         drawer: false,
+        villages:[],
+        villagesNames:[]
         
     }
 },
 methods:{
-   
+   getVillages(){
+    VillageServices.getAllVillages().then((res)=>{
+        this.villages=res.data;
+        for(let i=0 ;i<this.villages.length;i++){
+            this.villagesNames.push(this.villages[i].villageName)
+        }
+    }).catch((err)=>{
+        console.log(err);
+    })
+   }
     
 },
 }
