@@ -25,7 +25,7 @@ public class ServiceController {
 	    public ResponseEntity<?> getServiceRaiting(
 	    		@RequestParam(name = "search",defaultValue = "") String village,
 	    		@RequestParam(name = "page", defaultValue = "0") int page,
-				@RequestParam(name = "per_page", defaultValue = "2") int size){
+				@RequestParam(name = "per_page", defaultValue = "3") int size){
 	    	
 	    	Page<Service> service = null;
 	    	if(village.isEmpty()) {
