@@ -204,7 +204,6 @@ methods:{
    getCategories(){
             CategorieServices.getAll().then((res)=>{
                 this.categories=res.data;
-                console.log(this.categories);
             }).catch((err)=>{
                 console.log(err);
             })
