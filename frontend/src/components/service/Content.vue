@@ -147,7 +147,6 @@ export default {
             CategorieServices.getCategories(this.pageCurrent,this.per_page).then((res)=>{
                 this.countPage=res.data.count_page;
                 this.categories=res.data.categorie.content;
-                console.log(this.categories);
                 this.pageCurrent=res.data.page;
                 this.testNext=res.data.categorie.last;
                 this.testPrev=res.data.categorie.first;
