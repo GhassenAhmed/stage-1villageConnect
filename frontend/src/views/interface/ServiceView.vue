@@ -35,10 +35,12 @@
                 <v-menu offset-y 
                 transition="slide-x-transition" 
                 left
+                
                 >
                     <template v-slot:activator="{ on, attrs }">
                     <v-btn   plain v-bind="attrs"
                      v-on="on"
+                     class="hidden-xs-only"
                      >
                          <v-avatar   size="43px">
                              <img :src="store.user['photo']">
