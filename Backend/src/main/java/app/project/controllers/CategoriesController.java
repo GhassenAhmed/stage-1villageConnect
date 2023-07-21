@@ -40,5 +40,10 @@ public class CategoriesController {
 		
 		return ResponseEntity.ok(data);
 	}
+	
+	@GetMapping("/getAll")
+	public List<Categorie> getAll(){
+		return categorieRepository.findAll();
+	}
 
 }
