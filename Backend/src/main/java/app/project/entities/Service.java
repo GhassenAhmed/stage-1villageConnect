@@ -44,6 +44,7 @@ public class Service implements Serializable {
 	private String pricesRange;
 	
 	@Column(length=999999999)
+	@ColumnDefault(value="null")
 	private String photo;
 	@ColumnDefault(value="0")
 	private int raiting;
