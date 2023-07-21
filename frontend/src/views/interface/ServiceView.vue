@@ -92,17 +92,70 @@
             absolute
             temporary
             >
+            <v-app-bar  flat style="background-color: #ffffff;">
+                <v-layout row>
+                    <v-flex sm4 xs4>
+                         <v-avatar   size="60px" class="mt-5 pl-4">
+                             <img :src="store.user['photo']">
+                         </v-avatar>
+                    </v-flex>
+                    <v-flex sm8 xs8 class="mt-8">
+                        <span style="font-size: 20px;">{{ store.user['email'] }}</span>
+                    </v-flex>
+                </v-layout>
+            </v-app-bar>
             <v-list
                 nav
                 dense
+                class="mt-5 py-5"
             >
-                <v-list-item-group
-                >
-                <v-list-item >
-                    <v-list-item-title></v-list-item-title>
+                <v-list-item>
+                    <v-list-item-icon>
+                    <v-icon X Small>mdi-home</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-title style="font-size: 15px;">Home</v-list-item-title>
                 </v-list-item>
 
-                </v-list-item-group>
+                <v-list-item>
+                    <v-list-item-icon>
+                    <v-icon X Small>mdi-email-outline</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Messages</v-list-item-title>
+                </v-list-item>
+
+                <v-list-item>
+                    <v-list-item-icon>
+                    <v-icon X Small>mdi-heart-outline</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Listes</v-list-item-title>
+                </v-list-item>
+
+                <v-list-group
+                no-action
+                sub-group
+                
+                
+                >
+                <template v-slot:activator>
+                    <v-list-item-content>
+                    <v-list-item-title>Categories</v-list-item-title>
+                    </v-list-item-content>
+                </template>
+                <div class="categories" style="overflow-y: scroll;height: 400px;">
+                    <v-list-item
+                    v-for="categorie in categories"
+                    :key="categorie.id"
+                    link
+                    
+                >
+                    <v-list-item-title >{{ categorie.categorieName }}</v-list-item-title>
+                </v-list-item>
+                </div>
+               
+                </v-list-group>
             </v-list>
             </v-navigation-drawer>
             <Content style="margin-top: 10px;"></Content>
@@ -112,6 +165,7 @@
 import Content from '../../components/service/Content.vue'
 import { AuthUser } from "@/store/AuthStore";
 import VillageServices from "@/services/VillageServices";
+import CategorieServices from '@/services/CategorieServices';
 export default {
     setup(){
         const store=AuthUser();
@@ -121,6 +175,7 @@ export default {
     },
     created(){
         this.getVillages();
+        this.getCategories();
     },
     name:'ServiceView',
 components:{
@@ -130,7 +185,8 @@ data(){
     return{
         drawer: false,
         villages:[],
-        villagesNames:[]
+        villagesNames:[],
+        categories:[],
         
     }
 },
@@ -144,7 +200,15 @@ methods:{
     }).catch((err)=>{
         console.log(err);
     })
-   }
+   },
+   getCategories(){
+            CategorieServices.getAll().then((res)=>{
+                this.categories=res.data;
+                console.log(this.categories);
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
     
 },
 }
