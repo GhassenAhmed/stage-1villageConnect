@@ -40,6 +40,6 @@ public class Village implements Serializable{
 	@UpdateTimestamp
 	private Timestamp updated_at;
 	
-	@OneToMany(mappedBy="village")
-    private Set<Adresse> adresses;
+	/*@OneToMany(mappedBy="village")
+    private Set<Adresse> adresses;*/
 }
