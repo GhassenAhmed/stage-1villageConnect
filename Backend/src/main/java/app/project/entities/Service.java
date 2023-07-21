@@ -41,7 +41,12 @@ public class Service implements Serializable {
 	private  int hiredCount;
 	private boolean isOnline;
 	private int yearsInBusiness;
-	private String pricesRange;
+	
+	@ColumnDefault(value="null")
+	private float maxPrice;
+	
+	@ColumnDefault(value="null")
+	private float minPrice;
 	
 	@Column(length=999999999)
 	@ColumnDefault(value="null")
@@ -53,7 +58,7 @@ public class Service implements Serializable {
 	@ColumnDefault(value="false")
 	private boolean isBackgroundVerified;
 	private boolean isHomeService;
-
+	private String adresse;
 	
 	@CreationTimestamp
 	private Timestamp created_at;
@@ -61,15 +66,11 @@ public class Service implements Serializable {
 	private Timestamp updated_at;
 	
 	
-	@ManyToOne
-	@JoinColumn(name="categorie_id")
-	private Categorie categorie;
+	
 	
 	@OneToOne(mappedBy = "service")
 	private Schedule schedule;
 	
-	@OneToOne(mappedBy = "service")
-	private Adresse adresse;
 	
 	@OneToOne(mappedBy = "service")
 	private User user;
