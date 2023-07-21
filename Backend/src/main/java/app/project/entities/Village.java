@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,6 +42,7 @@ public class Village implements Serializable{
 	@UpdateTimestamp
 	private Timestamp updated_at;
 	
-	/*@OneToMany(mappedBy="village")
-    private Set<Adresse> adresses;*/
+	@ManyToOne
+	@JoinColumn(name="service_id")
+	private Service service;
 }
