@@ -41,7 +41,5 @@ public class Categorie implements Serializable{
 	@UpdateTimestamp
 	private Timestamp updated_at;
 	
-	@ManyToOne
-	@JoinColumn(name="service_id")
-	private Service service;
+	
 }
