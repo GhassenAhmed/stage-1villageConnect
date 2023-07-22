@@ -137,30 +137,6 @@
 
                 <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Listes</v-list-item-title>
             </v-list-item>
-
-            <v-list-group
-            no-action
-            sub-group
-            
-            
-            >
-            <template v-slot:activator>
-                <v-list-item-content>
-                <v-list-item-title>Categories</v-list-item-title>
-                </v-list-item-content>
-            </template>
-            <div class="categories" style="overflow-y: scroll;height: 400px;">
-                <v-list-item
-                v-for="categorie in categories"
-                :key="categorie.id"
-                link
-                
-            >
-                <v-list-item-title >{{ categorie.categorieName }}</v-list-item-title>
-            </v-list-item>
-            </div>
-            
-            </v-list-group>
         </v-list>
         </v-navigation-drawer>
         <v-container class="d-flex wrap">
