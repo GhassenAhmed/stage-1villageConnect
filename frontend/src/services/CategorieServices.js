@@ -11,5 +11,9 @@ export default {
 
     getAll(){
         return Axios.get("getAll");
+    },
+    async getServiceCategorie(id){
+        const res = await Axios.get("getServiceCategorie?id="+id);
+        return res;
     }
 }
