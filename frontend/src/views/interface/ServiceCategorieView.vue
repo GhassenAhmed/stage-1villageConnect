@@ -14,7 +14,7 @@
                     ></v-autocomplete>
                     <v-spacer></v-spacer>
             
-            <v-btn icon class="hidden-sm-and-down" >
+            <v-btn icon class="hidden-sm-and-down" to="/home">
                 <v-icon   X Small >
                     mdi-home
                 </v-icon>
@@ -114,7 +114,7 @@
             dense
             class="mt-5 py-5"
         >
-            <v-list-item>
+            <v-list-item to="/home">
                 <v-list-item-icon>
                 <v-icon X Small>mdi-home</v-icon>
                 </v-list-item-icon>
@@ -139,78 +139,85 @@
             </v-list-item>
         </v-list>
         </v-navigation-drawer>
-        <v-container class="d-flex wrap">
-            <v-card
-            :loading="loading"
-            class="mx-auto my-12"
-            max-width="250"
-            v-for="service in services"
-            :key="service.id"
-            style="width: 250px"
-            >
-            <template slot="progress">
-            <v-progress-linear
-                color="deep-purple"
-                height="10"
-                indeterminate
-            ></v-progress-linear>
-            </template>
-
-            <v-img
-            height="200"
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            ></v-img>
-
-            <v-card-title>Service Name</v-card-title>
-
-            <v-card-text>
-            <v-row
-                class="my-1 ml-1"
-                align="center"
-            >
-                <v-rating
-                :value="4.5"
-                color="amber"
-                dense
-                half-increments
-                readonly
-                size="14"
-                ></v-rating>
-
-                <div class="grey--text ms-4">
-                4.5 (413)
+        <v-container class="">
+                <div class="titre mt-15 ml-15 mb-5" style="font-size: 25px;">
+                    Découvrez nos <span style="color: #12c2b9;margin-left: 10px;font-weight: bold;font-size: 27px;">{{ categorieName }}</span>
                 </div>
-            </v-row>
-            <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
-            </v-card-text>
+            <v-layout row wrap>
+                <v-flex  v-for="service in services" xl4 md4 lg4 sm6 xs12
+                    :key="service.id">
+                    <v-card
+                    :loading="loading"
+                    class="mx-auto my-12"
+                    max-width="250"
+                
+                    style="width: 300px;cursor: pointer;"
+                    >
+                    <template slot="progress">
+                    <v-progress-linear
+                        color="deep-purple"
+                        height="10"
+                        indeterminate
+                    ></v-progress-linear>
+                    </template>
 
-            <v-divider class="mx-4"></v-divider>
+                    <v-img
+                    height="200"
+                    src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                    ></v-img>
 
-            <v-card-title>Schedule and prices</v-card-title>
+                    <v-card-title>Service Name</v-card-title>
 
-            <v-layout row>
-                <v-flex class="ml-4">
                     <v-card-text>
-                        schedule
-                    </v-card-text>
-                </v-flex>
-                <v-flex>
-                    <v-card-text>
-                        prices
-                    </v-card-text>
-                </v-flex>
-            </v-layout>
+                    <v-row
+                        class="my-1 ml-1"
+                        align="center"
+                    >
+                        <v-rating
+                        :value="4.5"
+                        color="amber"
+                        dense
+                        half-increments
+                        readonly
+                        size="14"
+                        ></v-rating>
 
-            <v-card-actions>
-            <v-btn
-                color="deep-purple lighten-2"
-                text
-                @click="reserve"
-            >
-                Reserve
-            </v-btn>
-            </v-card-actions>
-            </v-card>     
+                        <div class="grey--text ms-4">
+                        4.5 (413)
+                        </div>
+                    </v-row>
+                    <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+                    </v-card-text>
+
+                    <v-divider class="mx-4"></v-divider>
+
+                    <v-card-title>Schedule and prices</v-card-title>
+
+                    <v-layout row>
+                        <v-flex class="ml-4">
+                            <v-card-text>
+                                schedule
+                            </v-card-text>
+                        </v-flex>
+                        <v-flex>
+                            <v-card-text>
+                                prices
+                            </v-card-text>
+                        </v-flex>
+                    </v-layout>
+
+                    <v-card-actions>
+                    <v-btn
+                        color="deep-purple lighten-2"
+                        text
+                        @click="reserve"
+                    >
+                        Reserve
+                    </v-btn>
+                    </v-card-actions>
+                    </v-card>
+                </v-flex>
+            </v-layout>     
         </v-container>
         
     </div>
@@ -246,12 +253,14 @@ export default {
             categories:[],
             loading: false,
             selection: 1,
+            categorieName:""
         }
     },
     methods:{
         getServiceCategorie(){
             CategorieServices.getServiceCategorie(this.id).then((res)=>{
                 this.services=res.data;
+                this.categorieName=this.services[0].categorie['categorieName'];
             }).catch((err)=>{
                 console.log(err);
             })
@@ -283,4 +292,10 @@ export default {
 }
 </script>
 <style scoped>
+*{
+    font-family:cursive;
+    scroll-behavior: smooth;
+    overflow: hidden;
+    box-sizing: border-box;
+}
 </style>
