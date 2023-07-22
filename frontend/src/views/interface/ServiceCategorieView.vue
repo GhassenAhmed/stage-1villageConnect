@@ -140,7 +140,7 @@
         </v-list>
         </v-navigation-drawer>
         <v-container class="d-flex wrap">
-            <v-card
+            <v-cards
             :loading="loading"
             class="mx-auto my-12"
             max-width="250"
@@ -208,7 +208,7 @@
                 Reserve
             </v-btn>
             </v-card-actions>
-            </v-card>     
+            </v-cards>     
         </v-container>
         
     </div>
@@ -250,7 +250,6 @@ export default {
         getServiceCategorie(){
             CategorieServices.getServiceCategorie(this.id).then((res)=>{
                 this.services=res.data;
-                console.log(this.services);
             }).catch((err)=>{
                 console.log(err);
             })
