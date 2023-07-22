@@ -23,7 +23,7 @@
             </div>
         </v-layout> 
         <v-container style="margin-top: 50px;">
-            <p style="font-size: 30px;padding-left:  70px;font-weight: bold;">Salut,ghassen</p>
+            <p style="font-size: 30px;padding-left:  50px;font-weight: bold;">Salut,ghassen</p>
             <div class="introduction" style="border: 0.1mm solid #CFD0D3; height: auto;border-radius: 10px;padding: 30px 25px 20px 30px;">
                 <v-layout  row wrap class="">
                     <v-flex>
@@ -42,54 +42,59 @@
             </div>
 
             <!-- ----------------------------------------Most raited div------------------------------  -->
-            <div class="mostRaited" style="height: auto;border: 0.1mm solid #CFD0D3;border-radius: 10px;margin-top: 100px;">
-                <div class="div d-flex" style="padding-left:  70px;padding-top: 20px;padding-bottom: 20px;">
+            <div class="mostRaited" style="height: auto;border: 0.1mm solid #CFD0D3;border-radius: 10px;margin-top: 100px; padding: 20px 30px 50px 30px;">
+                <div class="div d-flex" style="padding-left:  50px;padding-top: 20px;margin-bottom: 50px;">
                     <img src="../../assets/star.png" alt="" width="70px" style="margin-right:20px;" class="hidden-sm-and-down">
                     <p style="font-size: 30px;padding-top: 20px;">Le plus évalué ! </p>
                 </div>
                 <div class="card d-flex wrap">
-                    <v-card
-                    class="mx-auto my-5"
-                    max-width="250"
-                    min-width="100"
-                    v-for="i in 3"
-                    :key="i"
-                   >
-                    <template slot="progress">
-                    <v-progress-linear
-                        color="deep-purple"
-                        height="5"
-                        indeterminate
-                    ></v-progress-linear>
-                    </template>
+                    <v-layout row wrap>
+                        <v-flex v-for="i in 3"
+                            :key="i" xl4 md4 lg4 sm6 xs12>
+                            <v-card
+                            class="mx-auto my-5"
+                            max-width="250"
+                            min-width="100"
+                            
+                            >
+                            <template slot="progress">
+                            <v-progress-linear
+                                color="deep-purple"
+                                height="5"
+                                indeterminate
+                            ></v-progress-linear>
+                            </template>
 
-                    <v-img
-                    height="150"
-                    src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                    ></v-img>
+                            <v-img
+                            height="150"
+                            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                            ></v-img>
 
-                    <v-card-title>Cafe Badilico</v-card-title>
-                    <v-divider class="mx-4"></v-divider>
-                    <v-card-text>
-                    <v-chip-group
-                        
-                        active-class="deep-purple accent-4 white--text"
-                        column
-                    >
-                        <v-chip>5:30PM</v-chip>
-                    </v-chip-group>
-                    </v-card-text>
+                            <v-card-title>Cafe Badilico</v-card-title>
+                            <v-divider class="mx-4"></v-divider>
+                            <v-card-text>
+                            <v-chip-group
+                                
+                                active-class="deep-purple accent-4 white--text"
+                                column
+                            >
+                                <v-chip>5:30PM</v-chip>
+                            </v-chip-group>
+                            </v-card-text>
 
-                    <v-card-actions>
-                    <v-btn
-                        color="deep-purple lighten-2"
-                        text
-                        @click=""
-                    >
-                        Reserve
-                    </v-btn>
-                    </v-card-actions>
-                    </v-card>
+                            <v-card-actions>
+                            <v-btn
+                                color="deep-purple lighten-2"
+                                text
+                                @click=""
+                            >
+                                Reserve
+                            </v-btn>
+                            </v-card-actions>
+                            </v-card>
+                        </v-flex>
+                    </v-layout>
+                    
                 </div>
             </div>
             <!-- ---------------------------------------- /Most raited div------------------------------  -->
