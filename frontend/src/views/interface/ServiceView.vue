@@ -13,7 +13,8 @@
                         class="ml-lg-14 ml-md-12 ml-sm-10" 
                         ></v-autocomplete>
                         <v-spacer></v-spacer>
-        
+                
+                
                 <v-btn icon class="hidden-sm-and-down">
                     <v-icon   X Small >
                         mdi-bell-outline
@@ -95,12 +96,12 @@
             <v-app-bar  flat style="background-color: #ffffff;">
                 <v-layout row>
                     <v-flex sm4 xs4>
-                         <v-avatar   size="60px" class="mt-5 pl-4">
+                         <v-avatar   size="40px" class="mt-5 ml-4">
                              <img :src="store.user['photo']">
                          </v-avatar>
                     </v-flex>
                     <v-flex sm8 xs8 class="mt-8">
-                        <span style="font-size: 20px;">{{ store.user['email'] }}</span>
+                        <span style="font-size: 12px;">{{ store.user['email'] }}</span>
                     </v-flex>
                 </v-layout>
             </v-app-bar>
