@@ -83,6 +83,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .antMatchers("/getAllCategorie").permitAll()
 		        .antMatchers("/getAllVillages").permitAll()
 		        .antMatchers("/getAll").permitAll()
+		        .antMatchers("/getServiceCategorie").permitAll()
 				.anyRequest().authenticated()
 		        .and()
 			    .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
