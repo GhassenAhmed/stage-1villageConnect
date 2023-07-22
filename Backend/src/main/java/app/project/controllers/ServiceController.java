@@ -1,5 +1,7 @@
 package app.project.controllers;
 
+import java.util.List;
+
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,5 +43,15 @@ public class ServiceController {
 			return ResponseEntity.ok(data);
 
 	    }
+	 
+	 @GetMapping("/getServiceCategorie")
+	 public ResponseEntity<?> getServiceCategorie(@RequestParam("id") Long id){
+		 List<Service> services = serviceRepository.getServiceCategorie(id);
+		 if(services.size()==0) {
+			 return ResponseEntity.ok(false);
+		 }
+		 return ResponseEntity.ok(services);
+	 }
+	 
 
 }
