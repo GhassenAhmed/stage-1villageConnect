@@ -152,7 +152,9 @@
                     link
                     
                 >
+                <router-link :to="/Categorie/ + categorie.id" style="text-decoration: none;color: black;">
                     <v-list-item-title >{{ categorie.categorieName }}</v-list-item-title>
+                </router-link>
                 </v-list-item>
                 </div>
                
