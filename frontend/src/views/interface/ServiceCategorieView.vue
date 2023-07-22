@@ -140,12 +140,13 @@
         </v-list>
         </v-navigation-drawer>
         <v-container class="d-flex wrap">
-            <v-cards
+            <v-card
             :loading="loading"
             class="mx-auto my-12"
             max-width="250"
             v-for="service in services"
             :key="service.id"
+            style="width: 250px"
             >
             <template slot="progress">
             <v-progress-linear
@@ -165,6 +166,7 @@
             <v-card-text>
             <v-row
                 class="my-1 ml-1"
+                align="center"
             >
                 <v-rating
                 :value="4.5"
@@ -208,7 +210,7 @@
                 Reserve
             </v-btn>
             </v-card-actions>
-            </v-cards>     
+            </v-card>     
         </v-container>
         
     </div>
