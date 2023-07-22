@@ -9,7 +9,12 @@
                         mdi-chevron-left
                     </v-icon>
                 </v-btn> 
-                <li v-for="categorie in categories" :key="categorie.id" style="list-style-type: none; margin: 0px 0px 20px ;font-size: 20px;">{{categorie.categorieName}}</li>
+                <div class="li" v-for="categorie in categories" :key="categorie.id">
+                    <router-link :to="/Categorie/ + categorie.id" style="text-decoration: none;color: black;">
+                        <li  style="list-style-type: none; margin: 0px 0px 20px ;font-size: 20px;">{{categorie.categorieName}}</li>
+                    </router-link>
+                </div>
+                
                 <v-btn small plain :disabled="testNext==true"  @click="changerPage(pageCurrent+1)" style="margin: 0px 0px 20px ;">
                     <v-icon>
                         mdi-chevron-right
@@ -121,7 +126,7 @@
                         
                     </div>  
                 </div>
-            <!-- ---------------------------------------- /verified div------------------------------  -->
+                <!-- ---------------------------------------- /verified div------------------------------  -->
         </v-container>
     </div>
 </template>
