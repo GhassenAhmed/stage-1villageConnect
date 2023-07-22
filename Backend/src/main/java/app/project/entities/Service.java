@@ -42,10 +42,9 @@ public class Service implements Serializable {
 	private boolean isOnline;
 	private int yearsInBusiness;
 	
-	@ColumnDefault(value="null")
-	private float maxPrice;
 	
-	@ColumnDefault(value="null")
+	private float maxPrice;
+
 	private float minPrice;
 	
 	@Column(length=999999999)
@@ -66,13 +65,19 @@ public class Service implements Serializable {
 	private Timestamp updated_at;
 	
 	
-	
-	
-	@OneToOne(mappedBy = "service")
-	private Schedule schedule;
-	
-	
 	@OneToOne(mappedBy = "service")
 	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name="village_id")
+	private Village village;
+	
+	@ManyToOne
+	@JoinColumn(name="categorie_id")
+	private Categorie categorie;
+	
+	@ManyToOne
+	@JoinColumn(name="schedule_id")
+	private Schedule schedule;
 	
 }
