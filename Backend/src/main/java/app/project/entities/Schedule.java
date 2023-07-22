@@ -39,9 +39,13 @@ public class Schedule implements Serializable{
 	private String startHour;
 	private String endHour;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="service_id",referencedColumnName = "id")
-	private Service service;
+	@ColumnDefault(value="null")
+	private String startDay;
+	
+	@ColumnDefault(value="null")
+	private String endDay;
+	
+
 	
 	      
 
