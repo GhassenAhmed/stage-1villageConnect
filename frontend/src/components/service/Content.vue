@@ -42,6 +42,23 @@
             </div>
         </v-container>
         <v-container style="margin-top: 50px;" fluid>
+            <v-layout row wrap style="margin-left: 15%; margin-right: 10%;">
+                <v-flex xl10 md10 lg10 sm10 xs9>
+                    <v-autocomplete
+                    :items="villagesNames"
+                    v-model="search"
+                    rounded
+                    placeholder="Choisir une village ..."
+                    style="height: 60px;background-color: #e7eaf1;"
+                    ></v-autocomplete>
+                </v-flex>
+                <v-flex xl2 md2 lg2 sm2 xs3>
+                    <v-btn plain class="ml-3 mt-4">
+                        <v-icon X large size="50">mdi-magnify</v-icon>
+                    </v-btn>
+                </v-flex>
+            </v-layout>
+            
             <!-- ----------------------------------------Most raited div------------------------------  -->
             <div class="mostRaited" style="height: auto;border: 0.1mm solid #CFD0D3;border-radius: 10px;margin-top: 100px; padding: 20px 30px 50px 30px;">
                 <div class="div d-flex" style="padding-left:  50px;padding-top: 20px;margin-bottom: 50px;">
@@ -220,10 +237,14 @@
     </div>
 </template>
 <script>
+import VillageServices from "@/services/VillageServices";
 import CategorieServices from '@/services/CategorieServices';
+import ServiceServices from '@/services/ServiceServices';
 export default {
     created(){
+    this.getVillages();
     this.getCategories();
+    this.getServiceRaiting();
 },
     data(){
         return{
@@ -234,7 +255,13 @@ export default {
             countPage:[],
             testNext:true,
             testPrev:true,
-            loading:false
+            loading:false,
+            servicesRaiting:[], 
+            search:"",
+            pageCurrent:0,
+            per_page:7,
+            villages:[],
+            villagesNames:[],
         }
     },
     methods:{
@@ -255,6 +282,25 @@ export default {
             }
             this.pageCurrent=num;
             this.getCategories();
+        },
+        getServiceRaiting(){
+            ServiceServices.getServiceRaiting(this.pageCurrent,this.search,this.per_page).then((res)=>{
+                this.countPage=res.data.count_page;
+                this.servicesRaiting=res.data.service.content;
+                this.pageCurrent=res.data.page;
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        getVillages(){
+            VillageServices.getAllVillages().then((res)=>{
+                this.villages=res.data;
+                for(let i=0 ;i<this.villages.length;i++){
+                    this.villagesNames.push(this.villages[i].villageName)
+                }
+            }).catch((err)=>{
+                console.log(err);
+            })
         },
         
     },
