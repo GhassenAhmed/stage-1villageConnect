@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import app.project.entities.Service;
 import app.project.parametre.DataService;
 import app.project.repositories.ServiceRepository;
+import app.project.repositories.VillageRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -23,15 +24,22 @@ public class ServiceController {
 	@Autowired
 	ServiceRepository serviceRepository;
 	
+	@Autowired
+	VillageRepository villageRepository;
+	
 	 @GetMapping("/getServiceRaiting")
 	    public ResponseEntity<?> getServiceRaiting(
 	    		@RequestParam(name = "search",defaultValue = "") String village,
 	    		@RequestParam(name = "page", defaultValue = "0") int page,
-				@RequestParam(name = "per_page", defaultValue = "3") int size){
+				@RequestParam(name = "per_page", defaultValue = "7") int size){
 	    	
-	    	Page<Service> service = null;
-	    	if(village.isEmpty()) {
-	    		service=serviceRepository.findAll(PageRequest.of(page, size));
+		 	
+	    	Page<Service> service;
+	    	if(village.isEmpty()){
+	    		service=serviceRepository.getServiceRaiting(PageRequest.of(page, size));
+	    		
+	    	}else {
+	    		service=serviceRepository.getServiceRaitingByVillage(village,PageRequest.of(page, size));
 	    	}
 	    	int totale = service.getTotalPages();
 			int[] count_page = new int[totale];
