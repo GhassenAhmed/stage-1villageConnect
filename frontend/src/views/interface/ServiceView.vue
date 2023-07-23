@@ -159,6 +159,16 @@
                 </div>
                
                 </v-list-group>
+                <v-divider class="mt-5 mb-5"></v-divider>
+                <v-list-item>
+                <v-btn
+                plain
+                @click="logout()"
+                >
+                    <v-icon class="">mdi-logout</v-icon>
+                    <span >log out</span>
+                </v-btn>
+            </v-list-item>
             </v-list>
             </v-navigation-drawer>
             <Content style="margin-top: 10px;"></Content>
@@ -194,6 +204,10 @@ data(){
     }
 },
 methods:{
+    logout(){
+            this.store.logOut();
+            this.$router.push({name:"login"});
+        },
    getVillages(){
     VillageServices.getAllVillages().then((res)=>{
         this.villages=res.data;
