@@ -40,7 +40,8 @@
                     <v-flex></v-flex>
                 </v-layout>
             </div>
-
+        </v-container>
+        <v-container style="margin-top: 50px;" fluid>
             <!-- ----------------------------------------Most raited div------------------------------  -->
             <div class="mostRaited" style="height: auto;border: 0.1mm solid #CFD0D3;border-radius: 10px;margin-top: 100px; padding: 20px 30px 50px 30px;">
                 <div class="div d-flex" style="padding-left:  50px;padding-top: 20px;margin-bottom: 50px;">
@@ -52,41 +53,70 @@
                         <v-flex v-for="i in 3"
                             :key="i" xl4 md4 lg4 sm6 xs12>
                             <v-card
-                            class="mx-auto my-5"
+                            :loading="loading"
+                            class="mx-auto my-12"
                             max-width="250"
-                            min-width="100"
-                            
+                        
+                            style="width: 300px;cursor: pointer;"
                             >
                             <template slot="progress">
                             <v-progress-linear
                                 color="deep-purple"
-                                height="5"
+                                height="10"
                                 indeterminate
                             ></v-progress-linear>
                             </template>
 
                             <v-img
-                            height="150"
+                            height="200"
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                             ></v-img>
 
-                            <v-card-title>Cafe Badilico</v-card-title>
-                            <v-divider class="mx-4"></v-divider>
+                            <v-card-title>Service Name</v-card-title>
+
                             <v-card-text>
-                            <v-chip-group
-                                
-                                active-class="deep-purple accent-4 white--text"
-                                column
+                            <v-row
+                                class="my-1 ml-1"
+                                align="center"
                             >
-                                <v-chip>5:30PM</v-chip>
-                            </v-chip-group>
+                                <v-rating
+                                :value="4.5"
+                                color="amber"
+                                dense
+                                half-increments
+                                readonly
+                                size="14"
+                                ></v-rating>
+
+                                <div class="grey--text ms-4">
+                                4.5 (413)
+                                </div>
+                            </v-row>
+                            <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
                             </v-card-text>
+
+                            <v-divider class="mx-4"></v-divider>
+
+                            <v-card-title>Schedule and prices</v-card-title>
+
+                            <v-layout row>
+                                <v-flex class="ml-4">
+                                    <v-card-text>
+                                        schedule
+                                    </v-card-text>
+                                </v-flex>
+                                <v-flex>
+                                    <v-card-text>
+                                        prices
+                                    </v-card-text>
+                                </v-flex>
+                            </v-layout>
 
                             <v-card-actions>
                             <v-btn
                                 color="deep-purple lighten-2"
                                 text
-                                @click=""
+                                
                             >
                                 Reserve
                             </v-btn>
@@ -102,34 +132,88 @@
 
             <!-- ----------------------------------------verified div------------------------------  -->
             <div class="verified" style="height: auto;border-radius: 10px;margin-top: 50px;background-color: #FAFAFA;">
-                <p style="font-size: 30px;padding-left:  70px;padding-top: 20px;">Verified!</p>
-                <div class="card d-flex">
-                        <v-card
-                        v-for="i in 3"
-                        :key="i"
-                        
-                        class="mx-auto my-5"
-                        max-width="250"
-                        min-width="100"
-                        style="background-color: #FAFAFA;"
-                        >
-                        <template slot="progress">
-                        <v-progress-linear
-                            color="deep-purple"
-                            height="5"
-                            indeterminate
-                        ></v-progress-linear>
-                        </template>
+                <div class="div d-flex" style="padding-left:  50px;padding-top: 20px;margin-bottom: 50px;">
+                    <img src="../../assets/verifie.png" alt="" width="60px" height="60px" style="margin-right:20px;margin-left: 10px;margin-top: 15px;" class="hidden-sm-and-down">
+                    <p style="font-size: 30px;padding-top: 20px;">Vérifié ! </p>
+                </div>
+                    <div class="card d-flex wrap">
+                        <v-layout row wrap>
+                            <v-flex v-for="i in 3"
+                                :key="i" xl4 md4 lg4 sm6 xs12>
+                                <v-card
+                                :loading="loading"
+                                class="mx-auto my-12"
+                                max-width="250"
+                            
+                                style="width: 300px;cursor: pointer;"
+                                >
+                                <template slot="progress">
+                                <v-progress-linear
+                                    color="deep-purple"
+                                    height="10"
+                                    indeterminate
+                                ></v-progress-linear>
+                                </template>
 
-                        <v-img
-                        height="150"
-                        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                        ></v-img>
-                        <v-card-title>business</v-card-title>
-                        <v-card-text>Lorem ipsum dolor sit.</v-card-text>
-                        </v-card>
+                                <v-img
+                                height="200"
+                                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                                ></v-img>
+
+                                <v-card-title>Service Name</v-card-title>
+
+                                <v-card-text>
+                                <v-row
+                                    class="my-1 ml-1"
+                                    align="center"
+                                >
+                                    <v-rating
+                                    :value="4.5"
+                                    color="amber"
+                                    dense
+                                    half-increments
+                                    readonly
+                                    size="14"
+                                    ></v-rating>
+
+                                    <div class="grey--text ms-4">
+                                    4.5 (413)
+                                    </div>
+                                </v-row>
+                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+                                </v-card-text>
+
+                                <v-divider class="mx-4"></v-divider>
+
+                                <v-card-title>Schedule and prices</v-card-title>
+
+                                <v-layout row>
+                                    <v-flex class="ml-4">
+                                        <v-card-text>
+                                            schedule
+                                        </v-card-text>
+                                    </v-flex>
+                                    <v-flex>
+                                        <v-card-text>
+                                            prices
+                                        </v-card-text>
+                                    </v-flex>
+                                </v-layout>
+
+                                <v-card-actions>
+                                <v-btn
+                                    color="deep-purple lighten-2"
+                                    text
+                                    
+                                >
+                                    Reserve
+                                </v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </v-flex>
+                        </v-layout>
                         
-                    </div>  
+                    </div>
                 </div>
                 <!-- ---------------------------------------- /verified div------------------------------  -->
         </v-container>
@@ -150,6 +234,7 @@ export default {
             countPage:[],
             testNext:true,
             testPrev:true,
+            loading:false
         }
     },
     methods:{
