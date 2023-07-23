@@ -53,7 +53,7 @@
                     ></v-autocomplete>
                 </v-flex>
                 <v-flex xl2 md2 lg2 sm2 xs3>
-                    <v-btn plain class="ml-3 mt-4">
+                    <v-btn plain class="ml-3 mt-4" @click="getServiceRaiting()">
                         <v-icon X large size="50">mdi-magnify</v-icon>
                     </v-btn>
                 </v-flex>
@@ -67,8 +67,8 @@
                 </div>
                 <div class="card d-flex wrap">
                     <v-layout row wrap>
-                        <v-flex v-for="i in 3"
-                            :key="i" xl4 md4 lg4 sm6 xs12>
+                        <v-flex v-for="service in servicesRaiting"
+                            :key="service.id" xl4 md4 lg4 sm6 xs12>
                             <v-card
                             :loading="loading"
                             class="mx-auto my-12"
@@ -287,6 +287,7 @@ export default {
             ServiceServices.getServiceRaiting(this.pageCurrent,this.search,this.per_page).then((res)=>{
                 this.countPage=res.data.count_page;
                 this.servicesRaiting=res.data.service.content;
+                console.log(this.servicesRaiting);
                 this.pageCurrent=res.data.page;
             }).catch((err)=>{
                 console.log(err);
