@@ -7,11 +7,13 @@
             <v-toolbar-title class="text-center-sm hidden-sm-and-down" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
                     <v-autocomplete
                     :items="villagesNames"
+                    v-model="villageName"
                     filled
                     rounded
                     style="height: 60px;max-width: auto;"
                     class="ml-lg-14 ml-md-12 ml-sm-10" 
-                    ></v-autocomplete>
+                    >
+                </v-autocomplete>
                     <v-spacer></v-spacer>
             
             <v-btn icon class="hidden-sm-and-down" to="/home">
@@ -137,11 +139,33 @@
 
                 <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Listes</v-list-item-title>
             </v-list-item>
+            <v-list-item>
+                <v-btn
+                plain
+                @click="logout()"
+                >
+                    <v-icon class="pa-2">mdi-logout</v-icon>
+                    <span >log out</span>
+                </v-btn>
+            </v-list-item>
+            
         </v-list>
         </v-navigation-drawer>
-        <v-container class="">
-                <div class="titre mt-15 ml-15 mb-5" style="font-size: 25px;">
+        <section class="dots-container align-center mt-5 pa-5" v-if="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </section>
+        <v-container class="" v-else>
+                
+                <div class="titre mt-15 ml-15 mb-5" style="font-size: 25px;" v-if="this.services!=null">
                     Découvrez nos <span style="color: #12c2b9;margin-left: 10px;font-weight: bold;font-size: 27px;">{{ categorieName }}</span>
+                </div>
+
+                <div class=" d-flex align-center mt-5 pa-5 justify-center" style="font-size: 25px;" v-else>
+                    <span style="color: #12c2b9;font-weight: bold;font-size: 27px;">Pas de service disponible.</span>
                 </div>
             <v-layout row wrap>
                 <v-flex  v-for="service in services" xl4 md4 lg4 sm6 xs12
@@ -242,6 +266,7 @@ export default {
         this.getServiceCategorie();
         this.getVillages();
         this.getCategories();
+        setTimeout(()=>this.loader=false,2000);
     },
     data(){
         return{
@@ -253,14 +278,24 @@ export default {
             categories:[],
             loading: false,
             selection: 1,
-            categorieName:""
+            categorieName:"",
+            loader:true,
+            villageName:""
         }
     },
     methods:{
+        logout(){
+            this.store.logOut();
+            this.$router.push({name:"login"});
+        },
         getServiceCategorie(){
             CategorieServices.getServiceCategorie(this.id).then((res)=>{
-                this.services=res.data;
-                this.categorieName=this.services[0].categorie['categorieName'];
+                if(res.data==false){
+                    this.services=null;
+                }else{
+                    this.services=res.data;
+                    this.categorieName=this.services[0].categorie['categorieName'];
+                }
             }).catch((err)=>{
                 console.log(err);
             })
@@ -284,7 +319,6 @@ export default {
         },
         reserve () {
         this.loading = true
-
         setTimeout(() => (this.loading = false), 2000)
       },
     }
@@ -297,5 +331,59 @@ export default {
     scroll-behavior: smooth;
     overflow: hidden;
     box-sizing: border-box;
+}
+
+
+.dots-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.dot {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: #b3d4fc;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.dot:last-child {
+  margin-right: 0;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.3s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.1s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    background-color: #b3d4fc;
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: #12c2b9;
+    box-shadow: 0 0 0 10px rgba(178, 212, 252, 0);
+  }
+
+  100% {
+    transform: scale(0.8);
+    background-color: #b3d4fc;
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
 }
 </style>
