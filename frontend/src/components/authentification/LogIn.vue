@@ -26,7 +26,7 @@
                                             append-icon="mdi-account"
                                             type="text"
                                             outlined
-                                            v-model="email"
+                                            v-model="form.email"
                                             :message_error="email_error"
                                             dense
                                             placeholder="Enter E-mail"
@@ -37,7 +37,7 @@
                                     <v-text-field
                                         name="Password"
                                         label="Password"
-                                        v-model="password"
+                                        v-model="form.password"
                                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                         :type="show ? 'text' : 'password'"
                                         @click:append="show = !show"
@@ -83,28 +83,33 @@ export default {
         return{
             show:false,
             loading:false,
-            email:"",
-            password:""
+            form:{
+                email:"",
+                password:""
+            }
+           
         }
     },
     validations:{
-        email:{
+        form:{
+            email:{
             required,
             email,
-        },
-        password:{
+            },
+            password:{
             required
-        }
+            }
+        }   
+        
       },
       methods:{
         Login(){
-            this.$v.email.$touch();
-            this.$v.password.$touch();
-            if(this.$v.email.$invalid && this.$v.password.$invalid){
+            this.$v.form.$touch();
+            if(this.$v.form.email.$invalid && this.$v.form.password.$invalid){
                 return;
             }
                 this.loading=true;
-                authService.login(this.email,this.password).then((res)=>{
+                authService.login(this.form.email,this.form.password).then((res)=>{
                 this.loading=false;
                 this.$router.push("/home");
               }).catch((error)=>{
@@ -116,15 +121,15 @@ export default {
       computed:{
         email_error(){
             const error=[];
-            if(!this.$v.email.$dirty) return error;
-            !this.$v.email.required && error.push("Email Required");
-            !this.$v.email.email && error.push("Email invalid");
+            if(!this.$v.form.email.$dirty) return error;
+            !this.$v.form.email.required && error.push("Email Required");
+            !this.$v.form.email.email && error.push("Email invalid");
             return error;
         },
         password_error(){
             const error=[];
-             if (!this.$v.password.$dirty) return error;
-             !this.$v.password.required && error.push('Password Required');
+             if (!this.$v.form.password.$dirty) return error;
+             !this.$v.form.password.required && error.push('Password Required');
              return error;
         },
       }
