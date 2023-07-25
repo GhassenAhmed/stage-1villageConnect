@@ -1,7 +1,15 @@
 <template>
     <div class="content">
+        <section class="dots-container align-center mt-5 pa-5" v-if="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </section>
         
-        <v-layout class="hidden-sm-and-down">
+        <div class="section" v-else>
+            <v-layout class="hidden-sm-and-down">
             
             <div class="categories d-flex align-center justify-space-around" style="width: 100%; border-bottom: 0.1mm solid #CFD0D3;">
                 <v-btn small plain :disabled="testPrev==true"  @click="changerPage(pageCurrent-1 )" style="margin: 0px 0px 20px ;">
@@ -11,7 +19,7 @@
                 </v-btn> 
                 <div class="li" v-for="categorie in categories" :key="categorie.id">
                     <router-link :to="/Categorie/ + categorie.id" style="text-decoration: none;color: black;">
-                        <li  style="list-style-type: none; margin: 0px 0px 20px ;font-size: 20px;">{{categorie.categorieName}}</li>
+                        <li  style="list-style-type: none; margin: 0px 0px 20px ;font-size: 15px;">{{categorie.categorieName}}</li>
                     </router-link>
                 </div>
                 
@@ -43,6 +51,7 @@
         </v-container>
         <v-container style="margin-top: 50px;" fluid>
             <v-layout row wrap style="margin-left: 15%; margin-right: 10%;">
+                
                 <v-flex xl10 md10 lg10 sm10 xs9>
                     <v-autocomplete
                     :items="villagesNames"
@@ -53,7 +62,7 @@
                     ></v-autocomplete>
                 </v-flex>
                 <v-flex xl2 md2 lg2 sm2 xs3>
-                    <v-btn plain class="ml-3 mt-4" @click="getServiceRaiting()">
+                    <v-btn plain class="ml-3 mt-4" @click="getServiceRaiting(),getServiceVerified()">
                         <v-icon X large size="50">mdi-magnify</v-icon>
                     </v-btn>
                 </v-flex>
@@ -65,7 +74,19 @@
                     <img src="../../assets/star.png" alt="" width="70px" style="margin-right:20px;" class="hidden-sm-and-down">
                     <p style="font-size: 30px;padding-top: 20px;">Le plus évalué ! </p>
                 </div>
-                <div class="card d-flex wrap">
+                <div class="card">
+                    <v-layout row class="mt-5 align-center justify-center">
+                        <v-btn small plain :disabled="testPrev1==true"  @click="changerPage(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
+                            <v-icon X large>
+                                mdi-chevron-left
+                            </v-icon>
+                        </v-btn>
+                        <v-btn small plain :disabled="testNext1==true"  @click="changerPage(pageCurrent1+1)" style="margin: 0px 0px 20px ;">
+                            <v-icon X large>
+                                mdi-chevron-right
+                            </v-icon>
+                        </v-btn>
+                    </v-layout>
                     <v-layout row wrap>
                         <v-flex v-for="service in servicesRaiting"
                             :key="service.id" xl4 md4 lg4 sm6 xs12>
@@ -109,39 +130,37 @@
                                 4.5 (413)
                                 </div>
                             </v-row>
-                            <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+                            <div>Village name</div>
                             </v-card-text>
 
                             <v-divider class="mx-4"></v-divider>
 
-                            <v-card-title>Schedule and prices</v-card-title>
-
-                            <v-layout row>
-                                <v-flex class="ml-4">
-                                    <v-card-text>
-                                        schedule
-                                    </v-card-text>
-                                </v-flex>
-                                <v-flex>
-                                    <v-card-text>
-                                        prices
-                                    </v-card-text>
-                                </v-flex>
-                            </v-layout>
-
+                            <v-card-title>prices</v-card-title>
+                            <div class="price"></div>
                             <v-card-actions>
                             <v-btn
                                 color="deep-purple lighten-2"
                                 text
                                 
                             >
-                                Reserve
+                                Plus
                             </v-btn>
                             </v-card-actions>
                             </v-card>
-                        </v-flex>
+                        </v-flex>   
                     </v-layout>
-                    
+                    <v-layout row class="mt-5 align-center justify-center">
+                        <v-btn small plain :disabled="testPrev1==true"  @click="changerPage(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
+                            <v-icon X large>
+                                mdi-chevron-left
+                            </v-icon>
+                        </v-btn>
+                        <v-btn small plain :disabled="testNext1==true"  @click="changerPage(pageCurrent1+1)" style="margin: 0px 0px 20px ;">
+                            <v-icon X large>
+                                mdi-chevron-right
+                            </v-icon>
+                        </v-btn>
+                    </v-layout>
                 </div>
             </div>
             <!-- ---------------------------------------- /Most raited div------------------------------  -->
@@ -153,10 +172,22 @@
                     <img src="../../assets/verifie.png" alt="" width="60px" height="60px" style="margin-right:20px;margin-left: 10px;margin-top: 15px;" class="hidden-sm-and-down">
                     <p style="font-size: 30px;padding-top: 20px;">Vérifié ! </p>
                 </div>
-                    <div class="card d-flex wrap">
+                    <div class="card">
+                        <v-layout row class="mt-5 align-center justify-center">
+                            <v-btn small plain :disabled="testPrev2==true"  @click="changerPage2(pageCurrent2-1 )" style="margin: 0px 0px 20px ;">
+                                <v-icon X large>
+                                    mdi-chevron-left
+                                </v-icon>
+                            </v-btn>
+                            <v-btn small plain :disabled="testNext2==true"  @click="changerPage2(pageCurrent2+1)" style="margin: 0px 0px 20px ;">
+                                <v-icon X large>
+                                    mdi-chevron-right
+                                </v-icon>
+                            </v-btn>
+                        </v-layout>
                         <v-layout row wrap>
-                            <v-flex v-for="i in 3"
-                                :key="i" xl4 md4 lg4 sm6 xs12>
+                            <v-flex v-for="service in servicesVerified"
+                                :key="service.id" xl4 md4 lg4 sm6 xs12>
                                 <v-card
                                 :loading="loading"
                                 class="mx-auto my-12"
@@ -197,43 +228,43 @@
                                     4.5 (413)
                                     </div>
                                 </v-row>
-                                <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+                                <div>Village Name</div>
                                 </v-card-text>
 
                                 <v-divider class="mx-4"></v-divider>
 
-                                <v-card-title>Schedule and prices</v-card-title>
-
-                                <v-layout row>
-                                    <v-flex class="ml-4">
-                                        <v-card-text>
-                                            schedule
-                                        </v-card-text>
-                                    </v-flex>
-                                    <v-flex>
-                                        <v-card-text>
-                                            prices
-                                        </v-card-text>
-                                    </v-flex>
-                                </v-layout>
-
+                                <v-card-title>prices</v-card-title>
+                                <div class="price"></div>
                                 <v-card-actions>
                                 <v-btn
                                     color="deep-purple lighten-2"
                                     text
                                     
                                 >
-                                    Reserve
+                                    Plus
                                 </v-btn>
                                 </v-card-actions>
-                                </v-card>
+                            </v-card>
                             </v-flex>
                         </v-layout>
-                        
+                        <v-layout row class="mt-5 align-center justify-center">
+                            <v-btn small plain :disabled="testPrev2==true"  @click="changerPage(pageCurrent2-1 )" style="margin: 0px 0px 20px ;">
+                                <v-icon X large>
+                                    mdi-chevron-left
+                                </v-icon>
+                            </v-btn>
+                            <v-btn small plain :disabled="testNext2==true"  @click="changerPage(pageCurrent2+1)" style="margin: 0px 0px 20px ;">
+                                <v-icon X large>
+                                    mdi-chevron-right
+                                </v-icon>
+                            </v-btn>
+                        </v-layout>
                     </div>
                 </div>
                 <!-- ---------------------------------------- /verified div------------------------------  -->
         </v-container>
+        </div>
+        
     </div>
 </template>
 <script>
@@ -245,24 +276,37 @@ export default {
     this.getVillages();
     this.getCategories();
     this.getServiceRaiting();
+    this.getServiceVerified();
 },
     data(){
         return{
             categories:[],
             page:1,
             pageCurrent:0,
-            per_page:5,
+            per_page:7,
             countPage:[],
             testNext:true,
             testPrev:true,
             loading:false,
             servicesRaiting:[], 
+            servicesVerified:[], 
             village_id:0,
             search:0,
-            pageCurrent:0,
-            per_page:7,
             villages:[],
             villagesNames:[],
+            loader: true,
+            page1:1,
+            pageCurrent1:0,
+            per_page1:3,
+            countPage1:[],
+            testNext1:true,
+            testPrev1:true,
+            page2:1,
+            pageCurrent2:0,
+            per_page2:3,
+            countPage2:[],
+            testNext2:true,
+            testPrev2:true,
         }
     },
     methods:{
@@ -284,18 +328,52 @@ export default {
             this.pageCurrent=num;
             this.getCategories();
         },
+        changerPage(num){
+            if(num<0){
+            num=0;
+            }
+            this.pageCurrent1=num;
+            this.getServiceRaiting();
+        },
+        changerPage2(num){
+            if(num<0){
+            num=0;
+            }
+            this.pageCurrent2=num;
+            this.getServiceVerified();
+        },
         getServiceRaiting(){
+            
             if(this.search==0){
                 this.village_id=0;
             }else{
                 this.village_id=this.villagesNames.indexOf(this.search)+1;
-                console.log(this.villagesNames.indexOf(this.search)+"ghassen");
             }
-            ServiceServices.getServiceRaiting(this.pageCurrent,this.village_id,this.per_page).then((res)=>{
-                this.countPage=res.data.count_page;
+            ServiceServices.getServiceRaiting(this.pageCurrent1,this.village_id,this.per_page1).then((res)=>{
+                this.countPage1=res.data.count_page;
                 this.servicesRaiting=res.data.service.content;
-                console.log(this.servicesRaiting.length);
-                this.pageCurrent=res.data.page;
+                this.pageCurrent1=res.data.page;
+                this.testNext1=res.data.service.last;
+                this.testPrev1=res.data.service.first;
+                setTimeout(()=>this.loader=false,2000);
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        getServiceVerified(){
+            if(this.search==0){
+                this.village_id=0;
+            }else{
+                this.village_id=this.villagesNames.indexOf(this.search)+1;
+            }
+            ServiceServices.getServiceVerified(this.pageCurrent,this.village_id,this.per_page).then((res)=>{
+                this.countPage2=res.data.count_page;
+                this.servicesVerified=res.data.service.content;
+                console.log(this.servicesVerified);
+                this.pageCurrent2=res.data.page;
+                this.testNext2=res.data.service.last;
+                this.testPrev2=res.data.service.first;
+                setTimeout(()=>this.loader=false,2000);
             }).catch((err)=>{
                 console.log(err);
             })
@@ -331,5 +409,57 @@ li{
 li:hover{
     border-bottom: 3.5px solid #12c2b9;
     overflow: hidden;
+}
+.dots-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.dot {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+  background-color: #b3d4fc;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.dot:last-child {
+  margin-right: 0;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.3s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.1s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    background-color: #b3d4fc;
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: #12c2b9;
+    box-shadow: 0 0 0 10px rgba(178, 212, 252, 0);
+  }
+
+  100% {
+    transform: scale(0.8);
+    background-color: #b3d4fc;
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
 }
 </style>
