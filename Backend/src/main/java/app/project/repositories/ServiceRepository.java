@@ -23,8 +23,8 @@ public interface ServiceRepository  extends JpaRepository<Service, Long>{
 	@Query(value="select * from service order by raiting desc",nativeQuery=true)
 	Page<Service> getServiceRaiting(Pageable pageable );
 	
-	@Query(value="select * from service s,village v where s.id=v.id and v.village_name LIKE ? order by s.raiting desc",nativeQuery=true)
-	Page<Service> getServiceRaitingByVillage(String village,Pageable pageable);
+	@Query(value="select * from service where village_id=:village_id order by raiting desc",nativeQuery=true)
+	Page<Service> getServiceRaitingByVillage(Long village_id,Pageable pageable);
 	
 	
 	
