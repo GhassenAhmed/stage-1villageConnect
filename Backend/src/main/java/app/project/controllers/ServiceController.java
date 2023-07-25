@@ -54,6 +54,31 @@ public class ServiceController {
 
 	    }
 	 
+	 @GetMapping("/getServiceVerified")
+	    public ResponseEntity<?> getServiceVerified(
+	    		@RequestParam(name = "id",defaultValue = "0") Long village_id,
+	    		@RequestParam(name = "page", defaultValue = "0") int page,
+				@RequestParam(name = "per_page", defaultValue = "7") int size){
+	    	
+		 	
+	    	Page<Service> service;
+	    	if(village_id==0){
+	    		service=serviceRepository.getServiceVerified(PageRequest.of(page, size));
+	    		
+	    	}else {
+	    		service=serviceRepository.getServiceVerifiedByVillage(village_id,PageRequest.of(page, size));
+	    	}
+	    	int totale = service.getTotalPages();
+			int[] count_page = new int[totale];
+			for (int i = 0; i < totale; i++) {
+				count_page[i] = i;
+			}
+
+			DataService data=new DataService(count_page,service,page);
+			return ResponseEntity.ok(data);
+
+	    }
+	 
 	 @GetMapping("/getServiceCategorie")
 	 public ResponseEntity<?> getServiceCategorie(@RequestParam("id") Long id){
 		 List<Service> services = serviceRepository.getServiceCategorie(id);
