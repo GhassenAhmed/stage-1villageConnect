@@ -77,12 +77,12 @@
                 <div class="card">
                     <v-layout row class="mt-5 align-center justify-center">
                         <v-btn small plain :disabled="testPrev1==true"  @click="changerPage(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
-                            <v-icon X large>
+                            <v-icon X large color="#12c2b9">
                                 mdi-chevron-left
                             </v-icon>
                         </v-btn>
                         <v-btn small plain :disabled="testNext1==true"  @click="changerPage(pageCurrent1+1)" style="margin: 0px 0px 20px ;">
-                            <v-icon X large>
+                            <v-icon X large color="#12c2b9">
                                 mdi-chevron-right
                             </v-icon>
                         </v-btn>
@@ -110,8 +110,7 @@
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                             ></v-img>
 
-                            <v-card-title>Service Name</v-card-title>
-
+                            <v-card-title>{{service.serviceName}} - <span style="font-size: 15px;margin-left: 5px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
                             <v-card-text>
                             <v-row
                                 class="my-1 ml-1"
@@ -130,13 +129,13 @@
                                 4.5 (413)
                                 </div>
                             </v-row>
-                            <div>Village name</div>
+                            <div>{{service.village['villageName']}}</div>
                             </v-card-text>
 
                             <v-divider class="mx-4"></v-divider>
 
                             <v-card-title>prices</v-card-title>
-                            <div class="price"></div>
+                            <v-card-text>{{ service.minPrice }} - {{ service.maxPrice }}</v-card-text>
                             <v-card-actions>
                             <v-btn
                                 color="deep-purple lighten-2"
@@ -151,12 +150,12 @@
                     </v-layout>
                     <v-layout row class="mt-5 align-center justify-center">
                         <v-btn small plain :disabled="testPrev1==true"  @click="changerPage(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
-                            <v-icon X large>
+                            <v-icon X large color="#12c2b9">
                                 mdi-chevron-left
                             </v-icon>
                         </v-btn>
                         <v-btn small plain :disabled="testNext1==true"  @click="changerPage(pageCurrent1+1)" style="margin: 0px 0px 20px ;">
-                            <v-icon X large>
+                            <v-icon X large color="#12c2b9">
                                 mdi-chevron-right
                             </v-icon>
                         </v-btn>
@@ -175,12 +174,12 @@
                     <div class="card">
                         <v-layout row class="mt-5 align-center justify-center">
                             <v-btn small plain :disabled="testPrev2==true"  @click="changerPage2(pageCurrent2-1 )" style="margin: 0px 0px 20px ;">
-                                <v-icon X large>
+                                <v-icon X large color="#12c2b9">
                                     mdi-chevron-left
                                 </v-icon>
                             </v-btn>
                             <v-btn small plain :disabled="testNext2==true"  @click="changerPage2(pageCurrent2+1)" style="margin: 0px 0px 20px ;">
-                                <v-icon X large>
+                                <v-icon X large color="#12c2b9">
                                     mdi-chevron-right
                                 </v-icon>
                             </v-btn>
@@ -189,72 +188,71 @@
                             <v-flex v-for="service in servicesVerified"
                                 :key="service.id" xl4 md4 lg4 sm6 xs12>
                                 <v-card
-                                :loading="loading"
-                                class="mx-auto my-12"
-                                max-width="250"
-                            
-                                style="width: 300px;cursor: pointer;"
-                                >
-                                <template slot="progress">
-                                <v-progress-linear
-                                    color="deep-purple"
-                                    height="10"
-                                    indeterminate
-                                ></v-progress-linear>
-                                </template>
+                            :loading="loading"
+                            class="mx-auto my-12"
+                            max-width="250"
+                        
+                            style="width: 300px;cursor: pointer;"
+                            >
+                            <template slot="progress">
+                            <v-progress-linear
+                                color="deep-purple"
+                                height="10"
+                                indeterminate
+                            ></v-progress-linear>
+                            </template>
 
-                                <v-img
-                                height="200"
-                                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                                ></v-img>
+                            <v-img
+                            height="200"
+                            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                            ></v-img>
 
-                                <v-card-title>Service Name</v-card-title>
+                            <v-card-title style="font-size: 15px;font-weight: bold;">{{service.serviceName}} - <span style="font-size: 12px;margin-left: 4px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
+                            <v-card-text>
+                            <v-row
+                                class="my-1 ml-1"
+                                align="center"
+                            >
+                                <v-rating
+                                :value="4.5"
+                                color="amber"
+                                dense
+                                half-increments
+                                readonly
+                                size="14"
+                                ></v-rating>
 
-                                <v-card-text>
-                                <v-row
-                                    class="my-1 ml-1"
-                                    align="center"
-                                >
-                                    <v-rating
-                                    :value="4.5"
-                                    color="amber"
-                                    dense
-                                    half-increments
-                                    readonly
-                                    size="14"
-                                    ></v-rating>
+                                <div class="grey--text ms-4">
+                                4.5 (413)
+                                </div>
+                            </v-row>
+                            <div>{{service.village['villageName']}}</div>
+                            </v-card-text>
 
-                                    <div class="grey--text ms-4">
-                                    4.5 (413)
-                                    </div>
-                                </v-row>
-                                <div>Village Name</div>
-                                </v-card-text>
+                            <v-divider class="mx-4"></v-divider>
 
-                                <v-divider class="mx-4"></v-divider>
-
-                                <v-card-title>prices</v-card-title>
-                                <div class="price"></div>
-                                <v-card-actions>
-                                <v-btn
-                                    color="deep-purple lighten-2"
-                                    text
-                                    
-                                >
-                                    Plus
-                                </v-btn>
-                                </v-card-actions>
-                            </v-card>
+                            <v-card-title>prices</v-card-title>
+                            <v-card-text>{{ service.minPrice }} - {{ service.maxPrice }}</v-card-text>
+                            <v-card-actions>
+                            <v-btn
+                                color="deep-purple lighten-2"
+                                text
+                                
+                            >
+                                Plus
+                            </v-btn>
+                            </v-card-actions>
+                                </v-card>
                             </v-flex>
                         </v-layout>
                         <v-layout row class="mt-5 align-center justify-center">
                             <v-btn small plain :disabled="testPrev2==true"  @click="changerPage(pageCurrent2-1 )" style="margin: 0px 0px 20px ;">
-                                <v-icon X large>
+                                <v-icon X large color="#12c2b9">
                                     mdi-chevron-left
                                 </v-icon>
                             </v-btn>
                             <v-btn small plain :disabled="testNext2==true"  @click="changerPage(pageCurrent2+1)" style="margin: 0px 0px 20px ;">
-                                <v-icon X large>
+                                <v-icon X large color="#12c2b9">
                                     mdi-chevron-right
                                 </v-icon>
                             </v-btn>
