@@ -27,19 +27,21 @@ public class ServiceController {
 	@Autowired
 	VillageRepository villageRepository;
 	
+	
+	
 	 @GetMapping("/getServiceRaiting")
 	    public ResponseEntity<?> getServiceRaiting(
-	    		@RequestParam(name = "search",defaultValue = "") String village,
+	    		@RequestParam(name = "id",defaultValue = "0") Long village_id,
 	    		@RequestParam(name = "page", defaultValue = "0") int page,
 				@RequestParam(name = "per_page", defaultValue = "7") int size){
 	    	
 		 	
 	    	Page<Service> service;
-	    	if(village.isEmpty()){
+	    	if(village_id==0){
 	    		service=serviceRepository.getServiceRaiting(PageRequest.of(page, size));
 	    		
 	    	}else {
-	    		service=serviceRepository.getServiceRaitingByVillage(village,PageRequest.of(page, size));
+	    		service=serviceRepository.getServiceRaitingByVillage(village_id,PageRequest.of(page, size));
 	    	}
 	    	int totale = service.getTotalPages();
 			int[] count_page = new int[totale];
