@@ -257,7 +257,8 @@ export default {
             testPrev:true,
             loading:false,
             servicesRaiting:[], 
-            search:"",
+            village_id:0,
+            search:0,
             pageCurrent:0,
             per_page:7,
             villages:[],
@@ -284,10 +285,16 @@ export default {
             this.getCategories();
         },
         getServiceRaiting(){
-            ServiceServices.getServiceRaiting(this.pageCurrent,this.search,this.per_page).then((res)=>{
+            if(this.search==0){
+                this.village_id=0;
+            }else{
+                this.village_id=this.villagesNames.indexOf(this.search)+1;
+                console.log(this.villagesNames.indexOf(this.search)+"ghassen");
+            }
+            ServiceServices.getServiceRaiting(this.pageCurrent,this.village_id,this.per_page).then((res)=>{
                 this.countPage=res.data.count_page;
                 this.servicesRaiting=res.data.service.content;
-                console.log(this.servicesRaiting);
+                console.log(this.servicesRaiting.length);
                 this.pageCurrent=res.data.page;
             }).catch((err)=>{
                 console.log(err);
