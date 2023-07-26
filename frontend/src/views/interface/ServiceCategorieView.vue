@@ -174,74 +174,60 @@
                 <v-flex  v-for="service in services" xl4 md4 lg4 sm6 xs12
                     :key="service.id">
                     <v-card
-                    :loading="loading"
-                    class="mx-auto my-12"
-                    max-width="250"
-                
-                    style="width: 300px;cursor: pointer;"
-                    >
-                    <template slot="progress">
-                    <v-progress-linear
-                        color="deep-purple"
-                        height="10"
-                        indeterminate
-                    ></v-progress-linear>
-                    </template>
+                            :loading="loading"
+                            class="mx-auto my-12"
+                            max-width="250"
+                        
+                            style="width: 300px;cursor: pointer;"
+                            >
+                            <template slot="progress">
+                            <v-progress-linear
+                                color="deep-purple"
+                                height="10"
+                                indeterminate
+                            ></v-progress-linear>
+                            </template>
 
-                    <v-img
-                    height="200"
-                    src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                    ></v-img>
+                            <v-img
+                            height="200"
+                            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                            ></v-img>
 
-                    <v-card-title>Service Name</v-card-title>
-
-                    <v-card-text>
-                    <v-row
-                        class="my-1 ml-1"
-                        align="center"
-                    >
-                        <v-rating
-                        :value="4.5"
-                        color="amber"
-                        dense
-                        half-increments
-                        readonly
-                        size="14"
-                        ></v-rating>
-
-                        <div class="grey--text ms-4">
-                        4.5 (413)
-                        </div>
-                    </v-row>
-                    <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
-                    </v-card-text>
-
-                    <v-divider class="mx-4"></v-divider>
-
-                    <v-card-title>Schedule and prices</v-card-title>
-
-                    <v-layout row>
-                        <v-flex class="ml-4">
+                            <v-card-title style="font-size: 15px;font-weight: bold;">{{service.serviceName}} - <span style="font-size: 12px;margin-left: 4px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
                             <v-card-text>
-                                schedule
-                            </v-card-text>
-                        </v-flex>
-                        <v-flex>
-                            <v-card-text>
-                                prices
-                            </v-card-text>
-                        </v-flex>
-                    </v-layout>
+                            <v-row
+                                class="my-1 ml-1"
+                                align="center"
+                            >
+                                <v-rating
+                                :value="4.5"
+                                color="amber"
+                                dense
+                                half-increments
+                                readonly
+                                size="14"
+                                ></v-rating>
 
-                    <v-card-actions>
-                    <v-btn
-                        color="deep-purple lighten-2"
-                        text
-                        @click="reserve"
-                    >
-                        Reserve
-                    </v-btn>
-                    </v-card-actions>
+                                <div class="grey--text ms-4">
+                                4.5 (413)
+                                </div>
+                            </v-row>
+                            <div>{{service.village['villageName']}}</div>
+                            </v-card-text>
+
+                            <v-divider class="mx-4"></v-divider>
+
+                            <v-card-title>prices</v-card-title>
+                            <v-card-text>{{ service.minPrice }} - {{ service.maxPrice }}</v-card-text>
+                            <v-card-actions class="justify-center">
+                            <v-btn
+                                color="deep-purple lighten-1"
+                                text
+                                
+                            >
+                                Plus
+                            </v-btn>
+                            </v-card-actions>
                     </v-card>
                 </v-flex>
             </v-layout>     
