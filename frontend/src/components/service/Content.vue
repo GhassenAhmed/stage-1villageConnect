@@ -76,12 +76,12 @@
                 </div>
                 <div class="card">
                     <v-layout row class="mt-5 align-center justify-center">
-                        <v-btn small plain :disabled="testPrev1==true"  @click="changerPage(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
+                        <v-btn small plain :disabled="testPrev1==true"  @click="changerPage1(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
                             <v-icon X large color="#12c2b9">
                                 mdi-chevron-left
                             </v-icon>
                         </v-btn>
-                        <v-btn small plain :disabled="testNext1==true"  @click="changerPage(pageCurrent1+1)" style="margin: 0px 0px 20px ;">
+                        <v-btn small plain :disabled="testNext1==true"  @click="changerPage1(pageCurrent1+1)" style="margin: 0px 0px 20px ;">
                             <v-icon X large color="#12c2b9">
                                 mdi-chevron-right
                             </v-icon>
@@ -149,12 +149,12 @@
                         </v-flex>   
                     </v-layout>
                     <v-layout row class="mt-5 align-center justify-center">
-                        <v-btn small plain :disabled="testPrev1==true"  @click="changerPage(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
+                        <v-btn small plain :disabled="testPrev1==true"  @click="changerPage1(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
                             <v-icon X large color="#12c2b9">
                                 mdi-chevron-left
                             </v-icon>
                         </v-btn>
-                        <v-btn small plain :disabled="testNext1==true"  @click="changerPage(pageCurrent1+1)" style="margin: 0px 0px 20px ;">
+                        <v-btn small plain :disabled="testNext1==true"  @click="changerPage1(pageCurrent1+1)" style="margin: 0px 0px 20px ;">
                             <v-icon X large color="#12c2b9">
                                 mdi-chevron-right
                             </v-icon>
@@ -326,7 +326,7 @@ export default {
             this.pageCurrent=num;
             this.getCategories();
         },
-        changerPage(num){
+        changerPage1(num){
             if(num<0){
             num=0;
             }
