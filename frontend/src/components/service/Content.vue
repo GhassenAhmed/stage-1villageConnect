@@ -129,13 +129,13 @@
                                 4.5 (413)
                                 </div>
                             </v-row>
-                            <div>{{service.village['villageName']}}</div>
+                            <div><img src="../../assets/emplacement.png" alt="" width="20px" class="mr-2 mt-1">{{service.village['villageName']}}</div>
                             </v-card-text>
 
                             <v-divider class="mx-4"></v-divider>
 
-                            <v-card-title>prices</v-card-title>
-                            <v-card-text>{{ service.minPrice }} - {{ service.maxPrice }}</v-card-text>
+                            <v-card-title><img src="../../assets/money-management.png" alt="" width="30px" class="mr-2 mt-1">Prix range</v-card-title>
+                            <v-card-text>{{ service.minPrice }} DT - {{ service.maxPrice }} DT</v-card-text>
                             <v-card-actions class="justify-center">
                             <v-btn
                                 color="deep-purple lighten-1"
@@ -207,7 +207,7 @@
                             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
                             ></v-img>
 
-                            <v-card-title style="font-size: 15px;font-weight: bold;">{{service.serviceName}} - <span style="font-size: 12px;margin-left: 4px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
+                            <v-card-title>{{service.serviceName}} - <span style="font-size: 15px;margin-left: 5px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
                             <v-card-text>
                             <v-row
                                 class="my-1 ml-1"
@@ -226,13 +226,13 @@
                                 4.5 (413)
                                 </div>
                             </v-row>
-                            <div>{{service.village['villageName']}}</div>
+                            <div><img src="../../assets/emplacement.png" alt="" width="20px" class="mr-2 mt-1">{{service.village['villageName']}}</div>
                             </v-card-text>
 
                             <v-divider class="mx-4"></v-divider>
 
-                            <v-card-title>prices</v-card-title>
-                            <v-card-text>{{ service.minPrice }} - {{ service.maxPrice }}</v-card-text>
+                            <v-card-title><img src="../../assets/money-management.png" alt="" width="30px" class="mr-2 mt-1">Prix range</v-card-title>
+                            <v-card-text>{{ service.minPrice }} DT - {{ service.maxPrice }} DT</v-card-text>
                             <v-card-actions class="justify-center">
                             <v-btn
                                 color="deep-purple lighten-1"
