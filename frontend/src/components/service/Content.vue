@@ -136,9 +136,9 @@
 
                             <v-card-title>prices</v-card-title>
                             <v-card-text>{{ service.minPrice }} - {{ service.maxPrice }}</v-card-text>
-                            <v-card-actions>
+                            <v-card-actions class="justify-center">
                             <v-btn
-                                color="deep-purple lighten-2"
+                                color="deep-purple lighten-1"
                                 text
                                 
                             >
@@ -233,9 +233,9 @@
 
                             <v-card-title>prices</v-card-title>
                             <v-card-text>{{ service.minPrice }} - {{ service.maxPrice }}</v-card-text>
-                            <v-card-actions>
+                            <v-card-actions class="justify-center">
                             <v-btn
-                                color="deep-purple lighten-2"
+                                color="deep-purple lighten-1"
                                 text
                                 
                             >
