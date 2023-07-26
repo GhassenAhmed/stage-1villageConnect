@@ -7,13 +7,16 @@
             <v-toolbar-title class="text-center-sm hidden-sm-and-down" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
                     <v-autocomplete
                     :items="villagesNames"
-                    v-model="villageName"
+                    v-model="search"
                     filled
                     rounded
                     style="height: 60px;max-width: auto;"
                     class="ml-lg-14 ml-md-12 ml-sm-10" 
                     >
-                </v-autocomplete>
+                    </v-autocomplete>
+                    <v-btn plain class="ml-3 mt-1" @click="getServiceCategorie()">
+                        <v-icon X large size="50">mdi-magnify</v-icon>
+                    </v-btn>
                     <v-spacer></v-spacer>
             
             <v-btn icon class="hidden-sm-and-down" to="/home">
@@ -275,6 +278,7 @@ export default {
             drawer: false,
             villages:[],
             villagesNames:[],
+            search:0,
             categories:[],
             loading: false,
             selection: 1,
@@ -293,8 +297,13 @@ export default {
                 if(res.data==false){
                     this.services=null;
                 }else{
+
                     this.services=res.data;
                     this.categorieName=this.services[0].categorie['categorieName'];
+                    if(this.search!=0){
+                        this.village_id=this.villagesNames.indexOf(this.search)+1;
+                         this.services = this.services.filter((item) => item.village.id === this.village_id);
+                    }
                 }
             }).catch((err)=>{
                 console.log(err);
