@@ -37,9 +37,6 @@ public class Service implements Serializable {
 	@ColumnDefault(value="null")
 	private String thumbnailUrl;
 	
-	
-	private  int hiredCount;
-	private boolean isOnline;
 	private int yearsInBusiness;
 	
 	
@@ -56,9 +53,10 @@ public class Service implements Serializable {
 	private String Description;
 	@ColumnDefault(value="false")
 	private boolean isBackgroundVerified;
-	private boolean isHomeService;
 	private String adresse;
 	
+	@ColumnDefault(value="0")
+	private boolean status;
 	@CreationTimestamp
 	private Timestamp created_at;
 	@UpdateTimestamp
