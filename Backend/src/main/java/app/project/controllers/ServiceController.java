@@ -1,6 +1,9 @@
 package app.project.controllers;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +12,20 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.project.entities.Categorie;
 import app.project.entities.Service;
+import app.project.entities.User;
+import app.project.entities.Village;
 import app.project.parametre.DataService;
+import app.project.repositories.CategorieRepository;
 import app.project.repositories.ServiceRepository;
 import app.project.repositories.VillageRepository;
+import app.project.services.UserService;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -27,7 +37,14 @@ public class ServiceController {
 	@Autowired
 	VillageRepository villageRepository;
 	
+	@Autowired
+	UserService userService;
 	
+	@Autowired
+	CategorieRepository categorieRepository;
+	
+	@Autowired
+	VillageRepository VillageRepository;
 	
 	 @GetMapping("/getServiceRaiting")
 	    public ResponseEntity<?> getServiceRaiting(
@@ -86,6 +103,25 @@ public class ServiceController {
 			 return ResponseEntity.ok(false);
 		 }
 		 return ResponseEntity.ok(services);
+	 }
+	 
+	 @GetMapping("/createService")
+	 public ResponseEntity<?> createService(@RequestBody Service service,HttpServletRequest request,@RequestParam("categorie_id") Long categorie_id,@RequestParam("village_id") Long village_id){
+		 User user = userService.UserAuth(request);
+		 Categorie categorie=categorieRepository.findCategorieById(categorie_id);
+		 Village village = villageRepository.findVillageById(village_id);
+		 Service newService=new Service();
+		 newService.setServiceName(service.getServiceName());
+		 newService.setDescription(service.getDescription());
+		 newService.setAdresse(service.getAdresse());
+		 newService.setMinPrice(service.getMinPrice());
+		 newService.setMaxPrice(service.getMaxPrice());
+		 newService.setThumbnailUrl(service.getThumbnailUrl());
+		 newService.setYearsInBusiness(service.getYearsInBusiness());
+		 newService.setPhoto(service.getPhoto());
+		 newService.setCategorie(categorie);
+		 newService.setVillage(village);
+		 return ResponseEntity.ok(user);
 	 }
 	 
 
