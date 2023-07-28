@@ -1,5 +1,7 @@
 package app.project.services;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +14,8 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	
+	 @Autowired
+	private app.project.jwt.jwtTokenUtil  jwtTokenUtil;
 	
 	public User getByEmail(String email) {
 		 try {
@@ -24,5 +27,14 @@ public class UserService {
 		 
 	  }
 	
+	// Get User Authentifie
+    
+    public User UserAuth(HttpServletRequest request) {
+    	 //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	 final String requestTokenHeader=request.getHeader("Authorization");
+    	 String jwtToken=requestTokenHeader.substring(7);
+    	 String username=jwtTokenUtil.getUsernameFromToken(jwtToken);
+    	 return userRepository.getUserByEmail2(username);
+    }
 	
 }
