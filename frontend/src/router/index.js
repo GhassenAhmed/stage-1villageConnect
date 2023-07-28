@@ -5,6 +5,7 @@ import SignUpView from "@/views/authentification/SignUpView.vue"
 import LogInView from "@/views/authentification/LogInView.vue"
 import ServiceView from "@/views/interface/ServiceView.vue";
 import ServiceCategorieView from "@/views/interface/ServiceCategorieView.vue";
+import CreateServiceView from "@/views/seviceProvider/CreateServiceView.vue";
 Vue.use(VueRouter)
 
 const routes = [
@@ -39,6 +40,12 @@ const routes = [
     path: '/service',
     name: 'service',
     component: ServiceView
+  },
+
+  {
+    path: '/createService',
+    name: 'createService',
+    component: CreateServiceView
   },
 ]
 
