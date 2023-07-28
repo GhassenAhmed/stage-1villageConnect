@@ -137,10 +137,119 @@
             </v-list-item>
             </v-list>
             </v-navigation-drawer>
+
+            <v-container fluid class="mt-5">
+                <v-layout row wrap class="ma-5">
+                    <v-flex xl4 md4 lg4 sm12 xs12>
+                        <p style="font-size: 25px;font-weight: bold;color: rgb(57, 56, 56);">Veuillez remplir tous les champs</p>
+                        <p style="margin-top: 20px;font-size: 25px;font-weight: bold;font-weight: bold;color: rgb(57, 56, 56);">obligatoires...</p>
+                        <img src="../../assets/form.png" alt="" width="350px">
+                    </v-flex>
+                    <v-flex xl8 md8 lg8 sm12 xs12>
+                        <div class="form" style="margin-left: 15%;margin-right: 10%;overflow-y: scroll;height: 70vh;">
+                            <div class="header d-flex pa-1" style="background-color: #F0F4FF;color: #284389;">
+                                <v-icon color="#284389">mdi-arrow-right-thick</v-icon><p style="font-size: 20px;margin-top: 14px;margin-left: 15px;">Soyez concis et direct.</p>
+                            </div>
+                            <form action="" class="mt-5" enctype="multipart/form-data">
+                                <div class="nom mb-4 mt-4">
+                                    <span>Donnez un titre bref à votre service. *</span>
+                                    <v-text-field
+                                    v-model="serviceName"
+                                    label="Nom du service"
+                                    required
+                                    ></v-text-field>
+                                </div>
+
+                                <div class="description mb-4 mt-4">
+                                    <span>Donnez un titre bref à votre service. *</span>
+                                    <v-textarea
+                                    v-model="description"
+                                    label="Description"
+                                    required
+                                    
+                                    ></v-textarea>
+                                </div>
+                                
+                                <div class="adresse mb-4 mt-4">
+                                    <span>Donnez votre precise adresse. *</span>
+                                    <v-text-field
+                                    v-model="adresse"
+                                    label="Adresse"
+                                    required
+                                    
+                                    ></v-text-field>
+                                </div>
+
+                                <div class="Categorie mb-4 mt-4">
+                                    <span>Choisir categorie. *</span>
+                                    <v-select
+                                    :items="villagesNames"
+                                    label="Choisir categorie"
+                                    ></v-select>
+                                </div>
+
+                                <div class="village mb-4 mt-4">
+                                    <span>Choisir village. *</span>
+                                    <v-select
+                                    :items="categories"
+                                    label="Choisir village"
+                                    ></v-select>
+                                </div>
+
+                                <div class="Maximum-prix mb-4 mt-4">
+                                    <span>Maximum prix.</span>
+                                    <v-text-field
+                                    v-model="maxPrice"
+                                    label="Maximum prix"
+                                    value="0"
+                                    prefix="$"
+                                    ></v-text-field>
+                                </div>
+
+                                <div class="Minimum-prix mb-4 mt-4">
+                                    <span>Minimum prix.</span>
+                                    <v-text-field
+                                    v-model="minPrice"
+                                    label="Minimum prix"
+                                    value="0"
+                                    prefix="$"
+                                    ></v-text-field>
+                                </div>
+                                
+                                <div class="lien mb-4 mt-4">
+                                    <span>Lien. </span>
+                                    <v-text-field
+                                    v-model="thumbnailUrl"
+                                    label="Http//...."
+                                    required
+                                    
+                                    ></v-text-field>
+                                </div>
+
+                                <div class="years mb-4 mt-4">
+                                    <span>Années d'expérience. </span>
+                                    <v-text-field
+                                    v-model="yearsInBusiness"
+                                    required
+                                    prefix="Ans"
+                                    ></v-text-field>
+                                </div>  
+
+                                <div class="photo mb-4 mt-4">
+                                    <span>Photo du votre service. </span>
+                                    <input type="file" name="photo" @change="base64()">
+                                </div>  
+                            </form>
+                        </div>
+                    </v-flex>
+                </v-layout>
+            </v-container>
     </div>
 </template>
 <script>
 import { AuthUser } from "@/store/AuthStore";
+import VillageServices from "@/services/VillageServices";
+import CategorieServices from '@/services/CategorieServices';
 export default {
     setup(){
         const store=AuthUser();
@@ -148,13 +257,69 @@ export default {
             store
         }
     },
+    created(){
+        this.getVillages();
+        this.getCategories();
+    },
     data(){
         return{
             drawer: false,
+            villages:[],
+            villagesNames:[],
+            categories:[],
+            service:{
+                serviceName:"",
+                description:"",
+                adresse:"",
+                maxPrice:0,
+                minPrice:0,
+                thumbnailUrl:"",
+                isBackgroundVerified:0,
+                photo:"",
+                yearsInBusiness:null,
+
+
+            }
+
         }
+    },
+    methods:{
+        base64(){
+            const file = document.querySelector("#file").files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => {
+               this.form.photo = reader.result;
+           };
+           reader.readAsDataURL(file);
+        },
+        getVillages(){
+        VillageServices.getAllVillages().then((res)=>{
+            this.villages=res.data;
+            for(let i=0 ;i<this.villages.length;i++){
+                this.villagesNames.push(this.villages[i].villageName)
+            }
+        }).catch((err)=>{
+            console.log(err);
+        })
+   },
+   getCategories(){
+            CategorieServices.getAll().then((res)=>{
+                this.categories=res.data;
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
     }
 }
 </script>
 <style scoped>
-
+*{
+    font-family:cursive;
+    scroll-behavior: smooth;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+.form,span{
+    color:#284389;
+}
 </style>
