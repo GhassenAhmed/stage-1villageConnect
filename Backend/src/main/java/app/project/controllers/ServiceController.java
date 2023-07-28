@@ -106,7 +106,7 @@ public class ServiceController {
 	 }
 	 
 	 @GetMapping("/createService")
-	 public ResponseEntity<?> createService(@RequestBody Service service,HttpServletRequest request,@RequestParam("categorie_id") Long categorie_id,@RequestParam("village_id") Long village_id){
+	 public ResponseEntity<?> createService(HttpServletRequest request,@RequestBody Service service,@RequestParam("categorie_id") Long categorie_id,@RequestParam("village_id") Long village_id){
 		 User user = userService.UserAuth(request);
 		 Categorie categorie=categorieRepository.findCategorieById(categorie_id);
 		 Village village = villageRepository.findVillageById(village_id);
@@ -121,6 +121,7 @@ public class ServiceController {
 		 newService.setPhoto(service.getPhoto());
 		 newService.setCategorie(categorie);
 		 newService.setVillage(village);
+		 newService.setUser(user);
 		 return ResponseEntity.ok(user);
 	 }
 	 
