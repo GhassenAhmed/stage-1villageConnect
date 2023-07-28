@@ -9,6 +9,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,7 +106,7 @@ public class ServiceController {
 		 return ResponseEntity.ok(services);
 	 }
 	 
-	 @GetMapping("/createService")
+	 @PostMapping("/createService")
 	 public ResponseEntity<?> createService(HttpServletRequest request,@RequestBody Service service,@RequestParam("categorie_id") Long categorie_id,@RequestParam("village_id") Long village_id){
 		 User user = userService.UserAuth(request);
 		 Categorie categorie=categorieRepository.findCategorieById(categorie_id);
@@ -122,7 +123,8 @@ public class ServiceController {
 		 newService.setCategorie(categorie);
 		 newService.setVillage(village);
 		 newService.setUser(user);
-		 return ResponseEntity.ok(user);
+		 serviceRepository.save(newService);
+		 return new ResponseEntity<>(newService,HttpStatus.OK);
 	 }
 	 
 
