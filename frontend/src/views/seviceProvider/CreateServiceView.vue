@@ -143,10 +143,10 @@
                     <v-flex xl4 md4 lg4 sm12 xs12>
                         <p style="font-size: 25px;font-weight: bold;color: rgb(57, 56, 56);">Veuillez remplir tous les champs</p>
                         <p style="margin-top: 20px;font-size: 25px;font-weight: bold;font-weight: bold;color: rgb(57, 56, 56);">obligatoires...</p>
-                        <img src="../../assets/form.png" alt="" width="350px">
+                        <img src="../../assets/form.png" alt="" width="350px" class="hidden-sm-and-down">
                     </v-flex>
                     <v-flex xl8 md8 lg8 sm12 xs12>
-                        <div class="form" style="margin-left: 15%;margin-right: 10%;overflow-y: scroll;height: 70vh;">
+                        <div class="form" style="margin-left: 5%;margin-right: 5%;overflow-y: scroll;height: 70vh;">
                             <div class="header d-flex pa-1" style="background-color: #F0F4FF;color: #284389;">
                                 <v-icon color="#284389">mdi-arrow-right-thick</v-icon><p style="font-size: 20px;margin-top: 14px;margin-left: 15px;">Soyez concis et direct.</p>
                             </div>
@@ -154,7 +154,7 @@
                                 <div class="nom mb-4 mt-4">
                                     <span>Donnez un titre bref à votre service. *</span>
                                     <v-text-field
-                                    v-model="serviceName"
+                                    v-model="form.serviceName"
                                     label="Nom du service"
                                     required
                                     ></v-text-field>
@@ -163,7 +163,7 @@
                                 <div class="description mb-4 mt-4">
                                     <span>Donnez un titre bref à votre service. *</span>
                                     <v-textarea
-                                    v-model="description"
+                                    v-model="form.description"
                                     label="Description"
                                     required
                                     
@@ -173,7 +173,7 @@
                                 <div class="adresse mb-4 mt-4">
                                     <span>Donnez votre precise adresse. *</span>
                                     <v-text-field
-                                    v-model="adresse"
+                                    v-model="form.adresse"
                                     label="Adresse"
                                     required
                                     
@@ -183,7 +183,7 @@
                                 <div class="Categorie mb-4 mt-4">
                                     <span>Choisir categorie. *</span>
                                     <v-select
-                                    :items="villagesNames"
+                                    :items="categorieNames"
                                     label="Choisir categorie"
                                     ></v-select>
                                 </div>
@@ -191,7 +191,7 @@
                                 <div class="village mb-4 mt-4">
                                     <span>Choisir village. *</span>
                                     <v-select
-                                    :items="categories"
+                                    :items="villagesNames"
                                     label="Choisir village"
                                     ></v-select>
                                 </div>
@@ -199,7 +199,7 @@
                                 <div class="Maximum-prix mb-4 mt-4">
                                     <span>Maximum prix.</span>
                                     <v-text-field
-                                    v-model="maxPrice"
+                                    v-model="form.maxPrice"
                                     label="Maximum prix"
                                     value="0"
                                     prefix="$"
@@ -209,7 +209,7 @@
                                 <div class="Minimum-prix mb-4 mt-4">
                                     <span>Minimum prix.</span>
                                     <v-text-field
-                                    v-model="minPrice"
+                                    v-model="form.minPrice"
                                     label="Minimum prix"
                                     value="0"
                                     prefix="$"
@@ -219,7 +219,7 @@
                                 <div class="lien mb-4 mt-4">
                                     <span>Lien. </span>
                                     <v-text-field
-                                    v-model="thumbnailUrl"
+                                    v-model="form.thumbnailUrl"
                                     label="Http//...."
                                     required
                                     
@@ -229,7 +229,7 @@
                                 <div class="years mb-4 mt-4">
                                     <span>Années d'expérience. </span>
                                     <v-text-field
-                                    v-model="yearsInBusiness"
+                                    v-model="form.yearsInBusiness"
                                     required
                                     prefix="Ans"
                                     ></v-text-field>
@@ -237,7 +237,7 @@
 
                                 <div class="photo mb-4 mt-4">
                                     <span>Photo du votre service. </span>
-                                    <input type="file" name="photo" @change="base64()">
+                                    <input type="file" name="form.photo" @change="base64()">
                                 </div>  
                             </form>
                         </div>
@@ -267,7 +267,8 @@ export default {
             villages:[],
             villagesNames:[],
             categories:[],
-            service:{
+            categorieNames:[],
+            form:{
                 serviceName:"",
                 description:"",
                 adresse:"",
@@ -277,9 +278,9 @@ export default {
                 isBackgroundVerified:0,
                 photo:"",
                 yearsInBusiness:null,
-
-
-            }
+            },
+            categorie_id:"",
+            village_id:""
 
         }
     },
@@ -305,6 +306,10 @@ export default {
    getCategories(){
             CategorieServices.getAll().then((res)=>{
                 this.categories=res.data;
+                for(let i=0 ;i<this.categories.length;i++){
+                this.categorieNames.push(this.categories[i].categorieName)
+            }
+                
             }).catch((err)=>{
                 console.log(err);
             })
