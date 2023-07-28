@@ -33,7 +33,7 @@
         <v-container style="margin-top: 50px;">
             <p style="font-size: 30px;padding-left:  50px;font-weight: bold;">Salut,ghassen</p>
             <div class="introduction" style="border: 0.1mm solid #CFD0D3; height: auto;border-radius: 10px;padding: 30px 25px 20px 30px;">
-                <v-layout  row wrap class="">
+                <v-layout  row wrap>
                     <v-flex>
                         <v-layout row wrap>
                             <v-flex class="d-flex justify-center align-center"> 
@@ -41,11 +41,13 @@
                             </v-flex>
                             <v-flex class="pa-5 mt-xs-0">
                                 <p style="font-weight: bold;margin-bottom: 5px;font-size: 20px;"> Découvrez les services de votre village.</p>
-                                <p style="font-weight: normal;font-size: 18px;">Ajoutez vos services et créez votre propre portfolio.</p>
+                                <p class="mt-sm-3" style="font-weight: normal;font-size: 18px;">Ajoutez vos services et créez votre propre portfolio.</p>
+                            </v-flex>
+                            <v-flex class="pa-5 mt-xs-0 float-xl-end d-flex justify-center align-center">
+                                <v-btn large text class="mt-3 justify-center align-center" style="width: auto;color: #ffffff; background-color: #12c2b9;" to="/createService">Creer service <v-icon class="ml-3">mdi-plus-circle-outline</v-icon></v-btn>
                             </v-flex>
                         </v-layout>  
                     </v-flex>
-                    <v-flex></v-flex>
                 </v-layout>
             </div>
         </v-container>
