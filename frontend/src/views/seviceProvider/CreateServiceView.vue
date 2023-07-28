@@ -7,8 +7,6 @@
                 <v-toolbar-title class="text-center-sm" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
                         
                         <v-spacer></v-spacer>
-                
-                
                 <v-btn icon class="hidden-sm-and-down">
                     <v-icon   X Small >
                         mdi-bell-outline
