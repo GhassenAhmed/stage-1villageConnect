@@ -12,5 +12,10 @@ public interface CategorieRepository  extends JpaRepository<Categorie, Long>{
 	
 	@Query(value="select * from Categorie",nativeQuery=true)
 	List<Categorie> getAllCategories();
+	
+	
+	@Query(value="select * from Categorie where id=:",nativeQuery=true)
+     Categorie findCategorieById(Long id);
+	
 
 }
