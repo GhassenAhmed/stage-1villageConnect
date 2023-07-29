@@ -77,8 +77,6 @@ public class User implements Serializable{
 	inverseJoinColumns = @javax.persistence.JoinColumn(name ="role_id"))
 	private List<Role> roles;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="service_id",referencedColumnName = "id")
-	private Service service;
+	
 
 }
