@@ -4,7 +4,7 @@
             <v-toolbar flat class="toolbar">
                     
                 <v-toolbar-title>
-                        <img src="../../assets/logo.png" id="logo-nav" width="220px">
+                        <img src="../../assets/logo.png" id="logo-nav" width="200px">
                 </v-toolbar-title>
                     
                         
@@ -56,12 +56,12 @@
                                     </v-list-item>
                                     <v-list-item>
                                         <v-list-item-title>
-                                            <v-btn color="#7b88d1" class="hidden-md-and-up"><span><router-link to="/signup" style="color:#0c1a22;">Inscrire</router-link></span></v-btn>
+                                            <v-btn color="#7b88d1" class="hidden-md-and-up"><span><router-link to="/login" style="color:#0c1a22;">Inscrire</router-link></span></v-btn>
                                         </v-list-item-title>
                                     </v-list-item>
                                 </v-list>
                             </v-menu>
-                            <router-link to="/signup" style="color:#0c1a22;"> <button class="sign-btn hidden-sm-and-down" > <span>Inscrire</span></button></router-link>
+                            <router-link to="/login" style="color:#0c1a22;"> <button class="sign-btn hidden-sm-and-down" > <span>Inscrire</span></button></router-link>
                 
             </v-toolbar>
         </div>
@@ -82,7 +82,7 @@ export default {
             {title:'Categories',icon:'mdi-account-group-outline',tooltip:'Regroupement, organisation',to:"#categorie"},
             {title:'A Propos',icon:'mdi-shape-circle-plus',tooltip:'En savoir plus sur nous',to:"#about"}
         ],
-        route:"/signup"
+        route:"/login"
         }
     },  
     methods:{
