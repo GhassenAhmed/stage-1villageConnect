@@ -266,13 +266,15 @@
 
                     <v-snackbar
                     v-model="snackbar"
+                    color="success"
+                    outlined
                     :vertical="vertical"
                     >
                     {{ text }}
 
                     <template v-slot:action="{ attrs }">
                         <v-btn
-                        color="indigo"
+                        color="red"
                         text
                         v-bind="attrs"
                         @click="snackbar = false"
@@ -303,7 +305,7 @@ export default {
     },
     data(){
         return{
-            snackbar: false,
+            snackbar: true,
             text: 'Votre service a ete creer ,SVP attend l administrateur pour l accepter ',
             vertical: true,
             drawer: false,
