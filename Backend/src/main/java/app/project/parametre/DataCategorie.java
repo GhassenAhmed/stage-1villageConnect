@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DataCategorie {
-
+	
 	private int[] count_page;
 	private Page<app.project.entities.Categorie> Categorie;
 	int page;
