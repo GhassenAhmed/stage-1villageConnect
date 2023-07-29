@@ -50,6 +50,8 @@ public class Service implements Serializable {
 	@ColumnDefault(value="0")
 	private int raiting;
 	
+	private int phone;
+	
 	private String Description;
 	@ColumnDefault(value="false")
 	private boolean isBackgroundVerified;
