@@ -57,8 +57,10 @@ public class Service implements Serializable {
 	
 	@ColumnDefault(value="0")
 	private boolean status;
+	
 	@CreationTimestamp
 	private Timestamp created_at;
+	
 	@UpdateTimestamp
 	private Timestamp updated_at;
 	
