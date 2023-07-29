@@ -150,11 +150,11 @@
                             <div class="header d-flex pa-1" style="background-color: #F0F4FF;color: #284389;">
                                 <v-icon color="#284389">mdi-arrow-right-thick</v-icon><p style="font-size: 20px;margin-top: 14px;margin-left: 15px;">Soyez concis et direct.</p>
                             </div>
-                            <form action="" class="mt-5" enctype="multipart/form-data">
+                            <form @submit.prevent="addService()" class="mt-5" enctype="multipart/form-data">
                                 <div class="nom mb-4 mt-4">
                                     <span>Donnez un titre bref à votre service. *</span>
                                     <v-text-field
-                                    v-model="form.serviceName"
+                                    v-model="formData.form.serviceName"
                                     label="Nom du service"
                                     required
                                     ></v-text-field>
@@ -163,7 +163,7 @@
                                 <div class="description mb-4 mt-4">
                                     <span>Donnez un titre bref à votre service. *</span>
                                     <v-textarea
-                                    v-model="form.description"
+                                    v-model="formData.form.description"
                                     label="Description"
                                     required
                                     
@@ -173,7 +173,7 @@
                                 <div class="adresse mb-4 mt-4">
                                     <span>Donnez votre precise adresse. *</span>
                                     <v-text-field
-                                    v-model="form.adresse"
+                                    v-model="formData.form.adresse"
                                     label="Adresse"
                                     required
                                     
@@ -199,7 +199,7 @@
                                 <div class="Maximum-prix mb-4 mt-4">
                                     <span>Maximum prix.</span>
                                     <v-text-field
-                                    v-model="form.maxPrice"
+                                    v-model="formData.form.maxPrice"
                                     label="Maximum prix"
                                     value="0"
                                     prefix="$"
@@ -209,7 +209,7 @@
                                 <div class="Minimum-prix mb-4 mt-4">
                                     <span>Minimum prix.</span>
                                     <v-text-field
-                                    v-model="form.minPrice"
+                                    v-model="formData.form.minPrice"
                                     label="Minimum prix"
                                     value="0"
                                     prefix="$"
@@ -219,7 +219,7 @@
                                 <div class="lien mb-4 mt-4">
                                     <span>Lien. </span>
                                     <v-text-field
-                                    v-model="form.thumbnailUrl"
+                                    v-model="formData.form.thumbnailUrl"
                                     label="Http//...."
                                     required
                                     
@@ -229,7 +229,7 @@
                                 <div class="years mb-4 mt-4">
                                     <span>Années d'expérience. </span>
                                     <v-text-field
-                                    v-model="form.yearsInBusiness"
+                                    v-model="formData.form.yearsInBusiness"
                                     required
                                     prefix="Ans"
                                     ></v-text-field>
@@ -237,8 +237,16 @@
 
                                 <div class="photo mb-4 mt-4">
                                     <span>Photo du votre service. </span>
-                                    <input type="file" name="form.photo" @change="base64()">
-                                </div>  
+                                    <input name="file"
+                                        id="file"
+                                        label="Your Photo"
+                                        @change="base64()"
+                                        type="file"
+                                        ref="photo">
+                                </div> 
+                                <div class="btn">
+                                    <v-btn type="submit">add</v-btn>
+                                </div>
                             </form>
                         </div>
                     </v-flex>
@@ -250,6 +258,7 @@
 import { AuthUser } from "@/store/AuthStore";
 import VillageServices from "@/services/VillageServices";
 import CategorieServices from '@/services/CategorieServices';
+import ServiceServices from '@/services/ServiceServices';
 export default {
     setup(){
         const store=AuthUser();
@@ -268,19 +277,21 @@ export default {
             villagesNames:[],
             categories:[],
             categorieNames:[],
-            form:{
-                serviceName:"",
-                description:"",
-                adresse:"",
-                maxPrice:0,
-                minPrice:0,
-                thumbnailUrl:"",
-                isBackgroundVerified:0,
-                photo:"",
-                yearsInBusiness:null,
-            },
-            categorie_id:"",
-            village_id:""
+            formData: {
+                form: {
+                    serviceName:"",
+                    description:"",
+                    adresse:"",
+                    maxPrice:0,
+                    minPrice:0,
+                    thumbnailUrl:"",
+                    isBackgroundVerified:0,
+                    photo:"",
+                    yearsInBusiness:null,
+                },
+                categorie_id: 1,
+                village_id: 1
+            }
 
         }
     },
@@ -289,7 +300,7 @@ export default {
             const file = document.querySelector("#file").files[0];
             const reader = new FileReader();
             reader.onloadend = () => {
-               this.form.photo = reader.result;
+               this.formData.form.photo = reader.result;
            };
            reader.readAsDataURL(file);
         },
@@ -314,6 +325,39 @@ export default {
                 console.log(err);
             })
         },
+        addService(){
+            ServiceServices.createService({
+                "service":{
+                "serviceName":this.formData.form.serviceName,
+                "description":this.formData.form.description,
+                "adresse":this.formData.form.adresse,
+                "maxPrice":this.formData.form.maxPrice,
+                "minPrice":this.formData.form.minPrice,
+                "thumbnailUrl":this.formData.form.thumbnailUrl,
+                "isBackgroundVerified":this.formData.form.isBackgroundVerified,
+                "photo":this.formData.form.photo,
+                "yearsInBusiness":this.formData.form.yearsInBusiness, 
+                },
+                "categorie_id": 1,
+                "village_id": 1
+            }).then((res)=>{
+                    console.log(this.form);
+                    console.log(res.data);
+                    this.formData.form.serviceName="",
+                    this.formData.form.description="",
+                    this.formData.form.adresse="",
+                    this.formData.form.maxPrice="",
+                    this.formData.form.minPrice="",this.formData.
+                    this.formData.form.thumbnailUrl="",
+                    this.formData.form.isBackgroundVerified="",
+                    this.formData.form.photo="",
+                    this.formData.form.yearsInBusiness="",
+                    this.formData.categorie_id="",
+                    this.formData.village_id=""
+                }).catch((err)=>{
+                console.log(err);
+            })
+        }
     }
 }
 </script>
