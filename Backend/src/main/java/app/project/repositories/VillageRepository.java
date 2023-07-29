@@ -17,7 +17,7 @@ public interface VillageRepository extends JpaRepository<Village, Long> {
 	List<Village> findAll();
 	
 	
-	@Query(value="select * from Village where id=:",nativeQuery=true)
+	@Query(value="select * from Village where id=:id",nativeQuery=true)
     Village findVillageById(Long id);
 
 		
