@@ -11,4 +11,7 @@ export default {
         const res= await Axios.get(`getServiceVerified?id=${id}&page=${page}&per_page=${per}`);
         return res;
     },
+    createService(service){
+        return Axios.post("createService",service)
+    }
 }
