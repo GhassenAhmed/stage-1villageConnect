@@ -7,6 +7,10 @@
                 <v-toolbar-title class="text-center-sm" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
                         
                         <v-spacer></v-spacer>
+                        
+                <v-btn icon class="hidden-sm-and-down" to="/home">
+                    <v-icon X Small >mdi-home</v-icon>
+                </v-btn>
                 <v-btn icon class="hidden-sm-and-down">
                     <v-icon   X Small >
                         mdi-bell-outline
@@ -102,9 +106,9 @@
                 dense
                 class="mt-5 py-5"
             >
-                <v-list-item>
+                <v-list-item to="/home">
                     <v-list-item-icon>
-                    <v-icon X Small>mdi-home</v-icon>
+                    <v-icon X Small >mdi-home</v-icon>
                     </v-list-item-icon>
 
                     <v-list-item-title style="font-size: 15px;">Home</v-list-item-title>
@@ -183,6 +187,8 @@
                                 <div class="Categorie mb-4 mt-4">
                                     <span>Choisir categorie. *</span>
                                     <v-select
+                                    required
+                                    v-model="formData.categorie_id"
                                     :items="categorieNames"
                                     label="Choisir categorie"
                                     ></v-select>
@@ -191,6 +197,8 @@
                                 <div class="village mb-4 mt-4">
                                     <span>Choisir village. *</span>
                                     <v-select
+                                    required
+                                    v-model="formData.village_id"
                                     :items="villagesNames"
                                     label="Choisir village"
                                     ></v-select>
@@ -251,7 +259,30 @@
                         </div>
                     </v-flex>
                 </v-layout>
+                
             </v-container>
+            <template>
+                <div class="text-center">
+
+                    <v-snackbar
+                    v-model="snackbar"
+                    :vertical="vertical"
+                    >
+                    {{ text }}
+
+                    <template v-slot:action="{ attrs }">
+                        <v-btn
+                        color="indigo"
+                        text
+                        v-bind="attrs"
+                        @click="snackbar = false"
+                        >
+                        Close
+                        </v-btn>
+                    </template>
+                    </v-snackbar>
+                </div>
+            </template>
     </div>
 </template>
 <script>
@@ -272,6 +303,9 @@ export default {
     },
     data(){
         return{
+            snackbar: false,
+            text: 'Votre service a ete creer ,SVP attend l administrateur pour l accepter ',
+            vertical: true,
             drawer: false,
             villages:[],
             villagesNames:[],
@@ -289,8 +323,8 @@ export default {
                     photo:"",
                     yearsInBusiness:null,
                 },
-                categorie_id: 1,
-                village_id: 1
+                categorie_id:null,
+                village_id: null
             }
 
         }
@@ -338,10 +372,9 @@ export default {
                 "photo":this.formData.form.photo,
                 "yearsInBusiness":this.formData.form.yearsInBusiness, 
                 },
-                "categorie_id": 1,
-                "village_id": 1
+                "categorie_id":this.categorieNames.indexOf(this.formData.categorie_id)+1,
+                "village_id":this.villagesNames.indexOf(this.formData.village_id)+1
             }).then((res)=>{
-                    console.log(this.form);
                     console.log(res.data);
                     this.formData.form.serviceName="",
                     this.formData.form.description="",
@@ -353,7 +386,9 @@ export default {
                     this.formData.form.photo="",
                     this.formData.form.yearsInBusiness="",
                     this.formData.categorie_id="",
-                    this.formData.village_id=""
+                    this.formData.village_id="",
+                    this.snackbar= true
+
                 }).catch((err)=>{
                 console.log(err);
             })
