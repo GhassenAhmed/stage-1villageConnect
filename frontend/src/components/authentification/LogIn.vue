@@ -22,7 +22,6 @@
                                 <v-flex class="mt-5 mr-5">
                                     <v-text-field
                                             name="Email"
-                                            label="E-mail"
                                             append-icon="mdi-account"
                                             type="text"
                                             outlined
@@ -36,7 +35,6 @@
                                 <v-flex class="mt-5 mr-5">
                                     <v-text-field
                                         name="Password"
-                                        label="Password"
                                         v-model="form.password"
                                         :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                                         :type="show ? 'text' : 'password'"
