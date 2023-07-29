@@ -4,7 +4,7 @@
             <v-app-bar-nav-icon @click="drawer = true" 
                                 class="d-flex d-sm-none" 
                                 ></v-app-bar-nav-icon>
-                <v-toolbar-title class="text-center-sm" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
+                <v-toolbar-title class="text-center-sm hidden-xs-only" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
                         
                         <v-spacer></v-spacer>
                         
@@ -159,8 +159,11 @@
                                     <span>Donnez un titre bref à votre service. *</span>
                                     <v-text-field
                                     v-model="formData.form.serviceName"
-                                    label="Nom du service"
                                     required
+                                    placeholder="Nom du service"
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     ></v-text-field>
                                 </div>
 
@@ -168,9 +171,11 @@
                                     <span>Donnez un titre bref à votre service. *</span>
                                     <v-textarea
                                     v-model="formData.form.description"
-                                    label="Description"
+                                    placeholder="Description sur votre service"
                                     required
-                                    
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     ></v-textarea>
                                 </div>
                                 
@@ -178,9 +183,11 @@
                                     <span>Donnez votre precise adresse. *</span>
                                     <v-text-field
                                     v-model="formData.form.adresse"
-                                    label="Adresse"
+                                    placeholder="Adresse du votre service"
                                     required
-                                    
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     ></v-text-field>
                                 </div>
 
@@ -188,27 +195,36 @@
                                     <span>Choisir categorie. *</span>
                                     <v-select
                                     required
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     v-model="formData.categorie_id"
                                     :items="categorieNames"
-                                    label="Choisir categorie"
+                                    placeholder="Categorie"
                                     ></v-select>
                                 </div>
 
                                 <div class="village mb-4 mt-4">
                                     <span>Choisir village. *</span>
                                     <v-select
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     required
                                     v-model="formData.village_id"
                                     :items="villagesNames"
-                                    label="Choisir village"
+                                    placeholder="Village"
                                     ></v-select>
                                 </div>
 
                                 <div class="Maximum-prix mb-4 mt-4">
                                     <span>Maximum prix.</span>
                                     <v-text-field
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     v-model="formData.form.maxPrice"
-                                    label="Maximum prix"
+                                    placeholder="Maximum price"
                                     value="0"
                                     prefix="$"
                                     ></v-text-field>
@@ -217,18 +233,24 @@
                                 <div class="Minimum-prix mb-4 mt-4">
                                     <span>Minimum prix.</span>
                                     <v-text-field
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     v-model="formData.form.minPrice"
-                                    label="Minimum prix"
+                                    placeholder="Minimum price"
                                     value="0"
                                     prefix="$"
                                     ></v-text-field>
                                 </div>
                                 
                                 <div class="lien mb-4 mt-4">
-                                    <span>Lien. </span>
+                                    <span>Mettez un lien utile pour plus d'informations.</span>
                                     <v-text-field
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     v-model="formData.form.thumbnailUrl"
-                                    label="Http//...."
+                                    placeholder="Http...."
                                     required
                                     
                                     ></v-text-field>
@@ -237,30 +259,45 @@
                                 <div class="years mb-4 mt-4">
                                     <span>Années d'expérience. </span>
                                     <v-text-field
+                                    outlined
+                                    class="py-5"
+                                    style="width: 95%;"
                                     v-model="formData.form.yearsInBusiness"
                                     required
-                                    prefix="Ans"
+                                    placeholder="Annees d'experience"
+                                    
                                     ></v-text-field>
                                 </div>  
 
                                 <div class="photo mb-4 mt-4">
-                                    <span>Photo du votre service. </span>
+                                    <span>Mettez une image sur votre service </span><br>
                                     <input name="file"
                                         id="file"
+                                        class="py-5"
                                         label="Your Photo"
+                                        style="width: 90%;font-size: 90%;"
                                         @change="base64()"
                                         type="file"
                                         ref="photo">
+                                        <v-btn type="submit" 
+                                            class="float-end mr-15 mb-5"
+                                            fab
+                                            dark
+                                            color="indigo">
+                                            <v-icon>mdi-send</v-icon>
+                                        </v-btn>
+
                                 </div> 
-                                <div class="btn">
-                                    <v-btn type="submit">add</v-btn>
-                                </div>
+                                
+                               
+                                                
                             </form>
                         </div>
                     </v-flex>
                 </v-layout>
                 
             </v-container>
+                
             <template>
                 <div class="text-center">
 
@@ -305,7 +342,7 @@ export default {
     },
     data(){
         return{
-            snackbar: true,
+            snackbar: false,
             text: 'Votre service a ete creer ,SVP attend l administrateur pour l accepter ',
             vertical: true,
             drawer: false,
@@ -321,7 +358,6 @@ export default {
                     maxPrice:0,
                     minPrice:0,
                     thumbnailUrl:"",
-                    isBackgroundVerified:0,
                     photo:"",
                     yearsInBusiness:null,
                 },
@@ -370,7 +406,6 @@ export default {
                 "maxPrice":this.formData.form.maxPrice,
                 "minPrice":this.formData.form.minPrice,
                 "thumbnailUrl":this.formData.form.thumbnailUrl,
-                "isBackgroundVerified":this.formData.form.isBackgroundVerified,
                 "photo":this.formData.form.photo,
                 "yearsInBusiness":this.formData.form.yearsInBusiness, 
                 },
@@ -405,7 +440,7 @@ export default {
     overflow: hidden;
     box-sizing: border-box;
 }
-.form,span{
+.form span{
     color:#284389;
 }
 </style>
