@@ -22,6 +22,7 @@ import app.project.entities.Categorie;
 import app.project.entities.Service;
 import app.project.entities.User;
 import app.project.entities.Village;
+import app.project.parametre.BodyRequest;
 import app.project.parametre.DataService;
 import app.project.repositories.CategorieRepository;
 import app.project.repositories.ServiceRepository;
@@ -107,24 +108,24 @@ public class ServiceController {
 	 }
 	 
 	 @PostMapping("/createService")
-	 public ResponseEntity<?> createService(HttpServletRequest request,@RequestBody Service service,@RequestParam("categorie_id") Long categorie_id,@RequestParam("village_id") Long village_id){
+	 public ResponseEntity<?> createService(HttpServletRequest request,@RequestBody BodyRequest bodyRequest){
 		 User user = userService.UserAuth(request);
-		 Categorie categorie=categorieRepository.findCategorieById(categorie_id);
-		 Village village = villageRepository.findVillageById(village_id);
+		 Categorie categorie=categorieRepository.findCategorieById(bodyRequest.getCategorie_id());
+		 Village village = villageRepository.findVillageById(bodyRequest.getVillage_id());
 		 Service newService=new Service();
-		 newService.setServiceName(service.getServiceName());
-		 newService.setDescription(service.getDescription());
-		 newService.setAdresse(service.getAdresse());
-		 newService.setMinPrice(service.getMinPrice());
-		 newService.setMaxPrice(service.getMaxPrice());
-		 newService.setThumbnailUrl(service.getThumbnailUrl());
-		 newService.setYearsInBusiness(service.getYearsInBusiness());
-		 newService.setPhoto(service.getPhoto());
+		 newService.setServiceName(bodyRequest.getService().getServiceName());
+		 newService.setDescription(bodyRequest.getService().getDescription());
+		 newService.setAdresse(bodyRequest.getService().getAdresse());
+		 newService.setMinPrice(bodyRequest.getService().getMinPrice());
+		 newService.setMaxPrice(bodyRequest.getService().getMaxPrice());
+		 newService.setThumbnailUrl(bodyRequest.getService().getThumbnailUrl());
+		 newService.setYearsInBusiness(bodyRequest.getService().getYearsInBusiness());
+		 newService.setPhoto(bodyRequest.getService().getPhoto());
 		 newService.setCategorie(categorie);
 		 newService.setVillage(village);
 		 newService.setUser(user);
 		 serviceRepository.save(newService);
-		 return new ResponseEntity<>(newService,HttpStatus.OK);
+		 return new ResponseEntity<>(bodyRequest.getService(),HttpStatus.OK);
 	 }
 	 
 
