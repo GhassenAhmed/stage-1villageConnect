@@ -65,8 +65,6 @@ public class Service implements Serializable {
 	private Timestamp updated_at;
 	
 	
-	@OneToOne(mappedBy = "service")
-	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name="village_id")
@@ -77,7 +75,7 @@ public class Service implements Serializable {
 	private Categorie categorie;
 	
 	@ManyToOne
-	@JoinColumn(name="schedule_id")
-	private Schedule schedule;
+	@JoinColumn(name="user_id")
+	private User user;
 	
 }
