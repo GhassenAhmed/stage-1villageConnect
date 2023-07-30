@@ -33,6 +33,7 @@ public interface ServiceRepository  extends JpaRepository<Service, Long>{
 	@Query(value="select * from service where  village_id=:village_id and is_background_verified=1",nativeQuery=true)
 	Page<Service> getServiceVerifiedByVillage(Long village_id,Pageable pageable);
 
-	
+	@Query(value="select count(*) from service where user_id=:id",nativeQuery=true)
+	List<Service> getServiceByUserId(Long id);
 	
 }
