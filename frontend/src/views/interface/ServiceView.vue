@@ -4,24 +4,120 @@
             <v-app-bar-nav-icon @click="drawer = true" 
                                 class="d-flex d-sm-none" 
                                 ></v-app-bar-nav-icon>
-                <v-toolbar-title class="text-center-sm hidden-sm-and-down" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
+                <v-toolbar-title class="text-center-sm" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
                         
                         <v-spacer></v-spacer>
                 
                 
-                <v-btn icon class="hidden-sm-and-down">
-                    <v-icon   X Small >
-                        mdi-bell-outline
-                    </v-icon>
-                </v-btn>
-        
-                <v-btn icon class="hidden-sm-and-down">
+                        <v-menu offset-y
+
+                        transition="slide-x-transition" 
+                        left
+                        class="mt-7"
+                        max-width="auto"
+                        min-width="300"
+                        >
+                
+                            <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                            plain
+                            v-bind="attrs"
+                            v-on="on"
+                            @click="changerEtatNotif()"
+                            class="hidden-xs-only"
+                            >
+                                <v-icon X Small>mdi-bell</v-icon>
+                                <v-badge color="red" :content="getNbrNotifNotSeen ? getNbrNotifNotSeen : '0'"
+                                ></v-badge> 
+                            </v-btn>
+                            
+                            </template>
+                    
+                            <v-list>
+                                    <v-list-item class="text-h5">
+                                        Notifications
+                                    </v-list-item>
+                            </v-list>
+                                <v-divider></v-divider>
+                            <v-list v-if="notifications.length==0">
+                            <v-list-item  class="mt-5 red--text">
+                                <v-list-item-title class="text-h7 ml-8 mb-8">Pas de notification </v-list-item-title>
+                            </v-list-item>
+                            </v-list>
+                        
+                            <v-list v-else>
+                            <v-list-item
+                                v-for="notif in notifications" :key="notif.id"
+                            >
+                        <v-list-item-avatar>
+                            <v-avatar size="43px">
+                                <v-img  :src="notif.photo"></v-img>
+                            </v-avatar>
+                        </v-list-item-avatar>
+                      
+                        <v-list-item-content>
+                            <v-list-item-title class="px-5 justify-center">
+                                {{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span>
+                            </v-list-item-title>
+                        </v-list-item-content> 
+                        <v-list-item-action>
+                            <v-col cols="auto">
+                            <v-dialog
+                                transition="dialog-bottom-transition"
+                                max-width="400"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn
+                                    plain
+                                    @click="dialog==true"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    >
+                                        <v-icon>mdi-close</v-icon>
+                                    </v-btn>
+                                </template>
+                                 <template v-slot:default="dialog">
+                                <v-card>
+                                    <v-card-text>
+                                    <div class="text-h5 pa-5">Supprimer notification</div>
+                                    </v-card-text>
+                                    <v-card-actions class="justify-end">
+                                    <v-btn
+                                        text
+                                        @click="dialog.value = false"
+                                    >Non</v-btn>
+                                    <v-btn
+                                        text
+                                        @click="deleteNotificationById(notif.idNotif),dialog.value = false"
+                                    >Supprimer</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                                </template> 
+                            </v-dialog>
+                            </v-col>
+                        </v-list-item-action>
+                        </v-list-item>
+                            <v-divider></v-divider>
+                            <v-list-item class="mt-5">
+                                <v-btn 
+                                plain
+                                v-if="notifications.length!=0"
+                                @click="deleteAllNotif()"
+                                >
+                                    <v-list-item-title class="red--text ml-15"> 
+                                        Supprimer tous<v-icon class="pa-1 red--text">mdi-delete</v-icon>
+                                    </v-list-item-title>
+                            </v-btn>
+                    </v-list-item>
+                    </v-list>
+                    </v-menu>
+                <v-btn icon class="hidden-xs-only">
                     <v-icon class=""  X Small>
                         mdi-email-outline
                     </v-icon>
                 </v-btn>
 
-                <v-btn icon class="hidden-sm-and-down">
+                <v-btn icon class="hidden-xs-only">
                     <v-icon  X Small>
                          mdi-heart-outline
                     </v-icon>
@@ -173,6 +269,7 @@ import Content from '../../components/service/Content.vue'
 import { AuthUser } from "@/store/AuthStore";
 import VillageServices from "@/services/VillageServices";
 import CategorieServices from '@/services/CategorieServices';
+import NotificationServices from '@/services/NotificationServices';
 export default {
     setup(){
         const store=AuthUser();
@@ -183,6 +280,8 @@ export default {
     created(){
         this.getVillages();
         this.getCategories();
+        this.getNotifs();
+        this.getNotifsNotSeen();
     },
     name:'ServiceView',
 components:{
@@ -194,6 +293,8 @@ data(){
         villages:[],
         villagesNames:[],
         categories:[],
+        notifications:[],
+        notificationNotSeen:[],
         
     }
 },
@@ -219,8 +320,66 @@ methods:{
                 console.log(err);
             })
         },
+        getNotifs(){
+            NotificationServices.getNotifs().then((res)=>{
+                for(let i=0;i<res.data.length;i++){
+                    this.notifications.push({idNotif:res.data[i].id,msg:res.data[i].message,etat:res.data[i].etat,date:(res.data[i].created_at)?.substring(0,10),photo:res.data[i].userEnvoi['photo']})
+                } 
+                console.log(this.notifications);
+            }
+            )
+        },
+        deleteNotificationById(id){
+            NotificationServices.deleteNotificationById(id).then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+                this.getNotifs();
+                this.getNotifsNotSeen();
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        deleteAllNotif(){
+            NotificationServices.deleteAllNotif().then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        changerEtatNotif(){
+            NotificationServices.updateNotif()
+            .then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+                this.getNotifsNotSeen();
+                this.getNotifs();
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        getNotifsNotSeen(){
+            NotificationServices.getNotifNotSeen().then((res)=>{
+                for(let i=0;i<(res.data).length;i++){
+                    this.notificationNotSeen.push({idNotif:res.data[i].id,msg:res.data[i].message,etat:res.data[i].etat})
+                }
+            }).catch((err)=>{
+                console.log(err);
+            })
+         },
     
 },
+computed:{
+    getNbrNotif(){
+        const nbrNotif=this.notifications.length
+        return nbrNotif;
+    },
+            
+    getNbrNotifNotSeen(){
+            const nbrNotifNotSeen=this.notificationNotSeen.length
+            return nbrNotifNotSeen;
+    }
+}
 }
 </script>
 
