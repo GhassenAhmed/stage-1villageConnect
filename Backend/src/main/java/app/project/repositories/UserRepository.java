@@ -23,6 +23,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value="select status from user_role where user_id=:id limit 1",nativeQuery=true)
 	int GetStatus(long id);
 	
+	@Query(value="select u.* from user u,role r,user_role ur where r.id=ur.role_id and ur.user_id=u.id and r.role_name='admin';",nativeQuery=true)
+	User GetAdmin();
+	
 	
 
 }
