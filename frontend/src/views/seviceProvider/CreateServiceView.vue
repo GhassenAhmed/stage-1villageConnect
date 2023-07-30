@@ -174,7 +174,7 @@
                                     <v-textarea
                                     v-model="formData.form.description"
                                     placeholder="Description sur votre service"
-                                    :error-messages="descriptionError"
+                                    
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -186,7 +186,7 @@
                                     <v-text-field
                                     v-model="formData.form.adresse"
                                     placeholder="Adresse du votre service"
-                                    :error-messages="adresseError"
+                                   
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -198,7 +198,7 @@
                                     <v-text-field
                                     v-model="formData.form.phone"
                                     placeholder="numero du telephone"
-                                    :error-messages="phoneError"
+                                    
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -234,7 +234,7 @@
                                 <div class="Maximum-prix mb-4 mt-4">
                                     <span>Maximum prix.</span>
                                     <v-text-field
-                                    :error-messages="maxError"
+                                    
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -249,7 +249,7 @@
                                     <span>Minimum prix.</span>
                                     <v-text-field
                                     outlined
-                                    :error-messages="minError"
+                                    
                                     class="py-5"
                                     style="width: 95%;"
                                     v-model="formData.form.minPrice"
@@ -263,7 +263,7 @@
                                     <span>Mettez un lien utile pour plus d'informations.</span>
                                     <v-text-field
                                     outlined
-                                    :error-messages="lienError"
+                                    
                                     class="py-5"
                                     style="width: 95%;"
                                     v-model="formData.form.thumbnailUrl"
@@ -277,7 +277,7 @@
                                     <span>Années d'expérience. </span>
                                     <v-text-field
                                     outlined
-                                    :error-messages="yearsError"
+                                    
                                     class="py-5"
                                     style="width: 95%;"
                                     v-model="formData.form.yearsInBusiness"
@@ -396,7 +396,6 @@ export default {
                     serviceName:{
                         required,
                         maxLength:maxLength(15),
-                        minLength:minLength(3)
                     },
                     description:{
                         required,
@@ -523,7 +522,6 @@ export default {
               if(!this.$v.formData.form.serviceName.$dirty) return error;
               !this.$v.formData.form.serviceName.required && error.push("Nom du service requis");
               !this.$v.formData.form.serviceName.maxLength && error.push("Veuillez entrer le nom  avec un maximum de 15 caractères");
-              !this.$v.formData.form.serviceName.minlength && error.push("Veuillez entrer le nom  avec un minimum de 3 caractères ");
               return error;
           },
         },
