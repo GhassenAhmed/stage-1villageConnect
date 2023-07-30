@@ -19,13 +19,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.project.entities.Categorie;
+import app.project.entities.Demande;
 import app.project.entities.Service;
 import app.project.entities.User;
 import app.project.entities.Village;
 import app.project.parametre.BodyRequest;
 import app.project.parametre.DataService;
 import app.project.repositories.CategorieRepository;
+import app.project.repositories.DemandeRepository;
 import app.project.repositories.ServiceRepository;
+import app.project.repositories.UserRepository;
 import app.project.repositories.VillageRepository;
 import app.project.services.UserService;
 
@@ -35,6 +38,12 @@ public class ServiceController {
 	
 	@Autowired
 	ServiceRepository serviceRepository;
+	
+	@Autowired
+	DemandeRepository demandeRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@Autowired
 	VillageRepository villageRepository;
@@ -112,6 +121,7 @@ public class ServiceController {
 		 User user = userService.UserAuth(request);
 		 Categorie categorie=categorieRepository.findCategorieById(bodyRequest.getCategorie_id());
 		 Village village = villageRepository.findVillageById(bodyRequest.getVillage_id());
+		 Demande demande=new Demande();
 		 Service newService=new Service();
 		 newService.setServiceName(bodyRequest.getService().getServiceName());
 		 newService.setDescription(bodyRequest.getService().getDescription());
@@ -125,6 +135,9 @@ public class ServiceController {
 		 newService.setVillage(village);
 		 newService.setUser(user);
 		 serviceRepository.save(newService);
+		 demande.setDescription("Demande de création d'un service ");
+		 demande.setUser(user);
+		 demandeRepository.save(demande);
 		 return new ResponseEntity<>(bodyRequest.getService(),HttpStatus.OK);
 	 }
 	 
