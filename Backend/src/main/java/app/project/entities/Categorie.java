@@ -38,6 +38,7 @@ public class Categorie implements Serializable{
 	
 	@CreationTimestamp
 	private Timestamp created_at;
+	
 	@UpdateTimestamp
 	private Timestamp updated_at;
 	
