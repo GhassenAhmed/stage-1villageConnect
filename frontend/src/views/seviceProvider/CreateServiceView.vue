@@ -308,6 +308,7 @@
                 </v-layout>
                 <v-btn type="submit"
                     class="float-end mr-15"
+                    
                     :loading="loading"
                     fab
                     dark
@@ -339,6 +340,7 @@
                         </v-btn>
                     </template>
                     </v-snackbar>
+                    
                 </div>
             </template>
     </div>
@@ -445,6 +447,10 @@ export default {
             }
     },
     methods:{
+        logout(){
+            this.store.logOut();
+            this.$router.push({name:"login"});
+        },
         base64(){
             const file = document.querySelector("#file").files[0];
             const reader = new FileReader();
@@ -481,6 +487,10 @@ export default {
                     return;
                 }
             this.loading=true;
+            setTimeout(() => {
+                this.loading=false;
+                this.snackbar=true;
+            }, 3000);
             ServiceServices.createService({
                 "service":{
                 "serviceName":this.formData.form.serviceName,
@@ -508,9 +518,7 @@ export default {
                     this.formData.form.photo="",
                     this.formData.form.yearsInBusiness="",
                     this.formData.categorie_id="",
-                    this.formData.village_id="",
-                    this.snackbar= true
-
+                    this.formData.village_id=""
                 }).catch((err)=>{
                 console.log(err);
             })
