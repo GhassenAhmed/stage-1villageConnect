@@ -109,7 +109,15 @@ export default {
                 this.loading=true;
                 authService.login(this.form.email,this.form.password).then((res)=>{
                 this.loading=false;
-                this.$router.push("/home");
+                if(this.store.getIsClient==true){
+                    this.$router.push("/home");
+                }
+
+                if(this.store.getIsadmin==true){
+                    this.$router.push("/admin")
+                }
+
+                
               }).catch((error)=>{
                 this.loading=false;
                 this.snackbar=true;
