@@ -326,6 +326,7 @@ methods:{
                     this.notifications.push({idNotif:res.data[i].id,msg:res.data[i].message,etat:res.data[i].etat,date:(res.data[i].created_at)?.substring(0,10),photo:res.data[i].userEnvoi['photo']})
                 } 
                 console.log(this.notifications);
+            
             }
             )
         },
