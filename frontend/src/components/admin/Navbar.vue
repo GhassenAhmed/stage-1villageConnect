@@ -1,10 +1,7 @@
 <template>
     <nav>
      <v-app-bar app text >  
-         <v-app-bar-nav-icon >
-             <v-btn  text @click="drawer=!drawer">
-                 <v-icon color="grey">mdi-view-list</v-icon>
-             </v-btn>
+         <v-app-bar-nav-icon @click="drawer=!drawer">
          </v-app-bar-nav-icon>
          <v-toolbar-title class="text-uppercase grey--text">
              <div class="hidden-md-and-down">
