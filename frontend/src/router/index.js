@@ -4,7 +4,7 @@ import HomeView from "@/views/HomeView.vue"
 import SignUpView from "@/views/authentification/SignUpView.vue"
 import LogInView from "@/views/authentification/LogInView.vue"
 import ServiceView from "@/views/interface/ServiceView.vue";
-import AdminView from "@/views/interface/AdminView.vue";
+import AdminView from "@/views/interface/admin/AdminView.vue";
 import ServiceCategorieView from "@/views/interface/ServiceCategorieView.vue";
 import CreateServiceView from "@/views/seviceProvider/CreateServiceView.vue";
 Vue.use(VueRouter)
