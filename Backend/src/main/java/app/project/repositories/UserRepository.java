@@ -32,6 +32,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value="select count(*)  from user u,role r,user_role ur where u.id = ur.user_id  and ur.role_id=r.id and role_name='serviceProvider'",nativeQuery=true)
 	int CountUserServiceProvider();
 	
+	@Query(value="select *  from user",nativeQuery=true)
+	List<User> getAllUsers();
+	
 	
 
 }
