@@ -92,6 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .antMatchers("/DeleteNotificationById").permitAll()
 		        .antMatchers("/DeleteAllNotif").permitAll()
 		        .antMatchers("/updateNotif").permitAll()
+		        .antMatchers("/getUserClient").permitAll()
+		        .antMatchers("/getUserServiceProvider").permitAll()
 				.anyRequest().authenticated()
 		        .and()
 			    .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
