@@ -114,7 +114,7 @@ export default {
                 }
 
                 if(this.store.getIsadmin==true){
-                    this.$router.push("/admin")
+                    this.$router.push("/statistiques")
                 }
 
                 
