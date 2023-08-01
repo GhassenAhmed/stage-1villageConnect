@@ -58,7 +58,7 @@ public class Service implements Serializable {
 	private String adresse;
 	
 	@ColumnDefault(value="0")
-	private boolean status;
+	private int status;
 	
 	@CreationTimestamp
 	private Timestamp created_at;
