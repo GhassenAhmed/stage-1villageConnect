@@ -36,4 +36,17 @@ public interface ServiceRepository  extends JpaRepository<Service, Long>{
 	@Query(value="select count(*) from service where status=1 and user_id=:id",nativeQuery=true)
 	List<Service> getServiceByUserId(Long id);
 	
+	@Query(value="select count(*) from service where is_background_verified=1",nativeQuery=true)
+	int getServiceVerified();
+	
+	@Query(value="select count(*) from service where is_background_verified=0",nativeQuery=true)
+	int getServiceNonVerified();
+	
+	@Query(value="select * from service where status=0",nativeQuery=true)
+	List<Service> getServiceNotActived();
+	
+	@Query(value="select * from service where id=:id",nativeQuery=true)
+	Service getServiceByid(Long id);
+	
+	
 }
