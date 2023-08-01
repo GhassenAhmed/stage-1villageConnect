@@ -4,7 +4,10 @@ import HomeView from "@/views/HomeView.vue"
 import SignUpView from "@/views/authentification/SignUpView.vue"
 import LogInView from "@/views/authentification/LogInView.vue"
 import ServiceView from "@/views/interface/ServiceView.vue";
-import AdminView from "@/views/interface/admin/AdminView.vue";
+import UsersView from "@/views/interface/admin/UsersView.vue";
+import ServicesView from "@/views/interface/admin/ServicesView.vue";
+import CategoriesView from "@/views/interface/admin/CategoriesView.vue";
+import StatistiquesView from "@/views/interface/admin/StatistiquesView.vue";
 import ServiceCategorieView from "@/views/interface/ServiceCategorieView.vue";
 import CreateServiceView from "@/views/seviceProvider/CreateServiceView.vue";
 Vue.use(VueRouter)
@@ -29,7 +32,7 @@ const routes = [
 
   {
     path: '/home',
-    name: 'service',
+    name: 'home',
     component: ServiceView
   },
   {
@@ -49,9 +52,24 @@ const routes = [
     component: CreateServiceView
   },
   {
-    path: '/admin',
-    name: 'admin',
-    component: AdminView
+    path: '/services',
+    name: 'services',
+    component: ServicesView
+  },
+  {
+    path: '/categories',
+    name: 'categories',
+    component: CategoriesView
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: UsersView
+  },
+  {
+    path: '/statistiques',
+    name: 'statistiques',
+    component: StatistiquesView
   },
 ]
 
