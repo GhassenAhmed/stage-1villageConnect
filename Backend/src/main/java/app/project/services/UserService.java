@@ -36,5 +36,13 @@ public class UserService {
     	 String username=jwtTokenUtil.getUsernameFromToken(jwtToken);
     	 return userRepository.getUserByEmail2(username);
     }
+    
+    public int getUserClient(){
+		  return userRepository.CountUserClient();
+	  }
+	  
+	  public int getUserServiceProvider(){
+		  return userRepository.CountUserServiceProvider();
+	  }
 	
 }
