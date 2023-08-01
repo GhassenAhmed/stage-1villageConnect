@@ -5,7 +5,7 @@
           :key="link.title"
           class="mb-3"
         >
-        <v-btn text class="white--text">
+        <v-btn text class="white--text" :to="link.to">
             <v-list-item-icon>
             <v-icon color="white">{{ link.icon }}</v-icon>
           </v-list-item-icon>
@@ -22,10 +22,11 @@
         data(){
             return{
                 links:[
-                    {icon:"mdi-account",to:"",title:"Utilisateurs"},
-                    {icon:"mdi-room-service",to:"",title:"Services"},
-                    {icon:"mdi-sort-variant",to:"",title:"Categories"},
-                    {icon:"mdi-calculator",to:"",title:"Statistiques"},
+                    {icon:"mdi-calculator",to:"/statistiques",title:"Statistiques"},
+                    {icon:"mdi-account",to:"/users",title:"Utilisateurs"},
+                    {icon:"mdi-room-service",to:"/services",title:"Services"},
+                    {icon:"mdi-sort-variant",to:"/categories",title:"Categories"},
+                    
                 ]
             }
         },
