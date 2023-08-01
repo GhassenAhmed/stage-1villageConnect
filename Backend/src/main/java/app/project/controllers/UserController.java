@@ -1,11 +1,14 @@
 package app.project.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.project.entities.User;
 import app.project.repositories.UserRepository;
 import app.project.services.UserService;
 
@@ -28,5 +31,12 @@ public class UserController {
 	  	public ResponseEntity<?> getUserServiceProvider(){	
 	  			return  ResponseEntity.ok().body(userService.getUserServiceProvider());	
 	  	}
+	  
+	  @GetMapping("/getAllUsers")
+	  	public List<User> getAllUsers(){	
+	  			return  userRepository.getAllUsers();	
+	  	}
+	  
+	
 
 }
