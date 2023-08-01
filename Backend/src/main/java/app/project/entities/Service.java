@@ -80,4 +80,6 @@ public class Service implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 	
+	
+	
 }
