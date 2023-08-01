@@ -205,7 +205,7 @@ min-width="300"
     },
  data(){
      return{
-         drawer:false,
+         drawer:true,
          notifications:[],
         notificationNotSeen:[],
      }
