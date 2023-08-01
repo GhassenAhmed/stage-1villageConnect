@@ -17,23 +17,23 @@ import app.project.entities.Service;
 
 public interface ServiceRepository  extends JpaRepository<Service, Long>{
 
-	@Query(value="select * from service where categorie_id=:id",nativeQuery=true)
+	@Query(value="select * from service where categorie_id=:id and status=1",nativeQuery=true)
 	List<Service> getServiceCategorie(Long id);
 	
-	@Query(value="select * from service order by raiting desc",nativeQuery=true)
+	@Query(value="select * from service where status=1 order by raiting desc",nativeQuery=true)
 	Page<Service> getServiceRaiting(Pageable pageable );
 	
-	@Query(value="select * from service where village_id=:village_id order by raiting desc",nativeQuery=true)
+	@Query(value="select * from service where status=1 and village_id=:village_id order by raiting desc",nativeQuery=true)
 	Page<Service> getServiceRaitingByVillage(Long village_id,Pageable pageable);
 	
-	@Query(value="select * from service where is_background_verified=true",nativeQuery=true)
+	@Query(value="select * from service where status=1 and is_background_verified=true",nativeQuery=true)
 	Page<Service> getServiceVerified(Pageable pageable );
 	
 	
-	@Query(value="select * from service where  village_id=:village_id and is_background_verified=1",nativeQuery=true)
+	@Query(value="select * from service where  status=1 and village_id=:village_id and is_background_verified=1",nativeQuery=true)
 	Page<Service> getServiceVerifiedByVillage(Long village_id,Pageable pageable);
 
-	@Query(value="select count(*) from service where user_id=:id",nativeQuery=true)
+	@Query(value="select count(*) from service where status=1 and user_id=:id",nativeQuery=true)
 	List<Service> getServiceByUserId(Long id);
 	
 }
