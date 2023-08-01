@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,7 @@ import app.project.repositories.CategorieRepository;
 import app.project.repositories.ServiceRepository;
 import app.project.repositories.UserRepository;
 import app.project.repositories.VillageRepository;
+import app.project.services.ServiceService;
 import app.project.services.UserService;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -54,6 +56,10 @@ public class ServiceController {
 	
 	@Autowired
 	VillageRepository VillageRepository;
+	
+	 @Autowired
+	ServiceService serviceService;
+		
 	
 	 @GetMapping("/getServiceRaiting")
 	    public ResponseEntity<?> getServiceRaiting(
@@ -136,5 +142,40 @@ public class ServiceController {
 		 return new ResponseEntity<>(bodyRequest.getService(),HttpStatus.OK);
 	 }
 	 
+	 
+	
+		  @GetMapping("/getCountServiceVerified")
+	  	public ResponseEntity<?> getServiceVerified(){	
+	  			return  ResponseEntity.ok().body(serviceService.getServiceVerified());	
+	  	}
+		  
+		  @GetMapping("/getCountServiceNonVerified")
+		  	public ResponseEntity<?> getServiceNonVerified(){	
+		  			return  ResponseEntity.ok().body(serviceService.getServiceNonVerified());	
+		  	}
+		  
+		  @GetMapping("/getServiceNotActived")
+		  	public ResponseEntity<?> getServiceNotActived(){
+			  if(serviceRepository.getServiceNotActived().isEmpty()) {
+				  return  ResponseEntity.ok().body("Pas de service valable");
+			  }else {
+				  return  ResponseEntity.ok().body(serviceRepository.getServiceNotActived());	
+			  }
+		  			
+		  	}
+		  
+		  @PostMapping("/updateService")
+		  public ResponseEntity<?> updateService(@RequestParam("id") Long id){
+			  Service service = serviceRepository.getServiceByid(id);
+			  service.setStatus(1);
+			  serviceRepository.save(service);
+			  return  ResponseEntity.ok().body(service);
+		  }
+		  
+		  @DeleteMapping("/deleteService")
+		  public ResponseEntity<?> deleteService(@RequestParam("id") Long id){
+			  serviceRepository.deleteById(id);
+			  return  ResponseEntity.ok().body("Service supprimer");
+		  }
 
 }
