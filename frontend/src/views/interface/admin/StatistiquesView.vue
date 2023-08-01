@@ -2,34 +2,75 @@
     <div class="root">
        <Navbar></Navbar>
        <div class="mt-5 py-5 ">
-            <div class="content d-flex justify-center justify-space-between justify-space-around">
-              <div  v-for="dat in All_data" :key="dat.id" >
-                  <v-card  
-                    max-width="180"
-                    max-height="180"
-                    variant="outlined"
-                   >
-                <v-list-item   style="padding: 10px;" class="text-center">
-                  <div>
-                    <div class="text-overline-h4 mb-3">
-                      <v-icon size="35px" color="blue" >{{dat.icon}}</v-icon>
-                    </div>
-                    <div  class="text-h6 mb-2">
-                      {{ dat.nbr }}
-                    </div>
-                    <div class="text-h6">{{dat.titre}}</div>
-                  </div>
-                </v-list-item>
-              </v-card>
+            
+        <div class="card row mt-5 d-flex align-center justify-center">
+                <v-chart  class="chart col-lg-6 col-sm-12 col-xs-12"  :option="option"  autoresize/>
+                <v-chart  class="chart col-lg-6 col-sm-12 col-xs-12"  :option="option1"  autoresize/>
+        </div> 
+        <!-- <div class="content mt-15 d-flex justify-center">
+        <v-card  
+            max-width="180"
+            max-height="180"
+            variant="outlined"
+            class="ml-15"
+            >
+        <v-list-item   style="padding: 10px;" class="text-center">
+            <div>
+            <div class="text-overline-h4 mb-3">
+                <v-icon size="35px" color="blue" >mdi-sort-variant</v-icon>
             </div>
+            <div  class="text-h6 mb-2">
+                aaaa
             </div>
-                <div class="card row mt-5 d-flex align-center justify-center">
-                     <v-chart  class="chart col-lg-6 col-sm-12 col-xs-12"  :option="option"  autoresize/>
-              </div> 
+            <div class="text-h6">Categories</div>
+            </div>
+        </v-list-item>
+        </v-card>
+
+        <v-card  
+            max-width="180"
+            max-height="180"
+            variant="outlined"
+            class="ml-15"
+            >
+        <v-list-item   style="padding: 10px;" class="text-center">
+            <div>
+            <div class="text-overline-h4 mb-3">
+                <v-icon size="35px" color="blue" >mdi-store-outline</v-icon>
+            </div>
+            <div  class="text-h6 mb-2">
+                aaaa
+            </div>
+            <div class="text-h6">Villages</div>
+            </div>
+        </v-list-item>
+        </v-card>
+
+        <v-card  
+            max-width="180"
+            max-height="180"
+            variant="outlined"
+            class="ml-15"
+            >
+        <v-list-item   style="padding: 10px;" class="text-center">
+            <div>
+            <div class="text-overline-h4 mb-3">
+                <v-icon size="35px" color="blue" >mdi-account-tie</v-icon>
+            </div>
+            <div  class="text-h6 mb-2">
+                aaaa
+            </div>
+            <div class="text-h6">Utilisateurs</div>
+            </div>
+        </v-list-item>
+        </v-card>
+        </div> -->
+              
     </div>
     </div>
   </template>
   <script>
+  import StatsServices from "@/services/StatsServices.js";
   import { AuthUser } from "@/store/AuthStore";
   import Navbar from '@/components/admin/Navbar.vue'
   import { use } from "echarts/core";
@@ -63,13 +104,18 @@
         }
     },
     created(){
-       
+       this.getClient();
+       this.getServiceVerified();
+       this.getServiceProvider();
+       this.getServiceNonVerified();
     },
     name:'StatistiquesView',
 data(){
     return{
         drawer: false,
         mini: true,
+        clients:0,
+        serviceProviders:0,
         All_data:[
                 {icon:"mdi-account-tie",nbr:0,titre:"Nombre du Clients"},
                 {icon:"mdi-account-tie",nbr:0,titre:"Nombre du ServiceProvider"},
@@ -108,11 +154,82 @@ data(){
           },
         },
          ],
-      }
+      },
+
+      option1 : {
+         title: {
+         text: ` Service `,
+         left: 'center',
+      },
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)',
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: ['Verifier', 'Non verifier'],
+      },
+      series: [
+        {
+          name: 'Static',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '60%'],
+          data: [
+            { value:0, name: 'Verifier' },
+            { value:0, name: 'Non verifier' },
+          ],
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
+            },
+          },
+        },
+         ],
+      },
         }
     },
 methods:{
-    
+    getClient(){
+        StatsServices.getClient().then((res)=>{
+            this.option.series[0].data[0].value=res.data;
+            console.log(this.option.series[0].data[0].value);
+            this.clients=res.data;
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },
+    getServiceProvider(){
+        StatsServices.getServiceProvider().then((res)=>{
+            this.option.series[0].data[1].value=res.data;
+            this.serviceProviders=res.data;
+            console.log(this.option.series[0].data[1].value);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },
+
+    getServiceVerified(){
+        StatsServices.getServiceVerified().then((res)=>{
+            this.option1.series[0].data[0].value=res.data;
+            this.serviceProviders=res.data;
+            console.log(this.option1.series[0].data[0].value);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },
+    getServiceNonVerified(){
+        StatsServices.getServiceNonVerified().then((res)=>{
+            this.option1.series[0].data[1].value=res.data;
+            this.serviceProviders=res.data;
+            console.log(this.option1.series[0].data[1].value);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },
 },
   computed:{
      
