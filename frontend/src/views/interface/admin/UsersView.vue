@@ -1,7 +1,8 @@
 <template>
     <div class="root">
        <Navbar></Navbar>
-       <div class="mt-15 py-5 px-5">
+       <p class="text-xl-h3 text-lg-h5 text-md-h4 text-sm-h6 mt-15 px-5 align-center" style="margin-bottom: 30px;">Listes des Utilisateurs</p>
+       <div class="mt-5 py-5 px-5">
         <v-simple-table
         fixed-header
         height="300px" 
@@ -9,22 +10,22 @@
         <template v-slot:default>
         <thead >
         <tr >
-          <th class="text-left" style="font-size: 25px;">
+          <th class="text-left" style="font-size: 17px;">
             Nom
           </th>
-          <th class="text-left" style="font-size: 25px;">
+          <th class="text-left" style="font-size: 17px;">
             Prénom
           </th>
 
-          <th class="text-left" style="font-size: 25px;">
+          <th class="text-left" style="font-size: 17px;">
             Email
           </th>
 
-          <th class="text-left" style="font-size: 25px;">
+          <th class="text-left" style="font-size: 17px;">
             Date d'inscription
           </th>
 
-          <th class="text-left" style="font-size: 25px;">
+          <th class="text-left" style="font-size: 17px;">
             Role
           </th>
         </tr>
@@ -85,7 +86,6 @@ methods:{
     getAllUsers(){
         StatsServices.getAllUsers().then((res)=>{
             this.users=res.data;
-            console.log(this.users[0].roles[1].length);
         }).catch((err)=>{
             console.log(err);
         })
@@ -96,3 +96,11 @@ methods:{
   }
 }
   </script>
+  <style scoped>
+  *,p{
+    font-family:cursive;
+    scroll-behavior: smooth;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+</style>
