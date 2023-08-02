@@ -177,5 +177,21 @@ public class ServiceController {
 			  serviceRepository.deleteById(id);
 			  return  ResponseEntity.ok().body("Service supprimer");
 		  }
+		  
+		  
+		  @GetMapping("/countServices")
+		  	public int countServices(){	
+		  			return  serviceRepository.countServices();	
+		  	}
+		  
+		  
+		  @GetMapping("/getAllService")
+			 public ResponseEntity<?> getAllService(){
+				 List<Service> services = serviceRepository.getAllService();
+				 if(services.size()==0) {
+					 return ResponseEntity.ok(false);
+				 }
+				 return ResponseEntity.ok(services);
+			 }
 
 }
