@@ -17,5 +17,7 @@ public interface CategorieRepository  extends JpaRepository<Categorie, Long>{
 	@Query(value="select * from Categorie where id=:id",nativeQuery=true)
      Categorie findCategorieById(Long id);
 	
+	@Query(value="select count(*) from categorie",nativeQuery=true)
+	int countCategories();
 
 }
