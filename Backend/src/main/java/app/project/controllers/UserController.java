@@ -37,6 +37,12 @@ public class UserController {
 	  			return  userRepository.getAllUsers();	
 	  	}
 	  
+	  
+	  @GetMapping("/countUsers")
+	  	public int countUsers(){	
+	  			return  userRepository.countUsers();	
+	  	}
+	  
 	
 
 }
