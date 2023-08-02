@@ -23,4 +23,9 @@ public class VillageController {
 		return villageRepository.findAll();
 	}
 
+	
+	 @GetMapping("/countVillages")
+	  	public int countVillages(){	
+	  			return  villageRepository.countVillages();	
+	  	}
 }
