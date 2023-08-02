@@ -1,70 +1,124 @@
 <template>
     <div class="root">
        <Navbar></Navbar>
-       <div class="mt-5 py-5 ">
-            
+       <div class="mt-5 py-5 px-5 mb-15">
+        <v-layout class="mt-15 mb-15" row >
+          <v-flex  xl3 md3 lg3 sm6 xs12 class="mt-5">
+            <v-card
+              class="mx-auto"
+              max-width="344"
+              outlined
+            >
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <div class="text-overline mb-4">
+                    Statistiques
+                  </div>
+                  <v-list-item-title class="text-h5 mb-1">
+                    Users
+                  </v-list-item-title>
+                  <v-list-item-title>{{ Users }}</v-list-item-title>
+                </v-list-item-content>
+
+                <v-list-item-avatar
+                  tile
+                  size="50"
+                >
+                <img src="../../../assets/userstat.png" alt="">
+              </v-list-item-avatar>
+              </v-list-item>
+            </v-card>
+          </v-flex>
+
+          <v-flex  xl3 md3 lg3 sm6 xs12 class="mt-5">
+            <v-card
+              class="mx-auto"
+              max-width="344"
+              outlined
+            >
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <div class="text-overline mb-4">
+                    Statistiques
+                  </div>
+                  <v-list-item-title class="text-h5 mb-1">
+                    Categories
+                  </v-list-item-title>
+                  <v-list-item-title>{{ Categories }}</v-list-item-title>
+                </v-list-item-content>
+
+                <v-list-item-avatar
+                  tile
+                  size="50"
+                >
+                <img src="../../../assets/categoriestat.png" alt="">
+              </v-list-item-avatar>
+              </v-list-item>
+            </v-card>
+          </v-flex>
+
+
+          <v-flex  xl3 md3 lg3 sm6 xs12 class="mt-5">
+            <v-card
+              class="mx-auto"
+              max-width="344"
+              outlined
+            >
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <div class="text-overline mb-4">
+                    Statistiques
+                  </div>
+                  <v-list-item-title class="text-h5 mb-1">
+                    Services
+                  </v-list-item-title>
+                  <v-list-item-title>{{ Services }}</v-list-item-title>
+                </v-list-item-content>
+
+                <v-list-item-avatar
+                  tile
+                  size="50"
+                >
+                <img src="../../../assets/servicestat.png" alt="">
+              </v-list-item-avatar>
+              </v-list-item>
+            </v-card>
+          </v-flex>
+
+          <v-flex xl3 md3 lg3 sm6 xs12 class="mt-5">
+            <v-card
+              class="mx-auto"
+              max-width="344"
+              outlined
+            >
+              <v-list-item three-line>
+                <v-list-item-content>
+                  <div class="text-overline mb-4">
+                    Statistiques
+                  </div>
+                  <v-list-item-title class="text-h5 mb-1">
+                    Villages
+                  </v-list-item-title>
+                  <v-list-item-title>{{ Villages }}</v-list-item-title>
+                </v-list-item-content>
+
+                <v-list-item-avatar
+                  tile
+                  size="50"
+                >
+                <img src="../../../assets/villagestat.png" alt="">
+              </v-list-item-avatar>
+              </v-list-item>
+            </v-card>
+          </v-flex>
+
+        </v-layout>
         <div class="card row mt-5 d-flex align-center justify-center">
                 <v-chart  class="chart col-lg-6 col-sm-12 col-xs-12"  :option="option"  autoresize/>
                 <v-chart  class="chart col-lg-6 col-sm-12 col-xs-12"  :option="option1"  autoresize/>
         </div> 
-        <!-- <div class="content mt-15 d-flex justify-center">
-        <v-card  
-            max-width="180"
-            max-height="180"
-            variant="outlined"
-            class="ml-15"
-            >
-        <v-list-item   style="padding: 10px;" class="text-center">
-            <div>
-            <div class="text-overline-h4 mb-3">
-                <v-icon size="35px" color="blue" >mdi-sort-variant</v-icon>
-            </div>
-            <div  class="text-h6 mb-2">
-                aaaa
-            </div>
-            <div class="text-h6">Categories</div>
-            </div>
-        </v-list-item>
-        </v-card>
 
-        <v-card  
-            max-width="180"
-            max-height="180"
-            variant="outlined"
-            class="ml-15"
-            >
-        <v-list-item   style="padding: 10px;" class="text-center">
-            <div>
-            <div class="text-overline-h4 mb-3">
-                <v-icon size="35px" color="blue" >mdi-store-outline</v-icon>
-            </div>
-            <div  class="text-h6 mb-2">
-                aaaa
-            </div>
-            <div class="text-h6">Villages</div>
-            </div>
-        </v-list-item>
-        </v-card>
-
-        <v-card  
-            max-width="180"
-            max-height="180"
-            variant="outlined"
-            class="ml-15"
-            >
-        <v-list-item   style="padding: 10px;" class="text-center">
-            <div>
-            <div class="text-overline-h4 mb-3">
-                <v-icon size="35px" color="blue" >mdi-account-tie</v-icon>
-            </div>
-            <div  class="text-h6 mb-2">
-                aaaa
-            </div>
-            <div class="text-h6">Utilisateurs</div>
-            </div>
-        </v-list-item>
-        </v-card>
-        </div> -->
+        
               
     </div>
     </div>
@@ -108,6 +162,10 @@
        this.getServiceVerified();
        this.getServiceProvider();
        this.getServiceNonVerified();
+       this.countUsers();
+       this.countCategories();
+       this.countVillages();
+       this.countServices();
     },
     name:'StatistiquesView',
 data(){
@@ -116,10 +174,10 @@ data(){
         mini: true,
         clients:0,
         serviceProviders:0,
-        All_data:[
-                {icon:"mdi-account-tie",nbr:0,titre:"Nombre du Clients"},
-                {icon:"mdi-account-tie",nbr:0,titre:"Nombre du ServiceProvider"},
-            ],
+        Users:0,
+        Villages:0,
+        Categories:0,
+        Services:0,
  
      option : {
          title: {
@@ -196,7 +254,6 @@ methods:{
     getClient(){
         StatsServices.getClient().then((res)=>{
             this.option.series[0].data[0].value=res.data;
-            console.log(this.option.series[0].data[0].value);
             this.clients=res.data;
         }).catch((err)=>{
             console.log(err);
@@ -206,7 +263,6 @@ methods:{
         StatsServices.getServiceProvider().then((res)=>{
             this.option.series[0].data[1].value=res.data;
             this.serviceProviders=res.data;
-            console.log(this.option.series[0].data[1].value);
         }).catch((err)=>{
             console.log(err);
         })
@@ -216,7 +272,6 @@ methods:{
         StatsServices.getServiceVerified().then((res)=>{
             this.option1.series[0].data[0].value=res.data;
             this.serviceProviders=res.data;
-            console.log(this.option1.series[0].data[0].value);
         }).catch((err)=>{
             console.log(err);
         })
@@ -225,11 +280,39 @@ methods:{
         StatsServices.getServiceNonVerified().then((res)=>{
             this.option1.series[0].data[1].value=res.data;
             this.serviceProviders=res.data;
-            console.log(this.option1.series[0].data[1].value);
         }).catch((err)=>{
             console.log(err);
         })
     },
+    countUsers(){
+      StatsServices.countUsers().then((res)=>{
+              this.Users=res.data;
+              
+            }).catch((err)=>{
+              console.log(err);
+            })
+    },
+    countCategories(){
+      StatsServices.countCategories().then((res)=>{
+              this.Categories=res.data;
+            }).catch((err)=>{
+              console.log(err);
+            })
+    },
+    countVillages(){
+      StatsServices.countVillages().then((res)=>{
+              this.Villages=res.data;
+            }).catch((err)=>{
+              console.log(err);
+            })
+    },
+    countServices(){
+      StatsServices.countServices().then((res)=>{
+              this.Services=res.data;
+            }).catch((err)=>{
+              console.log(err);
+            })
+    }
 },
   computed:{
      
@@ -237,6 +320,12 @@ methods:{
 }
 </script>
 <style scoped>
+*{
+    font-family:cursive;
+    scroll-behavior: smooth;
+    overflow: hidden;
+    box-sizing: border-box;
+}
 .content{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr ;
@@ -271,11 +360,13 @@ methods:{
       width: 50vw;
     }
   }
-
+  
   @media screen and (max-width:500px) {
     .chart {
       height: 30vh;
       width: 70vw;
     }
   }
+
+
 </style>
