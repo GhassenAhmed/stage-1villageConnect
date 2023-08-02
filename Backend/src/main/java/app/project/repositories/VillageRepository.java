@@ -19,6 +19,8 @@ public interface VillageRepository extends JpaRepository<Village, Long> {
 	
 	@Query(value="select * from Village where id=:id",nativeQuery=true)
     Village findVillageById(Long id);
-
+	
+	@Query(value="select count(*) from village",nativeQuery=true)
+	int countVillages();
 		
 }
