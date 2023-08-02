@@ -48,5 +48,12 @@ public interface ServiceRepository  extends JpaRepository<Service, Long>{
 	@Query(value="select * from service where id=:id",nativeQuery=true)
 	Service getServiceByid(Long id);
 	
+	@Query(value="select count(*) from service where status=1",nativeQuery=true)
+	int countServices();
 	
+	@Query(value="select * from service where categorie_id=:id",nativeQuery=true)
+	Service getServiceByCategorieId(Long id);
+	
+	@Query(value="select * from service where status=1",nativeQuery=true)
+	List<Service> getAllService();
 }
