@@ -77,7 +77,7 @@
                     <p style="font-size: 30px;padding-top: 20px;">Le plus évalué ! </p>
                 </div>
                 <div class="card">
-                    <v-layout row class="mt-5 align-center justify-center">
+                    <v-layout row class="mt-5 align-center justify-center" v-if="servicesRaiting.length>0">
                         <v-btn small plain :disabled="testPrev1==true"  @click="changerPage1(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
                             <v-icon X large color="#12c2b9">
                                 mdi-chevron-left
@@ -89,12 +89,15 @@
                             </v-icon>
                         </v-btn>
                     </v-layout>
+                    <v-layout v-else class="d-flex align-center justify-center mb-15">
+                            <p style="font-size: 20px;">Pas de service  disponible dans cette village</p>
+                        </v-layout>
                     <v-layout row wrap>
                         <v-flex v-for="service in servicesRaiting"
-                            :key="service.id" xl4 md4 lg4 sm6 xs12>
+                            :key="service.id">
                             <v-card
                             :loading="loading"
-                            class="mx-auto my-12"
+                            class="cards mx-auto my-12"
                             max-width="250"
                         
                             style="width: 300px;cursor: pointer;"
@@ -150,7 +153,7 @@
                             </v-card>
                         </v-flex>   
                     </v-layout>
-                    <v-layout row class="mt-5 align-center justify-center">
+                    <v-layout row class="mt-5 align-center justify-center" v-if="servicesRaiting.length>0">
                         <v-btn small plain :disabled="testPrev1==true"  @click="changerPage1(pageCurrent1-1 )" style="margin: 0px 0px 20px ;">
                             <v-icon X large color="#12c2b9">
                                 mdi-chevron-left
@@ -174,7 +177,7 @@
                     <p style="font-size: 30px;padding-top: 20px;">Vérifié ! </p>
                 </div>
                     <div class="card">
-                        <v-layout row class="mt-5 align-center justify-center">
+                        <v-layout row class="mt-5 align-center justify-center" v-if="servicesVerified.length>0">
                             <v-btn small plain :disabled="testPrev2==true"  @click="changerPage2(pageCurrent2-1 )" style="margin: 0px 0px 20px ;">
                                 <v-icon X large color="#12c2b9">
                                     mdi-chevron-left
@@ -186,12 +189,15 @@
                                 </v-icon>
                             </v-btn>
                         </v-layout>
+                        <v-layout v-else class="d-flex align-center justify-center mb-15">
+                            <p style="font-size: 20px;">Pas de service verifié disponible dans cette village</p>
+                        </v-layout>
                         <v-layout row wrap>
                             <v-flex v-for="service in servicesVerified"
-                                :key="service.id" xl4 md4 lg4 sm6 xs12>
+                                :key="service.id">
                                 <v-card
                             :loading="loading"
-                            class="mx-auto my-12"
+                            class="cards mx-auto my-12"
                             max-width="250"
                         
                             style="width: 300px;cursor: pointer;"
@@ -247,7 +253,7 @@
                                 </v-card>
                             </v-flex>
                         </v-layout>
-                        <v-layout row class="mt-5 align-center justify-center">
+                        <v-layout row class="mt-5 align-center justify-center" v-if="servicesVerified.length>0">
                             <v-btn small plain :disabled="testPrev2==true"  @click="changerPage(pageCurrent2-1 )" style="margin: 0px 0px 20px ;">
                                 <v-icon X large color="#12c2b9">
                                     mdi-chevron-left
@@ -297,13 +303,13 @@ export default {
             loader: true,
             page1:1,
             pageCurrent1:0,
-            per_page1:3,
+            per_page1:4,
             countPage1:[],
             testNext1:true,
             testPrev1:true,
             page2:1,
             pageCurrent2:0,
-            per_page2:3,
+            per_page2:4,
             countPage2:[],
             testNext2:true,
             testPrev2:true,
@@ -399,7 +405,12 @@ export default {
     overflow: hidden;
     box-sizing: border-box;
 }
-
+.cards{
+    transition: transform 0.3s ease;
+}
+.cards:hover{
+    transform: translateY(-20px);
+}
 li{
     display: block;
     padding-bottom: 10px;
