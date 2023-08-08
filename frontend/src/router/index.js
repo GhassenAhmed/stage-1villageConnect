@@ -10,6 +10,7 @@ import CategoriesView from "@/views/interface/admin/CategoriesView.vue";
 import StatistiquesView from "@/views/interface/admin/StatistiquesView.vue";
 import ServiceCategorieView from "@/views/interface/ServiceCategorieView.vue";
 import CreateServiceView from "@/views/seviceProvider/CreateServiceView.vue";
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -71,6 +72,7 @@ const routes = [
     name: 'statistiques',
     component: StatistiquesView
   },
+ 
 ]
 
 const router = new VueRouter({
