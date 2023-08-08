@@ -265,10 +265,12 @@
             </v-list>
             </v-navigation-drawer>
             <Content style="margin-top: 10px;"></Content>
+            <Footer class="mt-15"></Footer>
     </div>
 </template>
 <script>
 import Content from '../../components/service/Content.vue'
+import Footer from '../../components/home/Footer.vue'
 import { AuthUser } from "@/store/AuthStore";
 import VillageServices from "@/services/VillageServices";
 import CategorieServices from '@/services/CategorieServices';
@@ -288,7 +290,7 @@ export default {
     },
     name:'ServiceView',
 components:{
-    Content
+    Content,Footer
 },
 data(){
     return{
