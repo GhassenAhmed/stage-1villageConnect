@@ -154,20 +154,20 @@
             
         </v-list>
         </v-navigation-drawer>
-        <section class="dots-container align-center mt-5 pa-5" v-if="loader">
+        <section class="dots-container align-center mt-5 pa-5" v-if="loader" style="margin-bottom: 100vh;">
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
         </section>
-        <v-container class="" v-else>
+        <v-container class="" v-else style="height: 100vh;">
                 
                 <div class="titre mt-15 ml-15 mb-5" style="font-size: 25px;" v-if="this.services!=null">
                     Découvrez nos <span style="color: #12c2b9;margin-left: 10px;font-weight: bold;font-size: 27px;">{{ categorieName }}</span>
                 </div>
 
-                <div class=" d-flex align-center mt-5 pa-5 justify-center" style="font-size: 25px;" v-else>
+                <div class=" d-flex align-center mt-5 pa-5 justify-center" style="font-size: 25px;margin-top: 300px;" v-else>
                     <span style="color: #12c2b9;font-weight: bold;font-size: 27px;">Pas de service disponible.</span>
                 </div>
             <v-layout row wrap>
@@ -232,12 +232,15 @@
                 </v-flex>
             </v-layout>     
         </v-container>
+
+        <Footer></Footer>
         
     </div>
 </template>
 <script>
 import { AuthUser } from "@/store/AuthStore";
 import VillageServices from "@/services/VillageServices";
+import Footer from "@/components/home/Footer.vue";
 import CategorieServices from "@/services/CategorieServices";
 export default {
     name:'ServiceCategorieView',
@@ -246,6 +249,9 @@ export default {
         return{
             store
         }
+    },
+    components:{
+    Footer
     },
     created(){
         this.id=this.$route.params.id;
