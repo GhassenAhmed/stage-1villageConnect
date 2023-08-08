@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <section class="dots-container align-center mt-5 pa-5" v-if="loader">
+        <section class="dots-container align-center mt-5 pa-5" v-if="loader" style="margin-bottom: 70vh;">
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
