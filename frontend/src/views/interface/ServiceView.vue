@@ -8,7 +8,7 @@
                         
                         <v-spacer></v-spacer>
                 
-                
+                        
                     <v-menu offset-y
 
                         transition="slide-x-transition" 
@@ -27,8 +27,11 @@
                             class="hidden-xs-only"
                             >
                                 <v-icon X Small>mdi-bell</v-icon>
-                                <v-badge color="red" :content="getNbrNotifNotSeen ? getNbrNotifNotSeen : '0'"
-                                ></v-badge> 
+                                <v-badge
+                                color="green"
+                                content="6"
+                                >
+                                </v-badge>
                             </v-btn>
                             
                             </template>
