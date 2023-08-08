@@ -107,6 +107,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .antMatchers("/addCategorie").permitAll()
 		        .antMatchers("/deleteCategorie").permitAll()
 		        .antMatchers("/getAllService").permitAll()
+		        .antMatchers("/EditInfoPersonnel").permitAll()
+		        .antMatchers("/uploadPhoto").permitAll()
 				.anyRequest().authenticated()
 		        .and()
 			    .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
