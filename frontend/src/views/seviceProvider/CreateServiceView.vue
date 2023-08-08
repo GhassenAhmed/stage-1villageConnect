@@ -174,7 +174,7 @@
                                     <v-textarea
                                     v-model="formData.form.description"
                                     placeholder="Description sur votre service"
-                                    
+                                    :error-messages="descriptionError"
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -186,7 +186,7 @@
                                     <v-text-field
                                     v-model="formData.form.adresse"
                                     placeholder="Adresse du votre service"
-                                   
+                                   :error-messages="adresseError"
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -198,7 +198,7 @@
                                     <v-text-field
                                     v-model="formData.form.phone"
                                     placeholder="numero du telephone"
-                                    
+                                    :error-messages="phoneError"
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -240,6 +240,7 @@
                                     style="width: 95%;"
                                     v-model="formData.form.maxPrice"
                                     placeholder="Maximum price"
+                                    :error-messages="maxError"
                                     value="0"
                                     prefix="$"
                                     ></v-text-field>
@@ -254,6 +255,7 @@
                                     style="width: 95%;"
                                     v-model="formData.form.minPrice"
                                     placeholder="Minimum price"
+                                    :error-messages="minError"
                                     value="0"
                                     prefix="$"
                                     ></v-text-field>
@@ -263,7 +265,7 @@
                                     <span>Mettez un lien utile pour plus d'informations.</span>
                                     <v-text-field
                                     outlined
-                                    
+                                    :error-messages="lienError"
                                     class="py-5"
                                     style="width: 95%;"
                                     v-model="formData.form.thumbnailUrl"
@@ -281,7 +283,7 @@
                                     class="py-5"
                                     style="width: 95%;"
                                     v-model="formData.form.yearsInBusiness"
-                                    
+                                    :error-messages="yearsError"
                                     placeholder="Annees d'experience"
                                     
                                     ></v-text-field>
