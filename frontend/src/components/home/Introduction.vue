@@ -257,9 +257,7 @@ h4{
 
 .card:hover{
     background-color: #1976D2;
-    color: white;
-    
-    
+    color: white;   
 }
 .subject{
     margin-top: 100px;
