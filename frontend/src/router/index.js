@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomeView from "@/views/HomeView.vue"
+import EditProfilView from "@/views/EditProfilView.vue"
 import SignUpView from "@/views/authentification/SignUpView.vue"
 import LogInView from "@/views/authentification/LogInView.vue"
 import ServiceView from "@/views/interface/ServiceView.vue";
@@ -71,6 +72,11 @@ const routes = [
     path: '/statistiques',
     name: 'statistiques',
     component: StatistiquesView
+  },
+  {
+    path: '/editProfil',
+    name: 'editProfil',
+    component: EditProfilView
   },
  
 ]
