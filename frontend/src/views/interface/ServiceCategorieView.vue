@@ -175,7 +175,7 @@
                     :key="service.id">
                     <v-card
                             :loading="loading"
-                            class="mx-auto my-12"
+                            class="cards mx-auto my-12"
                             max-width="250"
                         
                             style="width: 300px;cursor: pointer;"
@@ -333,7 +333,12 @@ export default {
     overflow: hidden;
     box-sizing: border-box;
 }
-
+.cards{
+    transition: transform 0.3s ease;
+}
+.cards:hover{
+    transform: translateY(-20px);
+}
 
 .dots-container {
   display: flex;
@@ -386,5 +391,6 @@ export default {
     background-color: #b3d4fc;
     box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
   }
+  
 }
 </style>
