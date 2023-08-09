@@ -7,5 +7,8 @@ export default {
     TestEmail(email){
         return Axios.get("ExistMail?email="+email);
     },
+    getUserAuthentifie(){
+        return Axios.get("getUserAuthentifie");
+    }
 
 }
