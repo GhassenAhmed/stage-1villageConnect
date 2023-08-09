@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -129,4 +131,9 @@ public class AuthController {
 	    	return userService.getByEmail(email)==null ? true :false;
 	    }
 	
+	 @GetMapping("/getUserAuthentifie")
+	    public ResponseEntity<?> getUserAuthentifie(HttpServletRequest request){
+	    	User userAuth=userService.UserAuth(request);
+	    	return ResponseEntity.ok().body(userAuth);
+	    }
 }
