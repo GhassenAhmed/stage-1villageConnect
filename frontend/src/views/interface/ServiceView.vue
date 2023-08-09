@@ -396,7 +396,4 @@ computed:{
     overflow: hidden;
     box-sizing: border-box;
 }
-
-
-
 </style>
