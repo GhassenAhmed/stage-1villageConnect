@@ -47,10 +47,17 @@ export const AuthUser = defineStore('auth', ()=> {
         localStorage.removeItem('user');
     }
 
+    function SetUser(u){
+        user.value=null;
+        localStorage.removeItem('user');
+        user.value=u;
+        localStorage.setItem('user',JSON.stringify(u));
+    }
+
 
     return {
         token,user,isAuth,IsAdmin,IsClient,IsServiceProvider,
         getUser,gettoken,getisauth,getIsadmin,getIsClient,getIsServiceProvider,
-        logIn,logOut
+        logIn,logOut,SetUser
     }
 })
