@@ -1,7 +1,9 @@
 package app.project.controllers;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import app.project.Mail.Mail;
 import app.project.entities.User;
 import app.project.parametre.DataPhoto;
 import app.project.parametre.DataUser;
+import app.project.parametre.InfoEmail;
 import app.project.repositories.UserRepository;
 import app.project.secutity.SecurityConfig;
 import app.project.services.UserService;
@@ -33,6 +37,9 @@ public class UserController {
 	
 	@Autowired
 	SecurityConfig securityConfig;
+	
+	@Autowired
+	Mail mailsender;
 	
 	  @GetMapping("/getUserClient")
   	public ResponseEntity<?> getUserClient(){	
@@ -98,6 +105,35 @@ public class UserController {
 	    	   user.setPassword(securityConfig.passwordEncoder().encode(pass));
 	    	   userRepository.save(user);
 	    	   return  ResponseEntity.ok().body("Password Modified");
+	    }
+	  
+	  @GetMapping("/SendChangedEmail")
+	    public ResponseEntity<?> SendChangedEmail(@RequestParam("email") String email_new,HttpServletRequest request){
+	    	    User user = userService.UserAuth(request);
+	    	    if (user == null) {
+	    	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+	    	    }
+	    	    try {
+	    	    	 mailsender.SendMailConfirm(user.getEmail(),email_new);
+	    		}catch(MessagingException e) {
+					return new ResponseEntity<String>("Error Connexion",HttpStatus.CONFLICT);
+				}catch(UnsupportedEncodingException e) {
+					return new ResponseEntity<String>("Unsupported Forme",HttpStatus.CONFLICT);
+				}
+
+	    	    return  ResponseEntity.ok().body("Send Mail For Confirm");
+	    }
+	    
+	    @PostMapping("/updateEmail")
+	    public ResponseEntity<?> updateEmail(@RequestBody InfoEmail data){
+	    	   User user = userService.getByEmail(data.getEmail_old());
+	    	   if (user == null) {
+	    	        return ResponseEntity.status(HttpStatus.CONFLICT).body("User not Found");
+	    	    }
+	    	   user.setEmail(data.getEmail_new());
+	    	   user.setEmail_verified_at(null);
+	    	   userRepository.save(user);
+	    	   return  ResponseEntity.ok().body("Email Modified");
 	    }
 	
 
