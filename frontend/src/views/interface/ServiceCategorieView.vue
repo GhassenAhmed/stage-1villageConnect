@@ -4,7 +4,7 @@
         <v-app-bar-nav-icon @click="drawer = true" 
                             class="d-flex d-sm-none" 
                             ></v-app-bar-nav-icon>
-            <v-toolbar-title class="text-center-sm hidden-sm-and-down" style="font-size: 25px;font-weight: bolder;">Village<span style="color: #105955d1;">Connect<span style="font-weight: bolder;font-size: 35px;color: #12c2b9;">.</span></span></v-toolbar-title> 
+                <v-toolbar-title class="text-center-sm" style="margin-left: -50px;"><img src="../../assets/village2.png" width="300px"></v-toolbar-title> 
                     <v-autocomplete
                     :items="villagesNames"
                     v-model="search"
