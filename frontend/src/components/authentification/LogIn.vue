@@ -45,6 +45,13 @@
                                         placeholder="Enter Password"
                                     ></v-text-field>
                                 </v-flex>
+                                
+                        </v-layout>
+                        <v-layout class="d-flex justify-center" row>
+                            <div class="mb-5">
+                                <p  color="#4F5BD8" style="color:#2B3277;font-weight:bold;">
+                                <router-link to="/forgotpassword">Forgot Password ?</router-link>  </p>   
+                            </div>
                         </v-layout>
                         <hr color="#2B3277" size="1px" class="mb-3">
                         <div class="flex text-center mt-10">
@@ -66,8 +73,8 @@
     </div>
 </template>
 <script>
+import {required,email} from "vuelidate/lib/validators"
 import authService from '@/services/AuthServices';
-import {required,email} from "vuelidate/lib/validators";
 import { AuthUser } from "../../store/AuthStore.js";
 export default {
     name:"login",
