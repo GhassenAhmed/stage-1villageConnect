@@ -76,7 +76,7 @@ public class Mail {
 	public void SendMailConfirm(String email_current,String new_email) throws MessagingException ,UnsupportedEncodingException{
 		Context context=new Context();
 		context.setVariable("email_new", new_email);
-		context.setVariable("link","http://localhost:8081/login?email="+email_current+"&email_new="+new_email);
+		context.setVariable("link","http://localhost:8081/#/Login?email="+email_current+"&email_new="+new_email);
 		String body=templateEngine.process("ConfirmChangeEmail", context);
 		
 		String fromAddress = "villageconnectt@gmail.com";
