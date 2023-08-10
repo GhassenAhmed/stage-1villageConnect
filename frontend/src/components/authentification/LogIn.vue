@@ -2,7 +2,7 @@
     <div class="signup">
         <v-toolbar class="mb-4" >
             <v-toolbar-title>
-                <img src="../../assets/logo.png" width="200px" alt="logo_app">
+                <img src="../../assets/village..png" width="300px" alt="logo_app">
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <router-link to="/">
