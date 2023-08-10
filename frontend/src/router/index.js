@@ -11,6 +11,8 @@ import CategoriesView from "@/views/interface/admin/CategoriesView.vue";
 import StatistiquesView from "@/views/interface/admin/StatistiquesView.vue";
 import ServiceCategorieView from "@/views/interface/ServiceCategorieView.vue";
 import CreateServiceView from "@/views/seviceProvider/CreateServiceView.vue";
+import ForgotPasswordView from "@/views/authentification/ForgotPassword/ForgotPasswordView.vue"
+import ChangerPasswordView from "@/views/authentification/ForgotPassword/ChangerPasswordView.vue"
 
 Vue.use(VueRouter)
 
@@ -78,7 +80,18 @@ const routes = [
     name: 'editProfil',
     component: EditProfilView
   },
- 
+  
+  {
+    path: '/forgotpassword',
+    name: 'forgotpassword',
+    component: ForgotPasswordView
+  },
+  {
+    path: '/changerpassword',
+    name: 'changerpassword',
+    component: ChangerPasswordView
+  },
+  
 ]
 
 const router = new VueRouter({
