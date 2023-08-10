@@ -13,5 +13,8 @@ export default {
     TestExistcode(code){
         return Axios.get("ExistToken?code="+code);
     },
+    UpdateStatus(info){
+        return Axios.post("UpdateStatus",info);
+    },
 
 }
