@@ -2,10 +2,12 @@ package app.project.controllers;
 
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import app.project.entities.Role;
 import app.project.entities.User;
+import app.project.Mail.Mail;
 import app.project.authenticate.Credentials;
 import app.project.repositories.RoleRepository;
 import app.project.repositories.UserRepository;
@@ -61,6 +65,12 @@ public class AuthController {
 	 
 	 @Autowired
 	 UserRoleRepository userRoleRepository;
+	 
+	@Autowired
+	Mail mailsender;
+	 
+	 
+	 
 	
 	@PostMapping("/signUp")
 	public ResponseEntity<?> SignUp(@RequestBody User user){
@@ -80,6 +90,13 @@ public class AuthController {
 			newUser.setPhoto(user.getPhoto());
 		}
 		newUser.setRoles(roleList);
+		try {
+			mailsender.sendVerificationEmail(user);
+		}catch(MessagingException e) {
+			return new ResponseEntity<String>("Error Connexion",HttpStatus.CONFLICT);
+		}catch(UnsupportedEncodingException e) {
+			return new ResponseEntity<String>("Unsupported Forme",HttpStatus.CONFLICT);
+		}
 		userRepositiry.save(newUser);
 		return new ResponseEntity<>(newUser,HttpStatus.OK);
 	}
