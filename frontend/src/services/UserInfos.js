@@ -9,6 +9,9 @@ export default {
     },
     getUserAuthentifie(){
         return Axios.get("getUserAuthentifie");
-    }
+    },
+    TestExistcode(code){
+        return Axios.get("ExistToken?code="+code);
+    },
 
 }
