@@ -35,7 +35,12 @@ export default {
             store.logOut();
         }
     },
-
+    forgotPassword(email) {
+        return Axios.post("ForgotPassword?email=" + email);
+    },
+    changerPassword(info) {
+        return Axios.post("ChangerPassword", info)
+    },
 
 }
 
