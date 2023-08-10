@@ -38,6 +38,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value="select count(*) from user",nativeQuery=true)
 	int countUsers();
 	
+	@Query(value="select * from user where password_token=:token",nativeQuery=true)
+	User CheckToken(String token);
+	
 	
 
 }
