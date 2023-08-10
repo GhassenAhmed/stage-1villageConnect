@@ -90,9 +90,9 @@
                              <v-card-text v-else-if="page==1">
                             <changerPassword></changerPassword>
                             </v-card-text>
-                            <!-- <v-card-text v-else>
+                            <v-card-text v-else>
                                 <ChangerEmail></ChangerEmail>
-                            </v-card-text>  -->
+                            </v-card-text>
                             </v-card>
                             <v-snackbar
                             color="#5094df"
@@ -141,6 +141,7 @@ import { AuthUser } from "@/store/AuthStore.js";
 import userInfos from "@/services/UserInfos.js"
 import EditProfilServices from "@/services/EditProfilServices.js";
 import ChangerPassword from "./ChangerPassword.vue";
+import ChangerEmail from "./ChangerEmail.vue";
 export default { 
     setup(){
         const store = AuthUser();
@@ -272,7 +273,7 @@ export default {
         },
     },
     components:{
-        ChangerPassword
+        ChangerPassword,ChangerEmail
     }
     
 }
