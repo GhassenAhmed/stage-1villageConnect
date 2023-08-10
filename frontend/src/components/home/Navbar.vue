@@ -3,8 +3,8 @@
         <div class="nav">
             <v-toolbar flat class="toolbar">
                     
-                <v-toolbar-title>
-                        <img src="../../assets/logo.png" id="logo-nav" width="200px">
+                <v-toolbar-title style="margin-left: -40px;">
+                        <img src="../../assets/village..png" id="logo-nav" width="300px">
                 </v-toolbar-title>
                     
                         
