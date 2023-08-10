@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.project.entities.Role;
 import app.project.entities.User;
+import app.project.parametre.ChangerPassword;
 import app.project.Mail.Mail;
 import app.project.authenticate.Credentials;
 import app.project.repositories.RoleRepository;
@@ -142,6 +143,10 @@ public class AuthController {
 		
 	}
 	
+	 @GetMapping("/ExistToken")
+	    public Boolean TestExitCode(@RequestParam("code") String code) {
+	    	return userRepositiry.CheckToken(code)==null ? true :false;
+	    }
 	
 	 @GetMapping("/ExistMail")
 	    public Boolean TestExitEmail(@RequestParam("email") String email) {
@@ -152,5 +157,27 @@ public class AuthController {
 	    public ResponseEntity<?> getUserAuthentifie(HttpServletRequest request){
 	    	User userAuth=userService.UserAuth(request);
 	    	return ResponseEntity.ok().body(userAuth);
+	    }
+	 
+	 @PostMapping("/ForgotPassword")
+	    public ResponseEntity<?> forgotPassword(@RequestParam(name="email")String email){
+	    	try {
+	    		userService.forgotPassword(email);
+	    	}catch(Exception e) {
+	    		return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+	    	}
+	    	return ResponseEntity.ok().body("Mail Send With Token");
+	    }
+	    
+	    
+	    @PostMapping("/ChangerPassword")
+	    public ResponseEntity<?> ResetPassword(@RequestBody ChangerPassword parametre){
+	    	String password_hash=SecurityConfig.passwordEncoder().encode(parametre.getPassword());
+	    	try {
+	    		userService.ChangerPassword(parametre.getEmail(), parametre.getToken(), password_hash);
+	    	}catch(Exception e) {
+	    		return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+	    	}
+	    	return ResponseEntity.ok().body("Password has been changed");
 	    }
 }
