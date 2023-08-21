@@ -193,5 +193,11 @@ public class ServiceController {
 				 }
 				 return ResponseEntity.ok(services);
 			 }
+		  
+		  @GetMapping("/getServiceDetails")
+		  public ResponseEntity<?> getServiceDetails(@RequestParam("id") Long id){
+				 Service service = serviceRepository.getServiceById(id);
+				 return ResponseEntity.ok(service);
+			 }
 
 }
