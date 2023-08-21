@@ -13,5 +13,9 @@ export default {
     },
     createService(service){
         return Axios.post("createService",service)
+    },
+   async  getServiceDetailsById(id){
+        const res = await Axios.get("getServiceDetails?id="+id);
+        return res;
     }
 }
