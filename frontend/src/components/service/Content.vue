@@ -95,62 +95,64 @@
                     <v-layout row wrap>
                         <v-flex v-for="service in servicesRaiting"
                             :key="service.id">
-                            <v-card
-                            :loading="loading"
-                            class="cards mx-auto my-12"
-                            max-width="250"
-                        
-                            style="width: 300px;cursor: pointer;"
-                            >
-                            <template slot="progress">
-                            <v-progress-linear
-                                color="deep-purple"
-                                height="10"
-                                indeterminate
-                            ></v-progress-linear>
-                            </template>
+                                <router-link :to="/service/ + service.id" style="text-decoration: none;color: black;">
+                                <v-card
+                                :loading="loading"
+                                class="cards mx-auto my-12"
+                                max-width="250"
+                            
+                                style="width: 300px;cursor: pointer;"
+                                >
+                                <template slot="progress">
+                                <v-progress-linear
+                                    color="deep-purple"
+                                    height="10"
+                                    indeterminate
+                                ></v-progress-linear>
+                                </template>
 
-                            <v-img
-                            height="180"
-                            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                            ></v-img>
+                                <v-img
+                                height="180"
+                                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                                ></v-img>
 
-                            <v-card-title>{{service.serviceName}} - <span style="font-size: 13px;margin-left: 3px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
-                            <v-card-text>
-                            <v-row
-                                class="my-1 ml-1"
-                                align="center"
-                            >
-                                <v-rating
-                                :value="4.5"
-                                color="amber"
-                                dense
-                                half-increments
-                                readonly
-                                size="14"
-                                ></v-rating>
+                                <v-card-title>{{service.serviceName}} - <span style="font-size: 13px;margin-left: 3px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
+                                <v-card-text>
+                                <v-row
+                                    class="my-1 ml-1"
+                                    align="center"
+                                >
+                                    <v-rating
+                                    :value="4.5"
+                                    color="amber"
+                                    dense
+                                    half-increments
+                                    readonly
+                                    size="14"
+                                    ></v-rating>
 
-                                <div class="grey--text ms-4">
-                                4.5 (413)
-                                </div>
-                            </v-row>
-                            <div><img src="../../assets/emplacement.png" alt="" width="20px" class="mr-2 mt-1">{{service.village['villageName']}} <img src="../../assets//verifie.png" alt="" v-if="service.backgroundVerified" class="float-end" width="30px"></div>
-                            </v-card-text>
+                                    <div class="grey--text ms-4">
+                                    4.5 (413)
+                                    </div>
+                                </v-row>
+                                <div><img src="../../assets/emplacement.png" alt="" width="20px" class="mr-2 mt-1">{{service.village['villageName']}} <img src="../../assets//verifie.png" alt="" v-if="service.backgroundVerified" class="float-end" width="30px"></div>
+                                </v-card-text>
 
-                            <v-divider class="mx-4"></v-divider>
+                                <v-divider class="mx-4"></v-divider>
 
-                            <v-card-title><img src="../../assets/money-management.png" alt="" width="30px" class="mr-2 mt-1">Prix range</v-card-title>
-                            <v-card-text>{{ service.minPrice }} DT - {{ service.maxPrice }} DT</v-card-text>
-                            <v-card-actions class="justify-center">
-                            <v-btn
-                                color="deep-purple lighten-1"
-                                text
-                                
-                            >
-                                Plus
-                            </v-btn>
-                            </v-card-actions>
-                            </v-card>
+                                <v-card-title><img src="../../assets/money-management.png" alt="" width="30px" class="mr-2 mt-1">Prix range</v-card-title>
+                                <v-card-text>{{ service.minPrice }} DT - {{ service.maxPrice }} DT</v-card-text>
+                                <v-card-actions class="justify-center">
+                                <v-btn
+                                    color="deep-purple lighten-1"
+                                    text
+                                    
+                                >
+                                    Plus
+                                </v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </router-link>
                         </v-flex>   
                     </v-layout>
                     <v-layout row class="mt-5 align-center justify-center" v-if="servicesRaiting.length>0">
@@ -195,62 +197,64 @@
                         <v-layout row wrap>
                             <v-flex v-for="service in servicesVerified"
                                 :key="service.id">
-                                <v-card
-                            :loading="loading"
-                            class="cards mx-auto my-12"
-                            max-width="250"
-                        
-                            style="width: 300px;cursor: pointer;"
-                            >
-                            <template slot="progress">
-                            <v-progress-linear
-                                color="deep-purple"
-                                height="10"
-                                indeterminate
-                            ></v-progress-linear>
-                            </template>
+                                <router-link :to="/service/ + service.id" style="text-decoration: none;color: black;">
+                                    <v-card
+                                :loading="loading"
+                                class="cards mx-auto my-12"
+                                max-width="250"
+                            
+                                style="width: 300px;cursor: pointer;"
+                                >
+                                <template slot="progress">
+                                <v-progress-linear
+                                    color="deep-purple"
+                                    height="10"
+                                    indeterminate
+                                ></v-progress-linear>
+                                </template>
 
-                            <v-img
-                            height="180"
-                            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-                            ></v-img>
+                                <v-img
+                                height="180"
+                                src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+                                ></v-img>
 
-                            <v-card-title>{{service.serviceName}} - <span style="font-size: 13px;margin-left: 3px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
-                            <v-card-text>
-                            <v-row
-                                class="my-1 ml-1"
-                                align="center"
-                            >
-                                <v-rating
-                                :value="4.5"
-                                color="amber"
-                                dense
-                                half-increments
-                                readonly
-                                size="14"
-                                ></v-rating>
+                                <v-card-title>{{service.serviceName}} - <span style="font-size: 13px;margin-left: 3px;color:rgb(73, 70, 70)"> {{ service.categorie['categorieName'] }}</span></v-card-title>
+                                <v-card-text>
+                                <v-row
+                                    class="my-1 ml-1"
+                                    align="center"
+                                >
+                                    <v-rating
+                                    :value="4.5"
+                                    color="amber"
+                                    dense
+                                    half-increments
+                                    readonly
+                                    size="14"
+                                    ></v-rating>
 
-                                <div class="grey--text ms-4">
-                                4.5 (413)
-                                </div>
-                            </v-row>
-                            <div><img src="../../assets/emplacement.png" alt="" width="20px" class="mr-2 mt-1">{{service.village['villageName']}} <img src="../../assets//verifie.png" alt="" v-if="service.backgroundVerified" class="float-end" width="30px"></div>
-                            </v-card-text>
+                                    <div class="grey--text ms-4">
+                                    4.5 (413)
+                                    </div>
+                                </v-row>
+                                <div><img src="../../assets/emplacement.png" alt="" width="20px" class="mr-2 mt-1">{{service.village['villageName']}} <img src="../../assets//verifie.png" alt="" v-if="service.backgroundVerified" class="float-end" width="30px"></div>
+                                </v-card-text>
 
-                            <v-divider class="mx-4"></v-divider>
+                                <v-divider class="mx-4"></v-divider>
 
-                            <v-card-title><img src="../../assets/money-management.png" alt="" width="30px" class="mr-2 mt-1">Prix range</v-card-title>
-                            <v-card-text>{{ service.minPrice }} DT - {{ service.maxPrice }} DT</v-card-text>
-                            <v-card-actions class="justify-center">
-                            <v-btn
-                                color="deep-purple lighten-1"
-                                text
-                                
-                            >
-                                Plus
-                            </v-btn>
-                            </v-card-actions>
-                                </v-card>
+                                <v-card-title><img src="../../assets/money-management.png" alt="" width="30px" class="mr-2 mt-1">Prix range</v-card-title>
+                                <v-card-text>{{ service.minPrice }} DT - {{ service.maxPrice }} DT</v-card-text>
+                                <v-card-actions class="justify-center">
+                                <v-btn
+                                    color="deep-purple lighten-1"
+                                    text
+                                    
+                                >
+                                    Plus
+                                </v-btn>
+                                </v-card-actions>
+                                    </v-card>
+                                </router-link>
                             </v-flex>
                         </v-layout>
                         <v-layout row class="mt-5 align-center justify-center" v-if="servicesVerified.length>0">
