@@ -13,7 +13,7 @@ import ServiceCategorieView from "@/views/interface/ServiceCategorieView.vue";
 import CreateServiceView from "@/views/seviceProvider/CreateServiceView.vue";
 import ForgotPasswordView from "@/views/authentification/ForgotPassword/ForgotPasswordView.vue"
 import ChangerPasswordView from "@/views/authentification/ForgotPassword/ChangerPasswordView.vue"
-
+import serviceDetailsView from "@/views/interface/serviceDetailsView.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -90,6 +90,11 @@ const routes = [
     path: '/changerpassword',
     name: 'changerpassword',
     component: ChangerPasswordView
+  },
+  {
+    path: '/service/:id',
+    name: 'serviceDetails',
+    component: serviceDetailsView
   },
   
 ]
