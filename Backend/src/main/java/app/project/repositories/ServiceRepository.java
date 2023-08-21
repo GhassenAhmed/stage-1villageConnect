@@ -56,4 +56,7 @@ public interface ServiceRepository  extends JpaRepository<Service, Long>{
 	
 	@Query(value="select * from service where status=1",nativeQuery=true)
 	List<Service> getAllService();
+	
+	@Query(value="select * from service where id=:id",nativeQuery=true)
+	Service getServiceById(Long id);
 }
