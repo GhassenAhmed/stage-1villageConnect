@@ -8,7 +8,11 @@
                         
                         <v-spacer></v-spacer>
                 
-                        
+                    <v-btn icon class="hidden-xs-only" to="/home">
+                        <v-icon class=""  X Small>
+                            mdi-home
+                        </v-icon>
+                    </v-btn>
                     <v-menu offset-y
 
                         transition="slide-x-transition" 
@@ -25,12 +29,12 @@
                             v-on="on"
                             @click="changerEtatNotif()"
                             class="hidden-xs-only"
+                            
                             >
-                                <v-icon X Small>mdi-bell</v-icon>
-                                <v-badge
-                                color="green"
-                                content="6"
+                            <v-badge
+                                color="red"  
                                 >
+                                <v-icon >mdi-bell</v-icon>
                                 </v-badge>
                             </v-btn>
                             
@@ -114,7 +118,7 @@
                     </v-list-item>
                     </v-list>
                     </v-menu>
-                <v-btn icon class="hidden-xs-only">
+                <v-btn icon class="hidden-xs-only" to="/chat">
                     <v-icon class=""  X Small>
                         mdi-email-outline
                     </v-icon>
@@ -203,7 +207,7 @@
                 dense
                 class="mt-5 py-5"
             >
-                <v-list-item>
+                <v-list-item to="home">
                     <v-list-item-icon>
                     <v-icon X Small>mdi-home</v-icon>
                     </v-list-item-icon>
@@ -211,7 +215,7 @@
                     <v-list-item-title style="font-size: 15px;">Home</v-list-item-title>
                 </v-list-item>
 
-                <v-list-item>
+                <v-list-item to="/chat">
                     <v-list-item-icon>
                     <v-icon X Small>mdi-email-outline</v-icon>
                     </v-list-item-icon>
@@ -219,7 +223,7 @@
                     <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Messages</v-list-item-title>
                 </v-list-item>
 
-                <v-list-item>
+                <v-list-item>   
                     <v-list-item-icon>
                     <v-icon X Small>mdi-heart-outline</v-icon>
                     </v-list-item-icon>
