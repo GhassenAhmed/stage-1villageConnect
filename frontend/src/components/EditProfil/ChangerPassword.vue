@@ -40,14 +40,14 @@
             </div>
           <v-divider></v-divider>
          <v-card-actions class="justify-center">
-           <v-btn class="mx-2" style="color:#fff" type="submit" color="#5094df" :loading="load"
+           <v-btn class="mx-2" style="color:#fff" type="submit" color="#12c2b9" :loading="load"
                >
             Update
            </v-btn>
          </v-card-actions>
          </form>
          <v-snackbar
-         color="#5094df"
+         color="#12c2b9"
          v-model="snackbar"
        >
          {{ message }}
