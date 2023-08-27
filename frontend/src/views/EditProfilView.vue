@@ -8,7 +8,11 @@
                         
                         <v-spacer></v-spacer>
                 
-                        
+                        <v-btn icon class="hidden-xs-only" to="/home">
+                            <v-icon class=""  X Small>
+                                mdi-home
+                            </v-icon>
+                        </v-btn>
                     <v-menu offset-y
 
                         transition="slide-x-transition" 
@@ -203,8 +207,9 @@
                 dense
                 class="mt-5 py-5"
             >
-                <v-list-item>
-                    <v-list-item-icon>
+
+                <v-list-item to="/home">
+                    <v-list-item-icon >
                     <v-icon X Small>mdi-home</v-icon>
                     </v-list-item-icon>
 
