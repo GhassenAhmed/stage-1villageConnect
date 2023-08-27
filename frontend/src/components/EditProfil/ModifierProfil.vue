@@ -26,7 +26,7 @@
                         type="file"
                         >
                         <br>
-                          <v-btn type="submit" style="color:#fff" class="mt-5" color="#5094df"  :loading="loadimage" @click="SavePhoto()">Upload</v-btn>
+                          <v-btn type="submit" style="color:#fff" class="mt-5" color="#12c2b9"  :loading="loadimage" @click="SavePhoto()">Upload</v-btn>
                              <p class="py-3" >
                                 Member Since: {{ store.user['created_at'].substring(0,10) }}
                              </p>
@@ -38,7 +38,7 @@
                             <v-card >
                                 <v-tabs
                                 fixed-tabs
-                                background-color="#5094df"
+                                background-color="#12c2b9"
                                 dark
                             >
                                 <v-tab @click="page=0">
@@ -81,7 +81,7 @@
                                 </div>
                             <v-divider></v-divider>
                             <v-card-actions class="justify-center py-3">
-                                <v-btn :loading="loadingEdit" style="color:#fff" class="mx-2" type="submit" color="#5094df">
+                                <v-btn :loading="loadingEdit" style="color:#fff" class="mx-2" type="submit" color="#12c2b9">
                                     Updated
                                 </v-btn>
                             </v-card-actions>
@@ -95,7 +95,7 @@
                             </v-card-text>
                             </v-card>
                             <v-snackbar
-                            color="#5094df"
+                            color="#12c2b9"
                             v-model="snackbar"
                         >
                             {{ message }}
@@ -117,7 +117,7 @@
             </div>
          </v-container>
          <v-snackbar
-         color="#5094df"
+         color="#12c2b9"
          v-model="snackbar"
        >
          {{ message }}
