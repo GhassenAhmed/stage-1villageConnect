@@ -41,6 +41,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	@Query(value="select * from user where password_token=:token",nativeQuery=true)
 	User CheckToken(String token);
 	
+	@Query(value="select * from user where id=:id",nativeQuery=true)
+	User getUserById(long id);
+	
 	
 
 }
