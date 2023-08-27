@@ -12,13 +12,113 @@
                     mdi-home
                 </v-icon>
             </v-btn>
-            <v-btn icon class="hidden-sm-and-down">
-                <v-icon   X Small >
-                    mdi-bell-outline
-                </v-icon>
-            </v-btn>
+            <v-menu offset-y
+
+                        transition="slide-x-transition" 
+                        left
+                        class="mt-7"
+                        max-width="auto"
+                        min-width="300"
+                        >
+                
+                            <template v-slot:activator="{ on, attrs }">
+                            <v-btn
+                            plain
+                            v-bind="attrs"
+                            v-on="on"
+                            @click="changerEtatNotif()"
+                            class="hidden-xs-only"
+                            >
+                                <v-icon X Small>mdi-bell</v-icon>
+                                <v-badge
+                                color="green"
+                                content="6"
+                                >
+                                </v-badge>
+                            </v-btn>
+                            
+                            </template>
+                    
+                            <v-list>
+                                    <v-list-item class="text-h5">
+                                        Notifications
+                                    </v-list-item>
+                            </v-list>
+                                <v-divider></v-divider>
+                            <v-list v-if="notifications.length==0">
+                            <v-list-item  class="mt-5 red--text">
+                                <v-list-item-title class="text-h7 ml-8 mb-8">Pas de notification </v-list-item-title>
+                            </v-list-item>
+                            </v-list>
+                        
+                            <v-list v-else>
+                            <v-list-item
+                                v-for="notif in notifications" :key="notif.id"
+                            >
+                        <v-list-item-avatar>
+                            <v-avatar size="43px">
+                                <v-img  :src="notif.photo"></v-img>
+                            </v-avatar>
+                        </v-list-item-avatar>
+                      
+                        <v-list-item-content>
+                            <v-list-item-title class="px-5 justify-center">
+                                {{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span>
+                            </v-list-item-title>
+                        </v-list-item-content> 
+                        <v-list-item-action>
+                            <v-col cols="auto">
+                            <v-dialog
+                                transition="dialog-bottom-transition"
+                                max-width="400"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-btn
+                                    plain
+                                    @click="dialog==true"
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    >
+                                        <v-icon>mdi-close</v-icon>
+                                    </v-btn>
+                                </template>
+                                 <template v-slot:default="dialog">
+                                <v-card>
+                                    <v-card-text>
+                                    <div class="text-h5 pa-5">Supprimer notification</div>
+                                    </v-card-text>
+                                    <v-card-actions class="justify-end">
+                                    <v-btn
+                                        text
+                                        @click="dialog.value = false"
+                                    >Non</v-btn>
+                                    <v-btn
+                                        text
+                                        @click="deleteNotificationById(notif.idNotif),dialog.value = false"
+                                    >Supprimer</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                                </template> 
+                            </v-dialog>
+                            </v-col>
+                        </v-list-item-action>
+                        </v-list-item>
+                            <v-divider></v-divider>
+                            <v-list-item class="mt-5">
+                                <v-btn 
+                                plain
+                                v-if="notifications.length!=0"
+                                @click="deleteAllNotif()"
+                                >
+                                    <v-list-item-title class="red--text ml-15"> 
+                                        Supprimer tous<v-icon class="pa-1 red--text">mdi-delete</v-icon>
+                                    </v-list-item-title>
+                            </v-btn>
+                    </v-list-item>
+                    </v-list>
+                    </v-menu>
     
-            <v-btn icon class="hidden-sm-and-down">
+            <v-btn icon class="hidden-sm-and-down" to="/chat">
                 <v-icon class=""  X Small>
                     mdi-email-outline
                 </v-icon>
@@ -115,7 +215,7 @@
                 <v-list-item-title style="font-size: 15px;">Home</v-list-item-title>
             </v-list-item>
 
-            <v-list-item>
+            <v-list-item to="/chat">
                 <v-list-item-icon>
                 <v-icon X Small>mdi-email-outline</v-icon>
                 </v-list-item-icon>
@@ -151,51 +251,61 @@
         </section>
         <v-container class="" v-else style="height: auto;margin-top: 100px; margin-bottom: 200px;">
                 <v-layout row wrap>
+                    <p style="font-size: 20px;margin-right: 20px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, dolor!</p>
+                    
                     <v-flex xl8 md8 lg8 sm12 xs12 class="pl-4">
-                        <p style="font-size: 30px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, dolor!</p>
+                        
                         <v-layout style="width: 100%; margin-top: 40px;" row wrap>
                             <v-flex xl2 md2 lg2 sm2 xs4 class="pa-5">
-                                <v-avatar size="70">
+                                <v-avatar size="50">
                                     <img :src="service.user['photo']" width="100%" height="auto">
                                 </v-avatar>
                             </v-flex>
                             <v-flex xl6 md6 lg6 sm6 xs8 class="pa-5">
-                                <span style="font-size: 20px;padding-bottom: 10px;">{{ service.user['firstName'] }}  {{ service.user['lastName'] }} </span><br>
-                                <span style="font-size: 20px;margin-top: 20px;">{{ service.serviceName }} | {{ service.categorie['categorieName'] }}</span>
+                                <span style="font-size: 15px;padding-bottom: 10px;"><v-icon class="mr-2" size="25">mdi-account</v-icon>{{ service.user['firstName'] }}  {{ service.user['lastName'] }} </span><br>
+                                <span style="font-size: 15px;margin-top: 20px;"><v-icon class="mr-2" size="25">mdi-home-outline</v-icon>{{ service.serviceName }} | {{ service.categorie['categorieName'] }}</span>
                             </v-flex>
                         </v-layout>
-                        <img  class="img" :src="service.photo" v-if="service.photo!=null" width="70%"  height="auto" style="margin-top: 50px;margin-bottom: 50px;">
+                        <img  class="img" :src="service.photo" v-if="service.photo!=null" width="70%"  height="auto" style="margin-top: 10px;margin-bottom: 50px;cursor: pointer;">
                         <p v-else style="font-size: 100%;margin-top: 50px;margin-bottom: 50px;">Pas de photo disponible</p>
                         
                         
 
                     </v-flex>
 
-                    <v-flex xl4 md4 lg4 sm12 xs12>
-                        <span style="font-size: 35px;margin-top: 20px;margin-bottom: 50px;">{{ service.serviceName }} | {{ service.categorie['categorieName'] }}</span>
-                        <div class="details" style="margin-top: 50px;padding-left: 10px;">
-                            <h2 style="margin-bottom: 10px;color: #757575;"> Adresse : <a href=""><span font-size="30px" style="color:#5b5a5a;">{{ service.adresse }}</span> </a></h2>
-                            <h2 style="margin-bottom: 10px;color: #757575;"> Phone : <span font-size="30px" style="color:#5b5a5a;">{{ service.phone }}</span></h2>
+                    <v-flex xl4 md4 lg4 sm12 xs12 class="justify-center align-center">
+                        <div class="root mt-xl-16 mt-md-16 mt-lg-16">
+                            <span style="font-size: 35px;margin-top: 50px;margin-bottom: 50px;">{{ service.serviceName }} | {{ service.categorie['categorieName'] }}</span>
+                        <div class="details" style="margin-top: 150px;padding-left: 10px;">
+                            <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <a href="" style="text-decoration: none;"><img src="../../assets/emplacement.png" alt="" width="25px" class="mr-2"><span font-size="30px" style="color:#5b5a5a;">{{ service.adresse }}</span> </a></h2>
+                            <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <v-icon class="mr-2" size="25">mdi-phone</v-icon> <span font-size="40px" style="color:#5b5a5a;">{{ service.phone }}</span></h2>
 
                         <div class="div" v-if="service.thumbnailUrl!=null">
-                            <h2 style="margin-bottom: 10px;color: #757575;"> Lien : <span font-size="30px" style="color:#5b5a5a;">{{ service.thumbnailUrl }}</span></h2>
+                            <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;">  <v-icon class="mr-2" size="30">mdi-link</v-icon><span font-size="40px" style="color:#5b5a5a;">{{ service.thumbnailUrl }}</span></h2>
                         </div>
 
                         <div class="div" v-if="service.yearsInBusiness!=null">
-                            <h2 style="margin-bottom: 10px;color: #757575;"> Depuis : <span font-size="30px" style="color:#5b5a5a;">{{ service.yearsInBusiness }} ans</span></h2>
+                            <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"><v-icon class="mr-2" size="30">mdi-arrow-right-thick</v-icon> <span font-size="40px" style="color:#5b5a5a;">{{ service.yearsInBusiness }} ans</span></h2>
                         </div>
 
                         <div class="div" v-if="service.village['villageName']!=null">
-                            <h2 style="margin-bottom: 10px;color: #757575;"> Village : <span font-size="30px" style="color:#5b5a5a;">{{ service.village['villageName'] }}</span></h2>
+                            <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <v-icon class="mr-2" size="30">mdi-home</v-icon><span font-size="40px" style="color:#5b5a5a;">{{ service.village['villageName'] }}</span></h2>
                              
                         </div>
 
                         <div class="div" v-if="service.maxPrice!=null || service.minPrice!=null">
-                            <h2 style="margin-bottom: 10px;color: #757575;"> Prix : <span font-size="30px" style="color:#5b5a5a;">{{ service.minPrice }} DT - {{ service.maxPrice }} DT</span></h2>
+                            <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <v-icon class="mr-2" size="30">mdi-cash-100</v-icon><span font-size="40px" style="color:#5b5a5a;">{{ service.minPrice }}  - {{ service.maxPrice }} DT</span></h2>
                              
                         </div>
+                        <div class="btn mt-10">
+                            <v-btn  color="#12c2b9" class="white--text mr-10">Ajouter</v-btn>
+                            <v-btn   color="#12c2b9">Conatct</v-btn>    
                         </div>
                         
+                        </div>
+                        
+                        </div>
+                       
                     </v-flex>
                 </v-layout>
             
@@ -209,6 +319,7 @@
 import { AuthUser } from "@/store/AuthStore";
 import Footer from "@/components/home/Footer.vue";
 import ServiceServices from "@/services/ServiceServices.js"
+import NotificationServices from '@/services/NotificationServices';
 export default {
     name:'serviceDetailsView',
     setup(){
@@ -223,6 +334,7 @@ export default {
     created(){
         this.id=this.$route.params.id;
         console.log(this.id);
+        this.getNotifsNotSeen();
         
     },
     mounted(){
@@ -236,6 +348,8 @@ export default {
             drawer: false,
             loading: false,
             loader:true,
+            notifications:[],
+            notificationNotSeen:[],
         }
     },
     methods:{
@@ -251,14 +365,73 @@ export default {
             }).catch((err)=>{
                 console.log(err);
             })
-        }
+        },
+        getNotifs(){
+            NotificationServices.getNotifs().then((res)=>{
+                for(let i=0;i<res.data.length;i++){
+                    this.notifications.push({idNotif:res.data[i].id,msg:res.data[i].message,etat:res.data[i].etat,date:(res.data[i].created_at)?.substring(0,10),photo:res.data[i].userEnvoi['photo']})
+                } 
+                console.log(this.notifications);
+            
+            }
+            )
+        },
+        deleteNotificationById(id){
+            NotificationServices.deleteNotificationById(id).then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+                this.getNotifs();
+                this.getNotifsNotSeen();
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        deleteAllNotif(){
+            NotificationServices.deleteAllNotif().then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        changerEtatNotif(){
+            NotificationServices.updateNotif()
+            .then((res)=>{
+                this.notifications=[];
+                this.notificationNotSeen=[];
+                this.getNotifsNotSeen();
+                this.getNotifs();
+            }).catch((err)=>{
+                console.log(err);
+            })
+        },
+        getNotifsNotSeen(){
+            NotificationServices.getNotifNotSeen().then((res)=>{
+                for(let i=0;i<(res.data).length;i++){
+                    this.notificationNotSeen.push({idNotif:res.data[i].id,msg:res.data[i].message,etat:res.data[i].etat})
+                }
+            }).catch((err)=>{
+                console.log(err);
+            })
+         },
+    },
+    computed:{
+    getNbrNotif(){
+        const nbrNotif=this.notifications.length
+        return nbrNotif;
+    },
+            
+    getNbrNotifNotSeen(){
+            const nbrNotifNotSeen=this.notificationNotSeen.length
+            return nbrNotifNotSeen;
     }
+}
 
 }
 </script>
 <style scoped>
 *{
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     font-weight: lighter;
     scroll-behavior: smooth;
     overflow: hidden;
