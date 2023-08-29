@@ -276,7 +276,7 @@
                     <v-flex xl4 md4 lg4 sm12 xs12 class="justify-center align-center">
                         <div class="root mt-xl-16 mt-md-16 mt-lg-16">
                             <span style="font-size: 35px;margin-top: 50px;margin-bottom: 50px;">{{ service.serviceName }} | {{ service.categorie['categorieName'] }}</span>
-                        <div class="details" style="margin-top: 150px;padding-left: 10px;">
+                        <div class="details" style="margin-top: 50px;padding-left: 10px;">
                             <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <a href="" style="text-decoration: none;"><img src="../../assets/emplacement.png" alt="" width="25px" class="mr-2"><span font-size="30px" style="color:#5b5a5a;">{{ service.adresse }}</span> </a></h2>
                             <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <v-icon class="mr-2" size="25">mdi-phone</v-icon> <span font-size="40px" style="color:#5b5a5a;">{{ service.phone }}</span></h2>
 
