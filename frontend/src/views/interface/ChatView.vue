@@ -216,32 +216,6 @@
 
                     <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Listes</v-list-item-title>
                 </v-list-item>
-
-                <v-list-group
-                no-action
-                sub-group
-                
-                
-                >
-                <template v-slot:activator>
-                    <v-list-item-content>
-                    <v-list-item-title>Categories</v-list-item-title>
-                    </v-list-item-content>
-                </template>
-                <div class="categories" style="overflow-y: scroll;height: 400px;">
-                    <v-list-item
-                    v-for="categorie in categories"
-                    :key="categorie.id"
-                    link
-                    
-                >
-                <router-link :to="/Categorie/ + categorie.id" style="text-decoration: none;color: black;">
-                    <v-list-item-title >{{ categorie.categorieName }}</v-list-item-title>
-                </router-link>
-                </v-list-item>
-                </div>
-               
-                </v-list-group>
                 <v-divider class="mt-5 mb-5"></v-divider>
                 <v-list-item>
                 <v-btn
@@ -258,15 +232,103 @@
             <v-layout class="mt-15" row>
                 <v-flex xl3 md3 lg3 sm12 xs12 class="pa-5">
                     Tous les messages <v-icon>mdi-arrow-down</v-icon>
-                    <div class="boite1 d-flex justify-center align-center" style="height: auto;border: 0.005svb solid rgb(218, 217, 217);border-radius: 10px;margin-top: 15px;flex-direction: column;">
-                        <img src="../../assets/message1.png" alt="" width="auto" height="200px">
-                        <p style="font-size: 20px;margin-top: 20px;">Pas de conversations</p>
+                    <div class="boite1 d-flex justify-center align-center" style="height: auto;margin-top: 15px;flex-direction: column;">
+                        <div class="noAmis pa-5" v-if="this.amis.length==0" style="border: 0.005svb solid rgb(218, 217, 217);border-radius: 10px;">
+                            <img src="../../assets/message1.png" alt="" width="auto" height="200px">
+                            <p style="font-size: 20px;margin-top: 20px;">Pas de conversations</p>
+                        </div>
+                        <div class="Amis" style="width: 100%;">
+                            <div class="users ma-3 pa-1">
+                                <v-layout row class="user pa-4" v-for="ami in amis" :key="ami.id" @click="getAllChatPrivate(ami.id)">
+                                        <v-flex xl4 md4 lg4 class="d-flex justify-center align-center" >
+                                            <v-avatar class="mr-5" size="50">
+                                                <img :src="ami.photo" alt="">
+                                            </v-avatar>
+                                        </v-flex>
+                                        <v-flex xl8 md8 lg8>
+                                            <p style="font-size: 15px;" class="mt-2">{{ami.firstName}} {{ ami.lastName }}</p>
+                                            <p style="font-size: 12px;">{{ami.email}}</p>
+                                        </v-flex>
+                                </v-layout>
+                            </div>
+                        </div>
                     </div>
                 </v-flex>
-                <v-flex xl9 md9 lg9 sm12 xs12>
-                    <div class="boite2 d-flex justify-center align-center" style="height: auto;border: 0.005svb solid rgb(218, 217, 217);border-radius: 10px;margin-top: 15px;flex-direction: column;margin-right:30px;">
-                        <img src="../../assets/message2.png" alt="" width="auto" height="250px">
-                        <p style="font-size: 20px;margin-top: 20px;">Ah, une toute nouvelle boîte de réception</p>
+                <v-flex xl8 md8 lg8 sm12 xs12>
+                    <div class="boite2" style="height: auto;border: 0.005svb solid rgb(218, 217, 217);border-radius: 10px;margin-top: 15px;flex-direction: column;margin-right:30px;">
+                        <div class="PasMessage d-flex justify-center align-center" v-if="chats.length==0">
+                             <img src="../../assets/message2.png" alt="" width="auto" height="250px">
+                            <p style="font-size: 20px;margin-top: 20px;">Ah, une toute nouvelle boîte de réception</p>
+                        </div>
+                        <v-container class="ma-15" v-else>
+                            <v-layout row>
+                                <v-flex>
+                                    <div class="title d-flex align-center justify-center">
+                                        <h3>Discussion textuelle de groupe en temps réel en ligne</h3>
+                                    </div>
+                                    <v-divider class="title-divider"></v-divider>
+                                </v-flex>
+                            </v-layout>
+                            <v-layout row wrap>
+                                <v-flex> 
+                                    <div class="scroll">
+                                        <v-container>
+                                            <div class="chat pa-5"  v-for="chat in chats" :key="chat.id">
+                                                <div class="other" v-if="chat.userEnvoi['id']!=store.user['id']">
+                                                    <v-layout wrap>
+                                                        <v-flex>
+                                                            <v-avatar size="35">
+                                                                <v-img :src="chat.userEnvoi['photo']"></v-img>
+                                                            </v-avatar>
+                                                            <span class="name ml-4">{{ chat.userEnvoi['firstName'] }}<span class="time" v-if="chat.created_at!=null"> {{chat.created_at}}</span></span>
+                                                        </v-flex>
+                                                    </v-layout>
+                                                    <v-layout wrap>
+                                                        <v-flex class="mr-5">
+                                                            <div class="mt-4 float-start">
+                                                                <span class="message">{{ chat.message }}</span>
+                                                            </div>
+                                                        </v-flex>
+                                                    </v-layout>
+                                                </div>
+
+
+                                                <div class="mine float-end mr-5 py-5" v-else>
+                                                    <v-layout wrap>
+                                                        <v-flex>
+                                                            <v-avatar size="35">
+                                                                <v-img :src="store.user['photo']"></v-img>
+                                                            </v-avatar>
+                                                            <span class="name ml-5">Moi<span class="time mr-4">{{chat.created_at}}</span></span>
+                                                        </v-flex>
+                                                    </v-layout>
+                                                    <v-layout wrap>
+                                                            <v-flex class="mr-5">
+                                                                <div class="mt-4 float-end">
+                                                                    <span class="message">{{ chat.message }}</span>
+                                                                </div>
+                                                            </v-flex>
+                                                    </v-layout>
+                                                </div>   
+                                            </div>
+                                            <v-layout row>
+                                                <v-flex>
+                                                    <div class="container-input">
+                                                        
+                                                        <form @submit.prevent="addPost()" class="mt-10">
+                                                            <v-container class="d-flex wrap">
+                                                                <input type="text" placeholder="...." name="text" class="input float-start" style="width: 70%;" v-model="message">
+                                                                <v-btn class="button float-end mr-10 ml-5 text-body-2" type="submit" text>Envoyer</v-btn>
+                                                            </v-container>
+                                                        </form>                                              
+                                                    </div>
+                                                </v-flex >
+                                            </v-layout>
+                                        </v-container>
+                                    </div>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
                     </div>
                 </v-flex>
             </v-layout>
@@ -275,6 +337,7 @@
 <script>
 import { AuthUser } from "@/store/AuthStore";
 import NotificationServices from '@/services/NotificationServices';
+import ChatServices from "@/services/ChatServices"
 export default {
     setup(){
         const store=AuthUser();
@@ -285,6 +348,7 @@ export default {
     created(){
         this.getNotifs();
         this.getNotifsNotSeen();
+        this.getAmis();
     },
     name:'ChatView',
 data(){
@@ -292,6 +356,10 @@ data(){
         drawer: false,
         notifications:[],
         notificationNotSeen:[],
+        chats:[],
+        amis:[],
+        id:-1,
+        message:"",
         
     }
 },
@@ -348,6 +416,33 @@ methods:{
                 console.log(err);
             })
          },
+
+         getAllChatPrivate(id){
+            ChatServices.getAllChatPrivate(id).then((res)=>{
+                this.chats=res.data;
+                this.id=id;
+                console.log(this.chats);
+            }).catch((err)=>{
+                console.log(err);
+            });
+         },
+         getAmis(){
+            ChatServices.getAmis().then((res)=>{
+                this.amis=res.data;
+                console.log(this.amis[0].id);
+            }).catch((err)=>{
+                console.log(err);
+            })
+         },
+
+         addPost(){
+            ChatServices.addMessagePrivate(this.id,this.message).then((res)=>{
+                console.log(res.data);
+                location.reload();
+            }).catch((err)=>{
+                console.log(err);
+            });
+         }
     
 },
 computed:{
@@ -371,4 +466,99 @@ computed:{
     overflow: hidden;
     box-sizing: border-box;
 }
+
+
+.user:hover{
+    background-color: rgb(236, 234, 234);
+    cursor: pointer;
+}
+
+.message-mine{
+        border: solid #4e538d 2px;
+        padding: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-sizing:border-box;
+        max-width: 85%;
+        background-color: #ffffff;
+        text-align: justify;
+        display: inline-block;
+        display: table;
+}
+    .title{
+        margin-top: 10px;
+        color: #27272d;
+        width: auto;
+    }
+    .title-divider{
+        margin-top: 34px;
+        width: 100%;
+    }
+    
+    .users{
+        height: 100vh;
+    }
+    
+    .v-navigation-drawer__content{
+        width: 100% !important;
+    }
+    
+    .message-div{
+        border: solid #525fe1 2px;
+        padding: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+        box-sizing:border-box;
+        max-width: 85%;
+        background-color: #f0f1ff;
+    }
+    .message{
+        text-align: justify;
+        font-size: 15px;
+    }
+    .name{
+        font-size: 15px;
+        font-weight: bolder;
+        
+    }
+    .time{
+        font-size: 10px;
+        margin-left: 5px;
+        color: rgb(135, 133, 133);
+        font-weight: lighter;
+    }
+    *{
+        overflow: hidden;
+    }
+    
+    .scroll{
+        overflow-y: scroll;
+        height: 70vh;
+        scroll-margin-block-start: 40px;
+        scrollbar-width: none;
+        scrollbar-color: #12c2b9;
+    }
+    .list-users{
+        overflow-y: scroll;
+        height: 70vh;
+        scroll-margin-block-start: 40px;
+        scrollbar-width: none;
+        scrollbar-color: #12c2b9;
+    }
+    
+    .container-input {
+      margin-top: 200px;
+    }
+    
+    .input {
+      width: 80%;
+      border-radius: 15px;
+      padding: 10px 0px 10px 40px;
+      border: 0.005svb solid rgb(218, 217, 217);
+      transition: all .2s ease-in-out;
+      outline: none;
+      opacity: 0.8;
+      float: inline-end;
+     
+    }
 </style>
