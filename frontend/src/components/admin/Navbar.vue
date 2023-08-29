@@ -144,7 +144,7 @@ min-width="300"
                         <v-list-item-action>
                             <v-btn
                                 plain
-                                
+                                to="/editProfil"
                             >
                                 <v-icon class="pa-2">mdi-wrench</v-icon>
                                 <span class="">Profile</span>
