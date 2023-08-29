@@ -1,6 +1,9 @@
 package app.project.controllers;
 
+import java.sql.ResultSet;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.project.entities.Inbox;
+import app.project.entities.Notification;
 import app.project.entities.User;
 import app.project.repositories.InboxRepository;
+import app.project.repositories.NotificationRepository;
 import app.project.repositories.UserRepository;
 import app.project.services.UserService;
 
@@ -31,6 +36,10 @@ public class InboxController {
 	@Autowired
 	InboxRepository InboxRepository;
 	
+	@Autowired
+	NotificationRepository notificationRepository;
+	
+	
 	
 	
 	@PostMapping("/AddMessagePrivate")
@@ -40,6 +49,12 @@ public class InboxController {
     	 chat.setUserEnvoi(userAuth);
     	 chat.setUserRecu(userRepository.getUserById(user_id));
     	 chat.setMessage(message);
+    	 Notification notif = new Notification();
+    	 notif.setEtat(0);
+    	 notif.setMessage("Vous avez un message !");
+    	 notif.setUserEnvoi(userAuth);
+    	 notif.setUserRecu(userRepository.getUserById(user_id));
+    	 notificationRepository.save(notif);
     	 InboxRepository.save(chat);
     	return ResponseEntity.ok("add message");
     }
@@ -51,6 +66,12 @@ public class InboxController {
     	 return ResponseEntity.ok(chats);
     }
 	
+	@GetMapping("/getAmis")
+	public ResponseEntity<?>getAmis(HttpServletRequest request){
+		User userAuth=userService.UserAuth(request);
+		 List<User> amis= userRepository.getAmis(userAuth.getId());
+		 return ResponseEntity.ok(amis);
+	}
+		
+	}
 	
-
-}
