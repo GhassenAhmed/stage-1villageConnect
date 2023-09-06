@@ -4,7 +4,7 @@
         <v-app-bar-nav-icon @click="drawer = true" 
                             class="d-flex d-sm-none" 
                             ></v-app-bar-nav-icon>
-                <v-toolbar-title class="text-center-sm" style="margin-left: -50px;"><img src="../../assets/village2.png" width="300px"></v-toolbar-title> 
+                <v-toolbar-title class="text-center-sm hidden-sm-and-down" style="margin-left: -50px;"><img src="../../assets/village2.png" width="300px"></v-toolbar-title> 
                     <v-autocomplete
                     :items="villagesNames"
                     v-model="search"
@@ -182,6 +182,19 @@
                     </v-list-item-action>
                     
                 </v-list-item>
+                <v-list-item v-if="store.IsServiceProvider==true">
+                        
+                        <v-list-item-action>
+                            <v-btn
+                                plain
+                               to="/services"
+                            >
+                                <v-icon class="pa-2">mdi-cards-variant</v-icon>
+                                <span class="">Services</span>
+                            </v-btn>
+                        </v-list-item-action>
+                        
+                    </v-list-item>
                 <v-list-item >
                     <v-list-item-action>
                         <v-btn
@@ -242,6 +255,20 @@
 
                 <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Listes</v-list-item-title>
             </v-list-item>
+            <v-list-item to="/editProfil">   
+                    <v-list-item-icon>
+                    <v-icon X Small>mdi-wrench</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Profile</v-list-item-title>
+                </v-list-item>
+                <v-list-item v-if="store.IsServiceProvider==true" to="/services">   
+                    <v-list-item-icon>
+                    <v-icon X Small>mdi-cards-variant</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Services</v-list-item-title>
+                </v-list-item>
             <v-list-item>
                 <v-btn
                 plain
