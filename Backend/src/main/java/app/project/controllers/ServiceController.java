@@ -25,7 +25,10 @@ import app.project.entities.Service;
 import app.project.entities.User;
 import app.project.entities.Village;
 import app.project.parametre.BodyRequest;
+import app.project.parametre.DataEditService;
+import app.project.parametre.DataPhoto;
 import app.project.parametre.DataService;
+import app.project.parametre.DataUser;
 import app.project.repositories.CategorieRepository;
 
 import app.project.repositories.ServiceRepository;
@@ -207,5 +210,34 @@ public class ServiceController {
 			  serviceRepository.save(service);
 			  return  ResponseEntity.ok().body("Votre evaluation a ete ajouter !");
 		  }
+		  
+		  @GetMapping("/getServicesById")
+		  public ResponseEntity<?> getServicesById(HttpServletRequest request){
+			  User user = userService.UserAuth(request);
+			  List<Service> services = serviceRepository.getServicesById(user.getId());
+			  return ResponseEntity.ok(services);
+		  }
+		  
+		  @PostMapping("/EditService")
+		    public ResponseEntity<?> EditInfoPersonnel(@RequestBody DataEditService data,@RequestParam("id") Long id){
+			  Service service = serviceRepository.getById(id);
+			  service.setAdresse(data.getAdresse());
+			  service.setDescription(data.getDescription());
+			  service.setServiceName(data.getServiceName());
+			  service.setThumbnailUrl(data.getThumbnailUrl());
+			  service.setMinPrice(data.getMinPrice());
+			  service.setMaxPrice(data.getMaxPrice());
+			  service.setPhone(data.getPhone());
+			  serviceRepository.save(service);
+		    	  return  ResponseEntity.ok().body("User Modified");
+		    }
+		  
+		  @PostMapping("/uploadPhotoService")
+		    public ResponseEntity<?> EditPhoto(@RequestParam("id") Long id,@RequestBody DataPhoto photo){
+		    	  Service service = serviceRepository.getById(id);
+		    	  service.setPhoto(photo.getPhoto());
+		    	  serviceRepository.save(service);
+		    	  return  ResponseEntity.ok().body("Photo modifiee !");
+		    }
 
 }
