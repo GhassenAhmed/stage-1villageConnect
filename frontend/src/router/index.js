@@ -15,6 +15,8 @@ import CreateServiceView from "@/views/seviceProvider/CreateServiceView.vue";
 import ForgotPasswordView from "@/views/authentification/ForgotPassword/ForgotPasswordView.vue"
 import ChangerPasswordView from "@/views/authentification/ForgotPassword/ChangerPasswordView.vue"
 import serviceDetailsView from "@/views/interface/serviceDetailsView.vue"
+import ServicesListView from "@/views/seviceProvider/ServicesListView.vue"
+import EditServiceView from "@/views/seviceProvider/EditServiceView.vue"
 Vue.use(VueRouter)
 
 const routes = [
@@ -101,6 +103,16 @@ const routes = [
     path: '/chat',
     name: 'chat',
     component: ChatView
+  },
+  {
+    path: '/servicesList',
+    name: 'serviceList',
+    component: ServicesListView
+  },
+  {
+    path: '/editService/:id',
+    name: 'editService',
+    component: EditServiceView
   },
   
   
