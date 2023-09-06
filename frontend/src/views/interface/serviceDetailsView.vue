@@ -273,7 +273,7 @@
 
                     </v-flex>
 
-                    <v-flex xl4 md4 lg4 sm12 xs12 class="justify-center align-center">
+                    <v-flex xl4 md4 lg4 sm12 xs12 class="d-flex justify-center align-center">
                         <div class="root mt-xl-16 mt-md-16 mt-lg-16">
                             <span style="font-size: 35px;margin-top: 50px;margin-bottom: 50px;">{{ service.serviceName }} | {{ service.categorie['categorieName'] }}</span>
                         <div class="details" style="margin-top: 50px;padding-left: 10px;">
@@ -297,9 +297,17 @@
                             <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <v-icon class="mr-2" size="30">mdi-cash-100</v-icon><span font-size="40px" style="color:#5b5a5a;">{{ service.minPrice }}  - {{ service.maxPrice }} DT</span></h2>
                              
                         </div>
-                        <div class="btn mt-10">
-                            <v-btn  color="#12c2b9" class="white--text mr-10">Ajouter</v-btn>
-                            <v-btn   color="#12c2b9">Conatct</v-btn>    
+                        <div class="btn mt-10 d-flex wrap">
+                            <v-rating
+                            color="warning"
+                            background-color="grey"
+                            hover
+                            v-model="rate"
+                            size="40"
+                            value="15"
+                            >
+                        </v-rating>
+                            <v-btn   plain class="yellow--text mt-2" @click="rating()" :disabled="rate==0">Rate</v-btn>    
                         </div>
                         
                         </div>
@@ -350,6 +358,7 @@ export default {
             loader:true,
             notifications:[],
             notificationNotSeen:[],
+            rate:0
         }
     },
     methods:{
@@ -414,6 +423,15 @@ export default {
                 console.log(err);
             })
          },
+         rating(){
+            console.log(this.rate);
+            ServiceServices.addRate(this.id,this.rate).then((res)=>{
+                console.log(res.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
+         }
+
     },
     computed:{
     getNbrNotif(){
