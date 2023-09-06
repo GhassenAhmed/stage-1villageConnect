@@ -166,11 +166,11 @@
                         
                     </v-list-item>
 
-                        <v-list-item v-if="store.IsServiceProvider==true">
+                        <v-list-item v-if="store.IsServiceProvider">
                         <v-list-item-action>
                             <v-btn
                                 plain
-                               to="/services"
+                               to="/servicesList"
                             >
                                 <v-icon class="pa-2">mdi-cards-variant</v-icon>
                                 <span class="">Services</span>
@@ -237,7 +237,7 @@
 
                     <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Profile</v-list-item-title>
                 </v-list-item>
-                <v-list-item v-if="store.IsServiceProvider==true" to="/services">   
+                <v-list-item v-if="store.IsServiceProvider" to="/servicesList">   
                     <v-list-item-icon>
                     <v-icon X Small>mdi-cards-variant</v-icon>
                     </v-list-item-icon>
