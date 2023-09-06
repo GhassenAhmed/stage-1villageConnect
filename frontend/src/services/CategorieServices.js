@@ -15,5 +15,8 @@ export default {
     async getServiceCategorie(id){
         const res = await Axios.get("getServiceCategorie?id="+id);
         return res;
+    },
+    addCategorie(name){
+        return Axios.post("addCategorie?name="+name);
     }
 }
