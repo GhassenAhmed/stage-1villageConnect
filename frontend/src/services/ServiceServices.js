@@ -20,5 +20,15 @@ export default {
     },
     addRate(id,rate){
         return Axios.post(`raite?id=${id}&raite=${rate}`);
-    }
+    },
+    getServicesById(){
+        return Axios.get("getServicesById");
+    },
+    updatePhoto(id,data){
+        return Axios.post("uploadPhotoService?id="+id,data);
+    },
+    EditService(id,data){
+        return Axios.post("EditService?id="+id,data);
+    },
+
 }
