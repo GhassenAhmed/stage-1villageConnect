@@ -59,4 +59,7 @@ public interface ServiceRepository  extends JpaRepository<Service, Long>{
 	
 	@Query(value="select * from service where id=:id",nativeQuery=true)
 	Service getServiceById(Long id);
+	
+	@Query(value="select * from service where user_id=:id",nativeQuery=true)
+	List<Service> getServicesById(Long id);
 }
