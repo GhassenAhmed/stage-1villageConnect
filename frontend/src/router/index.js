@@ -103,6 +103,7 @@ const routes = [
     component: ChatView
   },
   
+  
 ]
 
 const router = new VueRouter({
