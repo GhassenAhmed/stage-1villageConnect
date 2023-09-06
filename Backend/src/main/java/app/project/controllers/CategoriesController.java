@@ -60,11 +60,22 @@ public class CategoriesController {
   	}
 	
 	@PostMapping("/addCategorie")
-	public  ResponseEntity<?> addCategorie(@RequestBody Categorie categorie){
+	public  ResponseEntity<?> addCategorie(@RequestParam String name){
+		int find=0;
 		Categorie newCategorie = new Categorie();
-		newCategorie.setCategorieName(categorie.getCategorieName());
-		categorieRepository.save(newCategorie);
-		return new ResponseEntity<>(newCategorie,HttpStatus.OK);
+		List<Categorie> categories = categorieRepository.getAllCategories();
+		for(Categorie categorie : categories) {
+			if(categorie.getCategorieName().equals(name)) {
+				find=1;
+			}
+		}
+		if(find==0) {
+			newCategorie.setCategorieName(name);
+			categorieRepository.save(newCategorie);
+			return  ResponseEntity.ok().body("Categorie ajouter avec succes !");
+		}else {
+			return  ResponseEntity.ok().body("Nom utilisé !");
+		}
 	}
 	
 	 @DeleteMapping("/deleteCategorie")
