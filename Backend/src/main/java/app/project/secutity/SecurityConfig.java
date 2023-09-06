@@ -121,6 +121,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		        .antMatchers("/AddMessagePrivate").permitAll()
 		        .antMatchers("/AllChatPrivate").permitAll()
 		        .antMatchers("/getAmis").permitAll()
+		        .antMatchers("/raite").permitAll()
 				.anyRequest().authenticated()
 		        .and()
 			    .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
