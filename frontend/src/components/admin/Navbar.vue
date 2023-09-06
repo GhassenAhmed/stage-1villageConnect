@@ -12,61 +12,61 @@
          <v-spacer></v-spacer>
          <v-menu offset-y
 
-transition="slide-x-transition" 
-left
-class="mt-7"
-max-width="auto"
-min-width="300"
->
+        transition="slide-x-transition" 
+        left
+        class="mt-7"
+        max-width="auto"
+        min-width="300"
+        >
 
-    <template v-slot:activator="{ on, attrs }">
-    <v-btn
-    plain
-    v-bind="attrs"
-    v-on="on"
-    @click="changerEtatNotif()"
-    class="hidden-xs-only"
-    >
-        <v-icon X Small>mdi-bell</v-icon>
-        <v-badge color="red" :content="getNbrNotifNotSeen ? getNbrNotifNotSeen : '0'"
-        ></v-badge> 
-    </v-btn>
-    
-    </template>
+            <template v-slot:activator="{ on, attrs }">
+            <v-btn
+            plain
+            v-bind="attrs"
+            v-on="on"
+            @click="changerEtatNotif()"
+            class=""
+            >
+                <v-icon X Small>mdi-bell</v-icon>
+                <v-badge color="red" :content="getNbrNotifNotSeen ? getNbrNotifNotSeen : '0'"
+                ></v-badge> 
+            </v-btn>
+            
+            </template>
 
-    <v-list>
-            <v-list-item class="text-h5">
-                Notifications
+            <v-list>
+                    <v-list-item class="text-h5">
+                        Notifications
+                    </v-list-item>
+            </v-list>
+                <v-divider></v-divider>
+            <v-list v-if="notifications.length==0">
+            <v-list-item  class="mt-5 red--text">
+                <v-list-item-title class="text-h7 ml-8 mb-8">Pas de notification </v-list-item-title>
             </v-list-item>
-    </v-list>
-        <v-divider></v-divider>
-    <v-list v-if="notifications.length==0">
-    <v-list-item  class="mt-5 red--text">
-        <v-list-item-title class="text-h7 ml-8 mb-8">Pas de notification </v-list-item-title>
-    </v-list-item>
-    </v-list>
+            </v-list>
 
-    <v-list v-else>
-    <v-list-item
-        v-for="notif in notifications" :key="notif.id"
-    >
-<v-list-item-avatar>
-    <v-avatar size="43px">
-        <v-img  :src="notif.photo"></v-img>
-    </v-avatar>
-</v-list-item-avatar>
+            <v-list v-else>
+            <v-list-item
+                v-for="notif in notifications" :key="notif.id"
+            >
+        <v-list-item-avatar>
+            <v-avatar size="43px">
+                <v-img  :src="notif.photo"></v-img>
+            </v-avatar>
+        </v-list-item-avatar>
 
-<v-list-item-content>
-    <v-list-item-title class="px-5 justify-center">
-        {{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span>
-    </v-list-item-title>
-</v-list-item-content> 
-<v-list-item-action>
-    <v-col cols="auto">
-    <v-dialog
-        transition="dialog-bottom-transition"
-        max-width="400"
-    >
+        <v-list-item-content>
+            <v-list-item-title class="px-5 justify-center">
+                {{ notif.msg }}<br><span class="date" v-if="notif.date!=null"> Since : {{ notif.date }}</span>
+            </v-list-item-title>
+        </v-list-item-content> 
+        <v-list-item-action>
+            <v-col cols="auto">
+            <v-dialog
+                transition="dialog-bottom-transition"
+                max-width="400"
+            >
         <template v-slot:activator="{ on, attrs }">
             <v-btn
             plain
@@ -120,7 +120,7 @@ min-width="300"
                     <template v-slot:activator="{ on, attrs }">
                     <v-btn   plain v-bind="attrs"
                      v-on="on"
-                     class="hidden-xs-only"
+                     class=""
                      >
                          <v-avatar   size="43px">
                              <img :src="store.user['photo']">
