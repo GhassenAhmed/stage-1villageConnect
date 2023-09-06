@@ -17,5 +17,8 @@ export default {
    async  getServiceDetailsById(id){
         const res = await Axios.get("getServiceDetails?id="+id);
         return res;
+    },
+    addRate(id,rate){
+        return Axios.post(`raite?id=${id}&raite=${rate}`);
     }
 }
