@@ -1,10 +1,11 @@
 <template>
     <div class="root">
        <Navbar></Navbar>
-       <v-dialog
+           <v-dialog
             v-model="dialog"
             persistent
             max-width="600px"
+            
           >
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -12,8 +13,9 @@
                 dark
                 v-bind="attrs"
                 v-on="on"
+                class="float-end mt-6 mr-15"
               >
-                Open Dialog
+                 <v-icon class="mr-3">mdi-calendar-plus</v-icon>Categorie
               </v-btn>
             </template>
             <v-card>
@@ -31,6 +33,7 @@
                     
                       <v-text-field
                         label="Nom du Categorie"
+                        v-model="name"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -48,7 +51,8 @@
                 <v-btn
                   color="blue darken-1"
                   text
-                  @click="dialog = false"
+                  @click="addCategorie()"
+                  :disabled="name ==null"
                 >
                   Save
                 </v-btn>
@@ -119,6 +123,24 @@
                 <td colspan="10" class="text-center mt-5"><v-icon color="red" large>mdi-alert-circle</v-icon>Aucun Service</td>
               </tr>
             </tbody>
+
+            <v-snackbar
+              v-model="snackbar"
+              :timeout="timeout"
+            >
+              {{ catRes }}
+
+              <template v-slot:action="{ attrs }">
+                <v-btn
+                  color="red"
+                  text
+                  v-bind="attrs"
+                  @click="snackbar = false"
+                >
+                  Close
+                </v-btn>
+              </template>
+            </v-snackbar>
           </template>
         </v-simple-table>
        </div>
@@ -128,6 +150,7 @@
   import { AuthUser } from "@/store/AuthStore";
   import Navbar from '@/components/admin/Navbar.vue'
   import StatsServices from "@/services/StatsServices.js";
+  import categorieService from"@/services/CategorieServices.js"
     export default {
       components:{
         Navbar
@@ -148,6 +171,10 @@ data(){
         mini: true,
         categories:[],
         dialog: false,
+        name:null,
+        catRes:null,
+        snackbar:false,
+        timeout: 2000,
         
     }
 },
@@ -165,6 +192,16 @@ methods:{
     }).catch((err)=>{
       console.log(err);
     });
+  },
+  addCategorie(){
+    categorieService.addCategorie(this.name).then((res)=>{
+      this.dialog=false;
+      this.catRes=res.data;
+      this.name=null;
+      this.snackbar=true;
+    }).catch((err)=>{
+      console.log(err);
+    })
   }
 },
   computed:{
