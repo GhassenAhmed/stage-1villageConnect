@@ -199,5 +199,13 @@ public class ServiceController {
 				 Service service = serviceRepository.getServiceById(id);
 				 return ResponseEntity.ok(service);
 			 }
+		  
+		  @PostMapping("/raite")
+		  public ResponseEntity<?> raiteService(@RequestParam("id") Long id,@RequestParam("raite") int raite){
+			  Service service = serviceRepository.getServiceById(id);
+			  service.setRaiting(service.getRaiting()+raite);
+			  serviceRepository.save(service);
+			  return  ResponseEntity.ok().body("Votre evaluation a ete ajouter !");
+		  }
 
 }
