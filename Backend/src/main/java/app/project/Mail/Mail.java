@@ -30,7 +30,7 @@ public class Mail {
 
 		Context context=new Context();
 		context.setVariable("name", user.getLastName());
-		context.setVariable("link","http://localhost:8081/logIn?email="+user.getEmail());
+		context.setVariable("link","http://localhost:8081/#/Login?email="+user.getEmail());
 		String body=templateEngine.process("VerifyEmail", context);
 		
 		String fromAddress = "villageconnectt@gmail.com";
