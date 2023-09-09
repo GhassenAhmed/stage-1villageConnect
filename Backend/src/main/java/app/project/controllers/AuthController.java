@@ -102,6 +102,15 @@ public class AuthController {
 		return new ResponseEntity<>(newUser,HttpStatus.OK);
 	}
 	
+	@PostMapping("/verify")
+	public ResponseEntity<?> VerifiedEmail(@RequestParam(name="email") String email){
+		try {
+			userService.VerifyEmail(email);
+		}catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.CONFLICT);
+		}
+		return  ResponseEntity.ok().body("email verifed");
+	}
 	
 	@PostMapping("/logIn")
 	public ResponseEntity<?> LogIn(@RequestBody Credentials auth) {
