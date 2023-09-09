@@ -278,7 +278,7 @@
         </section>
         <v-container class="" v-else style="height: auto;margin-top: 100px; margin-bottom: 200px;">
                 <v-layout row wrap>
-                    <p style="font-size: 20px;margin-right: 20px;">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos, dolor!</p>
+                    <p style="font-size: 20px;margin-right: 20px;">{{ service.description }}</p>
                     
                     <v-flex xl8 md8 lg8 sm12 xs12 class="pl-4">
                         
@@ -308,7 +308,7 @@
                             <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <v-icon class="mr-2" size="25">mdi-phone</v-icon> <span font-size="40px" style="color:#5b5a5a;">{{ service.phone }}</span></h2>
 
                         <div class="div" v-if="service.thumbnailUrl!=null">
-                            <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;">  <v-icon class="mr-2" size="30">mdi-link</v-icon><span font-size="40px" style="color:#5b5a5a;">{{ service.thumbnailUrl }}</span></h2>
+                            <a :href="service.thumbnailUrl" style="margin-bottom: 10px;color: #391dd8;margin-top: 10px;">  <v-icon class="mr-2" size="30">mdi-link</v-icon><span font-size="40px" style="color:#5b5a5a;">{{ service.thumbnailUrl }}</span></a>
                         </div>
 
                         <div class="div" v-if="service.yearsInBusiness!=null">
@@ -320,7 +320,7 @@
                              
                         </div>
 
-                        <div class="div" v-if="service.maxPrice!=null || service.minPrice!=null">
+                        <div class="div" v-if="service.maxPrice!=null || service.minPrice!=null || service.maxPrice!=0 || service.minPrice!=0">
                             <h2 style="margin-bottom: 10px;color: #757575;margin-top: 10px;"> <v-icon class="mr-2" size="30">mdi-cash-100</v-icon><span font-size="40px" style="color:#5b5a5a;">{{ service.minPrice }}  - {{ service.maxPrice }} DT</span></h2>
                              
                         </div>
