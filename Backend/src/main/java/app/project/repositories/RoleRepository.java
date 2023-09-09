@@ -13,4 +13,12 @@ public interface RoleRepository extends JpaRepository<Role, Long>{
 
 	@Query(value="select * from Role where role_name='client' ",nativeQuery=true)
 	List<Role> getRoleClient();
+	
+	@Query(value="INSERT INTO user_role (user_id, role_id, status) VALUES (:id, 3, 1)",nativeQuery=true)
+	void  insertRole(Long id);
+	
+	@Query(value="select count(*) from user_role where user_id=:id and role_id=3",nativeQuery=true)
+	int  getRoleService(Long id);
+	
+	
 }
