@@ -359,6 +359,7 @@ export default {
                  'photo':this.photo
                 }).then((res)=>{
                     console.log(res.data);
+                    this.$router.go();
                     setTimeout(() => {
                         this.loadimage=false;
                     }, 3000);
@@ -382,6 +383,7 @@ export default {
                 "yearsInBusiness":this.form.yearsInBusiness,
             }).then((res)=>{
                 this.loadingEdit=false;
+                this.$router.go();
                 console.log(res.data);
             }).catch((err)=>{
                 console.log(err);
