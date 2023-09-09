@@ -52,6 +52,7 @@ public class Service implements Serializable {
 	
 	private int phone;
 	
+	
 	private String Description;
 	@ColumnDefault(value="false")
 	private boolean isBackgroundVerified;
