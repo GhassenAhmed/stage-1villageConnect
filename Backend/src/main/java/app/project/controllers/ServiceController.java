@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.project.entities.Categorie;
-
+import app.project.entities.Role;
 import app.project.entities.Service;
 import app.project.entities.User;
 import app.project.entities.Village;
@@ -30,7 +30,7 @@ import app.project.parametre.DataPhoto;
 import app.project.parametre.DataService;
 import app.project.parametre.DataUser;
 import app.project.repositories.CategorieRepository;
-
+import app.project.repositories.RoleRepository;
 import app.project.repositories.ServiceRepository;
 import app.project.repositories.UserRepository;
 import app.project.repositories.VillageRepository;
@@ -62,7 +62,9 @@ public class ServiceController {
 	
 	 @Autowired
 	ServiceService serviceService;
-		
+	
+	 @Autowired
+	 RoleRepository roleRepository;
 	
 	 @GetMapping("/getServiceRaiting")
 	    public ResponseEntity<?> getServiceRaiting(
@@ -141,7 +143,9 @@ public class ServiceController {
 		 newService.setVillage(village);
 		 newService.setUser(user);
 		 serviceRepository.save(newService);
-	
+		 if(roleRepository.getRoleService(user.getId())==0) {
+			 roleRepository.insertRole(user.getId());
+		 }
 		 return new ResponseEntity<>(bodyRequest.getService(),HttpStatus.OK);
 	 }
 	 
