@@ -11,6 +11,11 @@
             </v-btn>
             </router-link>
         </v-toolbar>
+            <div  v-if="message!=''">
+                <v-alert type="success" >
+                    {{ message }}
+            </v-alert>
+            </div>
         <v-container>
             <v-layout class="mt-15">
                 <v-flex>
@@ -75,6 +80,7 @@
 <script>
 import {required,email} from "vuelidate/lib/validators"
 import authService from '@/services/AuthServices';
+import serviceEdit from '@/services/EditProfilServices';
 import { AuthUser } from "../../store/AuthStore.js";
 export default {
     name:"login",
@@ -84,6 +90,19 @@ export default {
             store
         }
     },
+    created(){
+        if(this.$route.query.content){
+            this.message=this.$route.query.content;
+            setTimeout(()=>this.message="",3000);
+        }
+        if(this.$route.query.email){
+            this.VerifyEmail(this.$route.query.email);
+        }
+        if(this.$route.query.email && this.$route.query.email_new ){
+            this.store.logOut();
+            this.updatedEmail(this.$route.query.email,this.$route.query.email_new);
+          }
+    },
     data(){
         return{
             show:false,
@@ -91,7 +110,9 @@ export default {
             form:{
                 email:"",
                 password:""
-            }
+            },
+            message:""
+            
            
         }
     },
@@ -130,6 +151,30 @@ export default {
                 this.snackbar=true;
               })
           },
+          VerifyEmail(email){
+            authService.VerifyEmail(email).then((res)=>{
+                if(res.status==200){
+                    this.message=res.data;
+                }else{
+                    this.message_error=res.data;
+                    this.snackbar=true;
+                }
+                 this.$router.replace({'query':null});
+            })
+          },
+          updatedEmail(old_email,new_email){
+            serviceEdit.updateEmail(
+              {
+                 "email_old":old_email,
+                 "email_new":new_email
+               }).then((res)=>{
+                 this.message=res.data;
+                 this.$router.replace({'query':null});
+               }).catch((error)=>{
+                 console.log(error);
+                 this.$router.replace({'query':null});
+               })
+          }
       },
       computed:{
         email_error(){
