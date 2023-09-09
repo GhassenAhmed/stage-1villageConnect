@@ -186,7 +186,7 @@
                                     <span>Donnez un titre bref à votre service. *</span>
                                     <v-text-field
                                     v-model="formData.form.serviceName"
-                                    :error-messages="serviceNameError"
+                                   
                                     placeholder="Nom du service"
                                     outlined
                                     class="py-5"
@@ -200,7 +200,7 @@
                                     <v-textarea
                                     v-model="formData.form.description"
                                     placeholder="Description sur votre service"
-                                    :error-messages="descriptionError"
+                                    
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -212,7 +212,7 @@
                                     <v-text-field
                                     v-model="formData.form.adresse"
                                     placeholder="Adresse du votre service"
-                                   :error-messages="adresseError"
+                                   
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -224,7 +224,6 @@
                                     <v-text-field
                                     v-model="formData.form.phone"
                                     placeholder="numero du telephone"
-                                    :error-messages="phoneError"
                                     outlined
                                     class="py-5"
                                     style="width: 95%;"
@@ -266,7 +265,7 @@
                                     style="width: 95%;"
                                     v-model="formData.form.maxPrice"
                                     placeholder="Maximum price"
-                                    :error-messages="maxError"
+                                    
                                     value="0"
                                     prefix="$"
                                     ></v-text-field>
@@ -281,7 +280,7 @@
                                     style="width: 95%;"
                                     v-model="formData.form.minPrice"
                                     placeholder="Minimum price"
-                                    :error-messages="minError"
+                                    
                                     value="0"
                                     prefix="$"
                                     ></v-text-field>
@@ -291,7 +290,7 @@
                                     <span>Mettez un lien utile pour plus d'informations.</span>
                                     <v-text-field
                                     outlined
-                                    :error-messages="lienError"
+                                    
                                     class="py-5"
                                     style="width: 95%;"
                                     v-model="formData.form.thumbnailUrl"
@@ -305,11 +304,9 @@
                                     <span>Années d'expérience. </span>
                                     <v-text-field
                                     outlined
-                                    
                                     class="py-5"
                                     style="width: 95%;"
                                     v-model="formData.form.yearsInBusiness"
-                                    :error-messages="yearsError"
                                     placeholder="Annees d'experience"
                                     
                                     ></v-text-field>
@@ -409,7 +406,7 @@ export default {
                     adresse:"",
                     maxPrice:0,
                     minPrice:0,
-                    phone:"",
+                    phone:null,
                     thumbnailUrl:"",
                     photo:"",
                     yearsInBusiness:null,
@@ -425,44 +422,23 @@ export default {
                 form: {
                     serviceName:{
                         required,
-                        maxLength:maxLength(15),
                     },
                     description:{
                         required,
-                        maxLength:maxLength(100),
-                        minLength:minLength(20)
                     },
                     adresse:{
                         required,
-                        maxLength:maxLength(20),
-                        minLength:minLength(5),
                     },
                     phone:{
                         required,
-                        maxLength:maxLength(8),
-                        minLength:minLength(8),
-                    notContainsLetter: function(value) {
-                        return /^[0-9]+$/.test(value);
-                    },
                     },
                     maxPrice:{
-                    notContainsLetter: function(value) {
-                        return /^[0-9]+$/.test(value);
-                    },
                     },
                     minPrice:{
-                    notContainsLetter: function(value) {
-                        return /^[0-9]+$/.test(value);
-                    },
                     },
                     thumbnailUrl:{
-                        maxLength:maxLength(20),
-                        minLength:minLength(5),
                     },
                     yearsInBusiness:{
-                        notContainsLetter: function(value) {
-                        return /^[0-9]+$/.test(value);
-                        },
                     },
                     photo:{
                     typeFile(val){
@@ -540,7 +516,7 @@ export default {
                     this.formData.form.adresse="",
                     this.formData.form.phone="",
                     this.formData.form.maxPrice="",
-                    this.formData.form.minPrice="",this.formData.
+                    this.formData.form.minPrice="",
                     this.formData.form.thumbnailUrl="",
                     this.formData.form.isBackgroundVerified="",
                     this.formData.form.photo="",
@@ -553,77 +529,67 @@ export default {
         }
     },
     computed:{
-        serviceNameError(){
-              const error=[];
-              if(!this.$v.formData.form.serviceName.$dirty) return error;
-              !this.$v.formData.form.serviceName.required && error.push("Nom du service requis");
-              !this.$v.formData.form.serviceName.maxLength && error.push("Veuillez entrer le nom  avec un maximum de 15 caractères");
-              return error;
-          },
-        },
-        adresseError(){
-              const error=[];
-              if(!this.$v.formData.form.adresse.$dirty) return error;
-              !this.$v.formData.form.adresse.required && error.push("Adresse du service requis");
-              !this.$v.formData.form.adresse.maxLength && error.push("Veuillez entrer l adresse  avec un maximum de 20 caractères");
-              !this.$v.formData.form.adresse.minlength && error.push("Veuillez entrer l adresse  avec un minimum de 5 caractères ");
-              return error;
-          },
-          descriptionError(){
-              const error=[];
-              if(!this.$v.formData.form.description.$dirty) return error;
-              !this.$v.formData.form.description.required && error.push("description du service requis");
-              !this.$v.formData.form.description.maxLength && error.push("Veuillez entrer la description  avec un maximum de 100 caractères");
-              !this.$v.formData.form.description.minlength && error.push("Veuillez entrer la description  avec un minimum de 20 caractères ");
-              return error;
-          },
-          phoneError(){
-              const error=[];
-              if(!this.$v.formData.form.phone.$dirty) return error;
-              !this.$v.formData.form.phone.required && error.push("description du phone requis");
-              !this.$v.formData.form.phone.maxLength && error.push("Veuillez entrer l adresse  avec un maximum de 8 caractères");
-              !this.$v.formData.form.phone.minlength && error.push("Veuillez entrer l adresse  avec un minimum de 8 caractères ");
-              !this.$v.formData.form.phone.notContainsLetter && error.push("Phone seulement du numeros");
-              return error;
-              
-          },
+        // serviceNameError(){
+        //       const error=[];
+        //       if(!this.$v.formData.form.serviceName.$dirty) return error;
+        //       !this.$v.formData.form.serviceName.required && error.push("Nom du service requis");
+        //       !this.$v.formData.form.serviceName.maxLength && error.push("Veuillez entrer le nom  avec un maximum de 15 caractères");
+        //       return error;
+        //   },
+        // },
+        // adresseError(){
+        //       const error=[];
+        //       if(!this.$v.formData.form.adresse.$dirty) return error;
+        //       !this.$v.formData.form.adresse.required && error.push("Adresse du service requis");
+        //       !this.$v.formData.form.adresse.maxLength && error.push("Veuillez entrer l adresse  avec un maximum de 20 caractères");
+        //       !this.$v.formData.form.adresse.minlength && error.push("Veuillez entrer l adresse  avec un minimum de 5 caractères ");
+        //       return error;
+        //   },
+        //   descriptionError(){
+        //       const error=[];
+        //       if(!this.$v.formData.form.description.$dirty) return error;
+        //       !this.$v.formData.form.description.required && error.push("description du service requis");
+        //       !this.$v.formData.form.description.maxLength && error.push("Veuillez entrer la description  avec un maximum de 100 caractères");
+        //       !this.$v.formData.form.description.minlength && error.push("Veuillez entrer la description  avec un minimum de 20 caractères ");
+        //       return error;
+        //   },
 
-          maxError(){
-              const error=[];
-              if(!this.$v.formData.form.maxPrice.$dirty) return error;
-              !this.$v.formData.form.maxPrice.notContainsLetter && error.push("Seulement du numeros");
-              return error;
+        //   maxError(){
+        //       const error=[];
+        //       if(!this.$v.formData.form.maxPrice.$dirty) return error;
+        //       !this.$v.formData.form.maxPrice.notContainsLetter && error.push("Seulement du numeros");
+        //       return error;
               
-          },
-          minError(){
-              const error=[];
-              if(!this.$v.formData.form.minPrice.$dirty) return error;
-              !this.$v.formData.form.minPrice.notContainsLetter && error.push("Seulement du numeros");
-              return error;
+        //   },
+        //   minError(){
+        //       const error=[];
+        //       if(!this.$v.formData.form.minPrice.$dirty) return error;
+        //       !this.$v.formData.form.minPrice.notContainsLetter && error.push("Seulement du numeros");
+        //       return error;
               
-          },
-          yearsError(){
-              const error=[];
-              if(!this.$v.formData.form.yearsInBusiness.$dirty) return error;
-              !this.$v.formData.form.yearsInBusiness.notContainsLetter && error.push("Seulement du numeros");
-              return error;
+        //   },
+        //   yearsError(){
+        //       const error=[];
+        //       if(!this.$v.formData.form.yearsInBusiness.$dirty) return error;
+        //       !this.$v.formData.form.yearsInBusiness.notContainsLetter && error.push("Seulement du numeros");
+        //       return error;
               
-          },
-          lienError(){
-              const error=[];
-              if(!this.$v.formData.form.thumbnailUrl.$dirty) return error;
-              !this.$v.formData.form.thumbnailUrl.maxLength && error.push("Veuillez entrer    un maximum de 20 caractères");
-              !this.$v.formData.form.thumbnailUrl.minlength && error.push("Veuillez entrer un minimum de 5 caractères ");
-              return error;
-          },
-          photo_error(){
-              const error=[];
-              if(!this.$v.form.photo.$dirty) return error;
-              !this.$v.form.photo.typeFile && error.push("L'image doit être du type (jpg, jpeg, png, svg, gif)")&&this.photo_err==true;
-              return error; 
-          },
+        //   },
+        //   lienError(){
+        //       const error=[];
+        //       if(!this.$v.formData.form.thumbnailUrl.$dirty) return error;
+        //       !this.$v.formData.form.thumbnailUrl.maxLength && error.push("Veuillez entrer    un maximum de 20 caractères");
+        //       !this.$v.formData.form.thumbnailUrl.minlength && error.push("Veuillez entrer un minimum de 5 caractères ");
+        //       return error;
+        //   },
+        //   photo_error(){
+        //       const error=[];
+        //       if(!this.$v.form.photo.$dirty) return error;
+        //       !this.$v.form.photo.typeFile && error.push("L'image doit être du type (jpg, jpeg, png, svg, gif)")&&this.photo_err==true;
+        //       return error; 
+        //   },
         
-}
+}}
 </script>
 <style scoped>
 *{
