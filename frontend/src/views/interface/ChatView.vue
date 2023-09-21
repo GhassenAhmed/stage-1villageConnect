@@ -313,7 +313,7 @@
                                                     </v-layout>
                                                     <v-layout wrap>
                                                         <v-flex class="mr-5">
-                                                            <div class="mt-4 float-start">
+                                                            <div class="mt-4 float-start" style="border-radius: 50px;background-color: #a9baef;padding: 20px 40px 20px 40px; ">
                                                                 <span class="message">{{ chat.message }}</span>
                                                             </div>
                                                         </v-flex>
@@ -321,7 +321,7 @@
                                                 </div>
 
 
-                                                <div class="mine float-end mr-5 py-5" v-else>
+                                                <div class="mine float-end mr-5 py-5" v-else >
                                                     <v-layout wrap>
                                                         <v-flex>
                                                             <v-avatar size="35">
@@ -332,31 +332,33 @@
                                                     </v-layout>
                                                     <v-layout wrap>
                                                             <v-flex class="mr-5">
-                                                                <div class="mt-4 float-end">
+                                                                <div class="mt-4 float-end" style="border-radius: 50px;background-color: #CFD0D3;padding: 20px 40px 20px 40px; ">
                                                                     <span class="message">{{ chat.message }}</span>
                                                                 </div>
                                                             </v-flex>
                                                     </v-layout>
                                                 </div>   
                                             </div>
-                                            <v-layout row>
-                                                <v-flex>
-                                                    <div class="container-input">
-                                                        
-                                                        <form @submit.prevent="addPost()" class="mt-10">
-                                                            <v-container class="d-flex wrap">
-                                                                <input type="text" placeholder="...." name="text" class="input float-start" style="width: 70%;" v-model="message">
-                                                                <v-btn class="button float-end mr-10 ml-5 text-body-2" type="submit" text>Envoyer</v-btn>
-                                                            </v-container>
-                                                        </form>                                              
-                                                    </div>
-                                                </v-flex >
-                                            </v-layout>
+                                            
                                         </v-container>
+                                        
                                     </div>
                                 </v-flex>
                             </v-layout>
                         </v-container>
+                        <v-layout row>
+                            <v-flex>
+                                <div class="container-input">
+                                    
+                                    <form @submit.prevent="addPost()" class="">
+                                        <v-container class="d-flex wrap">
+                                            <input type="text" placeholder="...." name="text" class="input float-start" style="width: 70%;" v-model="message">
+                                            <v-btn class="button float-end mr-10 ml-5 text-body-2" type="submit" text>Envoyer</v-btn>
+                                        </v-container>
+                                    </form>                                              
+                                </div>
+                            </v-flex >
+                        </v-layout>
                     </div>
                 </v-flex>
             </v-layout>
@@ -561,7 +563,7 @@ computed:{
     
     .scroll{
         overflow-y: scroll;
-        height: 70vh;
+        height: auto;
         scroll-margin-block-start: 40px;
         scrollbar-width: none;
         scrollbar-color: #12c2b9;
@@ -575,7 +577,7 @@ computed:{
     }
     
     .container-input {
-      margin-top: 200px;
+      margin: 20px;
     }
     
     .input {

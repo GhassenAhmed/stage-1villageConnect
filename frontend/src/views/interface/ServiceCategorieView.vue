@@ -290,7 +290,7 @@
         </section>
         <v-container class="" v-else style="height: 100vh;">
                 
-                <div class="titre mt-15 ml-15 mb-5" style="font-size: 25px;" v-if="this.services!=null">
+                <div class="titre mt-15 ml-15 mb-5" style="font-size: 25px;" v-if="this.services!=''">
                     Découvrez nos <span style="color: #12c2b9;margin-left: 10px;font-weight: bold;font-size: 27px;">{{ categorieName }}</span>
                 </div>
 
@@ -298,6 +298,7 @@
                     <span style="color: #12c2b9;font-weight: bold;font-size: 27px;">Pas de service disponible.</span>
                 </div>
             <v-layout row wrap>
+
                 <v-flex  v-for="service in services" xl4 md4 lg4 sm6 xs12
                     :key="service.id">
                     <router-link :to="/service/ + service.id" style="text-decoration: none;color: black;">

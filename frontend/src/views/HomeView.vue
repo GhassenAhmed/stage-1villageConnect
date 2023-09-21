@@ -1,8 +1,8 @@
 <template>
     <div class="home">
         <Navbar></Navbar>
-        <main>
-        <Introduction></Introduction>
+        <main >
+        <Introduction data-aos="fade-left"></Introduction>
         </main>
         <footer>
         <Footer></Footer>

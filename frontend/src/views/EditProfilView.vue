@@ -118,7 +118,7 @@
                     </v-list-item>
                     </v-list>
                     </v-menu>
-                <v-btn icon class="hidden-xs-only">
+                <v-btn icon class="hidden-xs-only" to="/chat">
                     <v-icon class=""  X Small>
                         mdi-email-outline
                     </v-icon>

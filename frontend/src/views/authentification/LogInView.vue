@@ -4,6 +4,7 @@
     </div>
 </template>
 <script>
+
 import LogIn from "@/components/authentification/LogIn.vue";
 export default {
     name:'LogInView',

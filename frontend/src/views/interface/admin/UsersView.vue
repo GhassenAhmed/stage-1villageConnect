@@ -5,7 +5,7 @@
        <div class="mt-5 py-5 px-5">
         <v-simple-table
         fixed-header
-        height="300px" 
+        height="500px" 
         >
         <template v-slot:default>
         <thead >
@@ -28,6 +28,9 @@
           <th class="text-left" style="font-size: 17px;">
             Role
           </th>
+          <th class="text-left" style="font-size: 17px;">
+            Operation
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -47,6 +50,33 @@
             <span v-if="user.roles.length>1">
                 {{ user.roles[1]['roleName'] }}
             </span>
+        </td>
+        <td>
+          <v-dialog
+                                transition="dialog-bottom-transition"
+                                max-width="600"
+                                >
+                                <template v-slot:activator="{ on, attrs }">
+                                <v-icon color="red" v-bind="attrs"
+                                    v-on="on">mdi-delete</v-icon>
+                                </template>
+                                <template v-slot:default="dialog">
+                                <v-card>
+                                    <v-toolbar
+                                    color="white"
+                                    class="black--text"
+                                    dark
+                                    >Supperimer Ce Service ?
+                                    <v-btn
+                                    class="float-end ml-15"
+                                    color="green"
+                                        text
+                                        @click="dialog.value = false,deleteService(service.id)"
+                                    >Supprimer</v-btn>
+                                </v-toolbar>
+                                </v-card>
+                                </template>
+                            </v-dialog>
         </td>
         </tr>
       </tbody>

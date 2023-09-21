@@ -69,18 +69,6 @@
                         </v-list-item-action>
                         
                     </v-list-item>
-                    <v-list-item v-if="store.IsServiceProvider==true">  
-                        <v-list-item-action>
-                            <v-btn
-                                plain
-                               to="/servicesList"
-                            >
-                                <v-icon class="pa-2">mdi-cards-variant</v-icon>
-                                <span class="">Services</span>
-                            </v-btn>
-                        </v-list-item-action>
-                        
-                    </v-list-item>
                     <v-list-item v-if="store.IsServiceProvider">
                         
                         <v-list-item-action>
@@ -139,7 +127,7 @@
                     <v-list-item-title style="font-size: 15px;">Home</v-list-item-title>
                 </v-list-item>
 
-                <v-list-item>
+                <v-list-item to="/chat">
                     <v-list-item-icon>
                     <v-icon X Small>mdi-email-outline</v-icon>
                     </v-list-item-icon>
@@ -207,11 +195,12 @@
                 <v-layout flex wrap class="pa-5">
                     
                         <v-flex xl6 md6 lg6 sm6 xs12 class="pr-10">
-                            <span style="font-size: 20px;">Nom du service</span>
+                            <span style="font-size: 20px;padding-bottom:10px;">Nom du service</span>
                             <v-text-field
                             v-model="form.serviceName"
                                 color="purple darken-2"
                                 required
+                                outlined
                             ></v-text-field>
 
                             <span>Adresse</span>
@@ -219,57 +208,64 @@
                             v-model="form.adresse"
                                 color="purple darken-2"
                                 required
+                                outlined
                             ></v-text-field>
 
-                            <span style="font-size: 20px;">Telephone</span>
+                            <span style="font-size: 20px;padding-bottom:10px;">Telephone</span>
                             <v-text-field
                             v-model="form.phone"
                                 color="purple darken-2"
                                 required
+                                outlined
                             ></v-text-field>
 
-                            <span style="font-size: 20px; ">Description</span>
+                            <span style="font-size: 20px;padding-bottom:10px; ">Description</span>
                             <v-textarea
                             v-model="form.description"
                                 color="purple darken-2"
                                 required
+                                outlined
                             ></v-textarea>
 
                         </v-flex>
                         
                         <v-flex xl6 md6 lg6 sm6 xs12>
 
-                            <span style="font-size: 20px; ">Lien</span>
+                            <span style="font-size: 20px;padding-bottom:10px; ">Lien</span>
                             <v-text-field
                                 v-model="form.thumbnailUrl"
                                 color="purple darken-2"
                                 required
+                                outlined
                             ></v-text-field>
 
-                            <span style="font-size: 20px; ">Depuis</span>
+                            <span style="font-size: 20px;padding-bottom:10px; ">Depuis</span>
                             <v-text-field
                             v-model="form.yearsInBusiness"
                                 color="purple darken-2"
                                 required
+                                outlined
                             ></v-text-field>
 
-                            <span style="font-size: 20px; ">Min Prix</span>
+                            <span style="font-size: 20px;padding-bottom:10px; ">Minimum Prix</span>
                             <v-text-field
                             v-model="form.minPrice"
                                 color="purple darken-2"
                                 required
+                                outlined
                             ></v-text-field>
 
-                            <span style="font-size: 20px; ">Max Prix</span>
+                            <span style="font-size: 20px;padding-bottom:10px;">Maximum Prix</span>
                             <v-text-field
                             v-model="form.maxPrice"
                                 color="purple darken-2"
                                 required
+                                outlined
                             ></v-text-field>
 
                         </v-flex>
                         <v-flex>
-                            <v-btn type="submit">Edit</v-btn>
+                            <v-btn type="submit" color="primary">Edit</v-btn>
                         </v-flex>
                     
                 </v-layout>
