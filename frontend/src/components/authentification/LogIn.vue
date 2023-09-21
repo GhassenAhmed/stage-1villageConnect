@@ -22,7 +22,7 @@
                    <h1 style="font-size: 25px;margin-bottom: 10px;">Connectez-vous</h1>
                    <p>Bienvenue sur VillageConnect, veuillez saisir vos informations de connexion ci-dessous.
                    <br> pour commencer à utiliser l'application.</p>
-                   <form @submit.prevent="Login()">
+                   <form @submit.prevent="Login()" data-aos="fade-right">
                         <v-layout  wrap row class="pa-4">
                                 <v-flex class="mt-5 mr-5">
                                     <v-text-field
@@ -31,7 +31,7 @@
                                             type="text"
                                             outlined
                                             v-model="form.email"
-                                            :message_error="email_error"
+                                            :error-messages="email_error"
                                             dense
                                             placeholder="Enter E-mail"
                                     ></v-text-field>
@@ -45,7 +45,7 @@
                                         :type="show ? 'text' : 'password'"
                                         @click:append="show = !show"
                                         dense
-                                        :message_error="password_error"
+                                        :error-messages="password_error"
                                         outlined
                                         placeholder="Enter Password"
                                     ></v-text-field>
@@ -74,6 +74,22 @@
                     </form>
                 </v-flex>
             </v-layout>
+            <v-snackbar
+         v-model="snackbar"
+       >
+         {{ message_error }}
+   
+         <template v-slot:action="{ attrs }">
+           <v-btn
+             color="pink"
+             text
+             v-bind="attrs"
+             @click="snackbar = false"
+           >
+             Close
+           </v-btn>
+         </template>
+       </v-snackbar>
         </v-container>
     </div>
 </template>
@@ -84,6 +100,31 @@ import serviceEdit from '@/services/EditProfilServices';
 import { AuthUser } from "../../store/AuthStore.js";
 export default {
     name:"login",
+    data(){
+        return{
+            show:false,
+            loading:false,
+            message_error:"",
+            snackbar:false,
+            form:{
+                email:"",
+                password:""
+            },
+            message:""
+        }
+    },
+    validations:{
+        form:{
+            email:{
+                required,
+                email,
+            },
+            password:{
+                required
+            }
+        }   
+        
+      },
     setup(){
         const store=AuthUser();
         return{
@@ -103,37 +144,15 @@ export default {
             this.updatedEmail(this.$route.query.email,this.$route.query.email_new);
           }
     },
-    data(){
-        return{
-            show:false,
-            loading:false,
-            form:{
-                email:"",
-                password:""
-            },
-            message:""
-            
-           
-        }
-    },
-    validations:{
-        form:{
-            email:{
-            required,
-            email,
-            },
-            password:{
-            required
-            }
-        }   
-        
-      },
+   
+ 
       methods:{
         Login(){
-            this.$v.form.$touch();
-            if(this.$v.form.email.$invalid && this.$v.form.password.$invalid){
-                return;
-            }
+                 this.$v.form.$touch();
+                 if(this.$v.form.$invalid){
+                    this.loading=false;
+                    return;
+                }
                 this.loading=true;
                 authService.login(this.form.email,this.form.password).then((res)=>{
                 this.loading=false;
@@ -149,6 +168,7 @@ export default {
               }).catch((error)=>{
                 this.loading=false;
                 this.snackbar=true;
+                this.message_error=error.response.data;
               })
           },
           VerifyEmail(email){
@@ -180,8 +200,15 @@ export default {
         email_error(){
             const error=[];
             if(!this.$v.form.email.$dirty) return error;
-            !this.$v.form.email.required && error.push("Email Required");
-            !this.$v.form.email.email && error.push("Email invalid");
+            !this.$v.form.email.required && error.push('Email Required');
+            !this.$v.form.email.email && error.push('Email Invalid');
+            /*if(!this.$v.form.email.required){
+                error.push("Email required");
+                return error;
+            }else if(!this.$v.form.email.email){
+                error.push("Email invalid");
+                return error;
+            }*/
             return error;
         },
         password_error(){
