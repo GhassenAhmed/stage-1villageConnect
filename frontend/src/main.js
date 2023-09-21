@@ -7,7 +7,7 @@ import vuetify from './plugins/vuetify'
 import Vuelidate from "./plugins/vuelidate";
 import { createPinia, PiniaVuePlugin } from 'pinia'
 import { interceptors } from "./interceptor/interceptor.js";
-
+import "aos/dist/aos.css"
 interceptors();
 Vue.use(PiniaVuePlugin)
 const pinia = createPinia()
