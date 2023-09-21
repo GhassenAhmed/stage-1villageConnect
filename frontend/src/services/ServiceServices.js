@@ -30,5 +30,8 @@ export default {
     EditService(id,data){
         return Axios.post("EditService?id="+id,data);
     },
+    deleteService(id){
+        return Axios.delete("deleteService?id="+id);
+    },
 
 }
