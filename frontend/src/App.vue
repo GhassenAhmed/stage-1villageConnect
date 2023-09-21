@@ -7,8 +7,12 @@
 </template>
 
 <script >
+import Aos from "aos"
 export default {
   name: 'App',
+  mounted(){
+    Aos.init();
+  },
   data: () => ({
     //
   }),
