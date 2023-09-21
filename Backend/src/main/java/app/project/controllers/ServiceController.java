@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.project.entities.Categorie;
+import app.project.entities.Notification;
 import app.project.entities.Role;
 import app.project.entities.Service;
 import app.project.entities.User;
+import app.project.entities.UserRole;
 import app.project.entities.Village;
 import app.project.parametre.BodyRequest;
 import app.project.parametre.DataEditService;
@@ -30,6 +32,7 @@ import app.project.parametre.DataPhoto;
 import app.project.parametre.DataService;
 import app.project.parametre.DataUser;
 import app.project.repositories.CategorieRepository;
+import app.project.repositories.NotificationRepository;
 import app.project.repositories.RoleRepository;
 import app.project.repositories.ServiceRepository;
 import app.project.repositories.UserRepository;
@@ -65,7 +68,9 @@ public class ServiceController {
 	
 	 @Autowired
 	 RoleRepository roleRepository;
-	
+	 
+	@Autowired
+	NotificationRepository notificationRepository;
 	 @GetMapping("/getServiceRaiting")
 	    public ResponseEntity<?> getServiceRaiting(
 	    		@RequestParam(name = "id",defaultValue = "0") Long village_id,
@@ -143,9 +148,9 @@ public class ServiceController {
 		 newService.setVillage(village);
 		 newService.setUser(user);
 		 serviceRepository.save(newService);
-		 if(roleRepository.getRoleService(user.getId())==0) {
+		 /*if(roleRepository.getRoleService(user.getId())==0) {
 			 roleRepository.insertRole(user.getId());
-		 }
+		 }*/
 		 return new ResponseEntity<>(bodyRequest.getService(),HttpStatus.OK);
 	 }
 	 
@@ -176,6 +181,21 @@ public class ServiceController {
 			  Service service = serviceRepository.getServiceByid(id);
 			  service.setStatus(1);
 			  serviceRepository.save(service);
+			  User admin = userRepository.GetAdmin();
+			  User recu = userRepository.getUserById(service.getUser().getId());
+			  Notification notif = new Notification();
+			  notif.setMessage("Votre service a ete accepté !");
+			  notif.setUserEnvoi(admin);
+			  notif.setUserRecu(recu);
+			  notif.setEtat(0);
+			  notificationRepository.save(notif);
+			  Role serviceProvider=roleRepository.getRoleServiceProvider();
+			  if(roleRepository.getRoleService(recu.getId())==0) {
+				UserRole userRole = new UserRole();
+				userRole.setRole(serviceProvider);
+				userRole.setUser(recu);
+				userRole.setStatus(1);
+			  }
 			  return  ResponseEntity.ok().body(service);
 		  }
 		  
@@ -243,5 +263,7 @@ public class ServiceController {
 		    	  serviceRepository.save(service);
 		    	  return  ResponseEntity.ok().body("Photo modifiee !");
 		    }
+		  
+		 
 
 }

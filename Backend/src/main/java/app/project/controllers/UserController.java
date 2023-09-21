@@ -1,6 +1,7 @@
 package app.project.controllers;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +24,7 @@ import app.project.entities.User;
 import app.project.parametre.DataPhoto;
 import app.project.parametre.DataUser;
 import app.project.parametre.InfoEmail;
+import app.project.repositories.ServiceRepository;
 import app.project.repositories.UserRepository;
 import app.project.secutity.SecurityConfig;
 import app.project.services.UserService;
@@ -31,6 +35,9 @@ public class UserController {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	ServiceRepository serviceRepository;
 	
 	@Autowired
 	UserService userService;
@@ -136,5 +143,14 @@ public class UserController {
 	    	   return  ResponseEntity.ok().body("Email Modified");
 	    }
 	
+	   /* @DeleteMapping("deleteUser")
+	    public ResponseEntity<?> deleteUser(@RequestParam("id") Long id){
+	    	List<app.project.entities.Service> services = new ArrayList<>();
+	    	services=serviceRepository.getServiceByUserId(id);
+	    	for(int i=0 ; i<services.size();i++) {
+	    		Service ser=services[i];
+	    		serviceRepository.delete(services.);
+	    	}
+	    }*/
 
 }
