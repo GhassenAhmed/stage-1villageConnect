@@ -53,30 +53,52 @@
         </td>
         <td>
           <v-dialog
-                                transition="dialog-bottom-transition"
-                                max-width="600"
-                                >
-                                <template v-slot:activator="{ on, attrs }">
-                                <v-icon color="red" v-bind="attrs"
-                                    v-on="on">mdi-delete</v-icon>
-                                </template>
-                                <template v-slot:default="dialog">
-                                <v-card>
-                                    <v-toolbar
-                                    color="white"
-                                    class="black--text"
-                                    dark
-                                    >Supperimer Ce Service ?
-                                    <v-btn
-                                    class="float-end ml-15"
-                                    color="green"
-                                        text
-                                        @click="dialog.value = false,deleteService(service.id)"
-                                    >Supprimer</v-btn>
-                                </v-toolbar>
-                                </v-card>
-                                </template>
-                            </v-dialog>
+              transition="dialog-bottom-transition"
+              max-width="600"
+              >
+              <template v-slot:activator="{ on, attrs }">
+              <v-icon color="red" v-bind="attrs"
+                  v-on="on">mdi-delete</v-icon>
+              </template>
+              <template v-slot:default="dialog">
+              <v-card>
+                  <v-toolbar
+                  color="white"
+                  class="black--text"
+                  dark
+                  >Supperimer Ce Service ?
+                  <v-btn
+                  class="float-end ml-15"
+                  color="green"
+                      text
+                      @click="dialog.value = false"
+                  >Supprimer</v-btn>
+              </v-toolbar>
+              </v-card>
+              </template>
+          </v-dialog>
+          <v-btn text 
+          @click="snackbar = true,updateStatus(user.id)"
+          >
+            <v-icon color="green" >mdi-check</v-icon>
+          </v-btn>
+          <v-snackbar
+            v-model="snackbar"
+            :timeout="timeout"
+          >
+            {{ message_update_status }}
+
+            <template v-slot:action="{ attrs }">
+              <v-btn
+                color="blue"
+                text
+                v-bind="attrs"
+                @click="snackbar = false"
+              >
+                Close
+              </v-btn>
+            </template>
+          </v-snackbar>
         </td>
         </tr>
       </tbody>
@@ -89,6 +111,7 @@
   import { AuthUser } from "@/store/AuthStore";
   import Navbar from '@/components/admin/Navbar.vue'
   import StatsServices from "@/services/StatsServices.js";
+  import userInfos from "@/services/UserInfos"
     export default {
       components:{
         Navbar
@@ -108,6 +131,9 @@ data(){
         drawer: false,
         mini: true,
         users:[],
+        snackbar: false,
+        timeout: 2000,
+        message_update_status:""
        
         
     }
@@ -116,10 +142,20 @@ methods:{
     getAllUsers(){
         StatsServices.getAllUsers().then((res)=>{
             this.users=res.data;
+            console.log(this.users);
         }).catch((err)=>{
             console.log(err);
         })
+    },
+    updateStatus(id){
+      userInfos.UpdateStatusRole(id).then((res)=>{
+        this.message_update_status=res.data;
+        console.log(res.data);
+      }).catch((err)=>{
+        console.log(err);
+      })
     }
+
 },
   computed:{
      
