@@ -124,12 +124,7 @@
                 </v-icon>
             </v-btn>
 
-            <v-btn icon class="hidden-sm-and-down">
-                <v-icon  X Small>
-                        mdi-heart-outline
-                </v-icon>
-            </v-btn>
-            
+           
             <v-menu offset-y 
             transition="slide-x-transition" 
             left
@@ -237,10 +232,7 @@
             </v-list-item>
 
             <v-list-item>
-                <v-list-item-icon>
-                <v-icon X Small>mdi-heart-outline</v-icon>
-                </v-list-item-icon>
-
+               
                 <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Listes</v-list-item-title>
             </v-list-item>
             <v-list-item to="/editProfil">   
@@ -334,7 +326,25 @@
                             value="15"
                             >
                         </v-rating>
-                            <v-btn   plain class="yellow--text mt-2" @click="rating()" :disabled="rate==0">Rate</v-btn>    
+                            <v-btn   text class="black--text mt-2" @click="rating(),snackbar=true" :disabled="rate==0">Rate</v-btn> 
+                            <v-snackbar
+                                v-model="snackbar"
+                                :timeout="timeout"
+                                color="green"
+                                >
+                                Service evaluer avec success !
+
+                                <template v-slot:action="{ attrs }">
+                                <v-btn
+                                    color="red"
+                                    text
+                                    v-bind="attrs"
+                                    @click="snackbar = false"
+                                >
+                                    Close
+                                </v-btn>
+                                </template>
+                            </v-snackbar>  
                         </div>
                         
                         </div>
@@ -385,7 +395,9 @@ export default {
             loader:true,
             notifications:[],
             notificationNotSeen:[],
-            rate:0
+            rate:0,
+            snackbar:false,
+            timeout:3000,
         }
     },
     methods:{
@@ -454,6 +466,10 @@ export default {
             console.log(this.rate);
             ServiceServices.addRate(this.id,this.rate).then((res)=>{
                 console.log(res.data);
+                setTimeout(() => {
+                    this.$route.go();
+                }, 3000);
+
             }).catch((err)=>{
                 console.log(err);
             })
