@@ -71,10 +71,11 @@ public class User implements Serializable{
 	@ColumnDefault(value = "null")
 	private Date email_verified_at;
 	
-	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name="user_role",
 	joinColumns=@javax.persistence.JoinColumn(name="user_id"),
 	inverseJoinColumns = @javax.persistence.JoinColumn(name ="role_id"))
+	
 	private List<Role> roles;
 	
 	
