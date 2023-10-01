@@ -22,12 +22,6 @@
                         mdi-email-outline
                     </v-icon>
                 </v-btn>
-
-                <v-btn icon class="hidden-sm-and-down">
-                    <v-icon  X Small>
-                         mdi-heart-outline
-                    </v-icon>
-                </v-btn>
                 
                 <v-menu offset-y 
                 transition="slide-x-transition" 
@@ -136,9 +130,6 @@
                 </v-list-item>
 
                 <v-list-item>
-                    <v-list-item-icon>
-                    <v-icon X Small>mdi-heart-outline</v-icon>
-                    </v-list-item-icon>
 
                     <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Listes</v-list-item-title>
                 </v-list-item>
@@ -185,7 +176,25 @@
                         type="file"
                         >
                         <br>
-                          <v-btn type="submit" style="color:#fff" class="mt-5 text-center" color="#12c2b9"   :loading="loadimage" @click="SavePhoto()">Upload</v-btn>
+                          <v-btn type="submit" style="color:#fff" class="mt-5 text-center" color="#12c2b9"   :loading="loadimage" @click="SavePhoto(),snackbarImage=true" :disabled="this.photo==''">Upload</v-btn>
+                          <v-snackbar
+                                v-model="snackbarImage"
+                                :timeout="timeoutImage"
+                                color="green"
+                                >
+                                Image mofifiée avec succés
+
+                                <template v-slot:action="{ attrs }">
+                                    <v-btn
+                                    color="red"
+                                    text
+                                    v-bind="attrs"
+                                    @click="snackbarImage = false"
+                                    >
+                                    Close
+                                    </v-btn>
+                                </template>
+                          </v-snackbar>
                 </v-card>
             </v-container>
             <v-container class="mt-10 py-10">
@@ -265,7 +274,25 @@
 
                         </v-flex>
                         <v-flex>
-                            <v-btn type="submit" color="primary">Edit</v-btn>
+                            <v-btn type="submit" color="primary" @click="snackbarFields=true">Edit</v-btn>
+                            <v-snackbar
+                                v-model="snackbarFields"
+                                :timeout="timeoutFields"
+                                color="green"
+                                >
+                                Service modifié avec succes !
+
+                                <template v-slot:action="{ attrs }">
+                                    <v-btn
+                                    color="red"
+                                    text
+                                    v-bind="attrs"
+                                    @click="snackbarFields = false"
+                                    >
+                                    Close
+                                    </v-btn>
+                                </template>
+                          </v-snackbar>
                         </v-flex>
                     
                 </v-layout>
@@ -317,6 +344,10 @@ export default {
                 minPrice:"",
             },
             loadingEdit:false,
+            snackbarImage:false,
+            timeoutImage:3000,
+            snackbarFields:false,
+            timeoutFields:3000,
         }
     },
     methods:{
@@ -355,7 +386,9 @@ export default {
                  'photo':this.photo
                 }).then((res)=>{
                     console.log(res.data);
+                    setTimeout(() => {
                     this.$router.go();
+                    }, 3000);
                     setTimeout(() => {
                         this.loadimage=false;
                     }, 3000);
@@ -379,7 +412,9 @@ export default {
                 "yearsInBusiness":this.form.yearsInBusiness,
             }).then((res)=>{
                 this.loadingEdit=false;
-                this.$router.go();
+                setTimeout(() => {
+                    this.$router.go();
+                }, 3000);
                 console.log(res.data);
             }).catch((err)=>{
                 console.log(err);
