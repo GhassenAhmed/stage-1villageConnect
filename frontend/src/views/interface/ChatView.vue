@@ -118,11 +118,7 @@
                     </v-list-item>
                     </v-list>
                     </v-menu>
-                <v-btn icon class="hidden-xs-only">
-                    <v-icon  X Small>
-                         mdi-heart-outline
-                    </v-icon>
-                </v-btn>
+              
                 
                 <v-menu offset-y 
                 transition="slide-x-transition" 
@@ -224,9 +220,7 @@
                 </v-list-item>
 
                 <v-list-item>
-                    <v-list-item-icon>
-                    <v-icon X Small>mdi-heart-outline</v-icon>
-                    </v-list-item-icon>
+                   
 
                     <v-list-item-title style="font-size: 15px;margin-top: 5px;padding-bottom: 5px;">Listes</v-list-item-title>
                 </v-list-item>
