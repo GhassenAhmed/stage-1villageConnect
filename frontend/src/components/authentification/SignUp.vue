@@ -70,7 +70,16 @@
                                         outlined
                                         placeholder="Enter Password"
                                     ></v-text-field>
-                                    <input
+                                    <!-- <input
+                                        name="file"
+                                        id="file"
+                                        label="Your Photo"
+                                        :error-messages="photo_error"
+                                        @change="base64()"
+                                        type="file"
+                                        ref="photo"
+                                    > -->
+                                    <v-file-input
                                         name="file"
                                         id="file"
                                         label="Your Photo"
@@ -79,9 +88,7 @@
                                         type="file"
                                         ref="photo"
                                     >
-                                    <div class="err" style="color: red;" v-if="photo_err">
-                                        L'image doit être du type (jpg, jpeg, png, svg, gif)
-                                    </div>
+                                    </v-file-input>
                                 </v-flex>
                         </v-layout>
                         <hr color="#2B3277" size="1px" class="mb-3">
@@ -167,7 +174,12 @@ export default {
                     typeFile(val){
                      const tab_ext_dispo=['jpg','gif','png','svg','jpeg'];
                      const extention=val.split(';')[0].split('/')[1];
-                     return tab_ext_dispo.find((v)=>v==extention) ? true : false ;
+                     if(tab_ext_dispo.find((v)=>v==extention)){
+                        return true;
+                     }else{
+                        this.photo_err==true;
+                        return false;
+                     }
                   }
                 }
 
@@ -204,7 +216,7 @@ export default {
                       this.form.password="";
                       this.form.photo="";
                       this.loading=false;
-                      this.$router.push({name:"login",query:{content:"Register successfully"}});
+                      this.$router.push({name:"login",query:{content:"Register successfully ! please check your email"}});
                   }).catch((error)=>{
                        this.loading=false;
                        console.log(error);
