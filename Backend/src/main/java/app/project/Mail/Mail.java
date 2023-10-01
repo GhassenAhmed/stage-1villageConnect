@@ -30,7 +30,7 @@ public class Mail {
 
 		Context context=new Context();
 		context.setVariable("name", user.getLastName());
-		context.setVariable("link","http://localhost:8081/#/Login?email="+user.getEmail());
+		context.setVariable("link","http://localhost:8080/#/Login?email="+user.getEmail());
 		String body=templateEngine.process("VerifyEmail", context);
 		
 		String fromAddress = "villageconnectt@gmail.com";
@@ -54,7 +54,7 @@ public class Mail {
 
 		Context context=new Context();
 		context.setVariable("token", Token);
-		context.setVariable("link","http://localhost:8081/#/changerpassword");
+		context.setVariable("link","http://localhost:8080/#/changerpassword");
 		String body=templateEngine.process("ForgotPassword", context);
 		
 		String fromAddress = "villageconnectt@gmail.com";
