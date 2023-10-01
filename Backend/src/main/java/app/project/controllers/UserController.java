@@ -3,6 +3,7 @@ package app.project.controllers;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import app.project.Mail.Mail;
 import app.project.entities.User;
+import app.project.entities.UserRole;
 import app.project.parametre.DataPhoto;
 import app.project.parametre.DataUser;
 import app.project.parametre.InfoEmail;
 import app.project.repositories.ServiceRepository;
 import app.project.repositories.UserRepository;
+import app.project.repositories.UserRoleRepository;
 import app.project.secutity.SecurityConfig;
 import app.project.services.UserService;
 
@@ -41,6 +44,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	UserRoleRepository userRoleRepository;
 	
 	@Autowired
 	SecurityConfig securityConfig;
@@ -143,14 +149,46 @@ public class UserController {
 	    	   return  ResponseEntity.ok().body("Email Modified");
 	    }
 	
-	   /* @DeleteMapping("deleteUser")
+	    @DeleteMapping("/deleteUser")
 	    public ResponseEntity<?> deleteUser(@RequestParam("id") Long id){
-	    	List<app.project.entities.Service> services = new ArrayList<>();
-	    	services=serviceRepository.getServiceByUserId(id);
-	    	for(int i=0 ; i<services.size();i++) {
-	    		Service ser=services[i];
-	    		serviceRepository.delete(services.);
+	    	User user = userRepository.getUserById(id);
+	    	List<UserRole> userRoles = userRoleRepository.getUserRoles(id);
+	    	List<app.project.entities.Service> services=serviceRepository.getServicesById(id);
+	    	if(user!=null) {
+	    		for(UserRole userRole:userRoles) {
+	    			userRoleRepository.delete(userRole);
+	    			
+	    		}
+	    		userRoles.clear();
+	    		for(app.project.entities.Service service:services) {
+	    			serviceRepository.delete(service);
+	    		}
+	    		services.clear();
+	    		if(userRoles.isEmpty() && services.isEmpty()) {
+	    			userRepository.delete(user);
+		    		return  ResponseEntity.ok().body("Utilisateur supprimé !");
+	    		}else {
+	    			return  ResponseEntity.ok().body("Error dans la suppresion  !");
+
+	    		}
+	    		
+	    	}else {
+	    		return  ResponseEntity.ok().body("Utilisateur non trouvé !");
 	    	}
-	    }*/
+	    	 	
+	    }
+	    
+	    @PostMapping("/updateStatus")
+	    public ResponseEntity<?> updateStatus(@RequestParam("id") long id){
+	    	UserRole userRole = userRoleRepository.getUserRole(id);
+	    	if(userRole !=null) {
+	    		userRole.setStatus(1);
+	    		userRoleRepository.save(userRole);
+	    		return  ResponseEntity.ok().body("status modifier avec succes !");
+	    	}else {
+	    		 return  ResponseEntity.ok().body("Status déjà modifié");
+	    	}
+	    	
+	    }
 
 }
