@@ -169,6 +169,7 @@ export default {
                 this.loading=false;
                 this.snackbar=true;
                 this.message_error=error.response.data;
+                
               })
           },
           VerifyEmail(email){
@@ -202,13 +203,13 @@ export default {
             if(!this.$v.form.email.$dirty) return error;
             !this.$v.form.email.required && error.push('Email Required');
             !this.$v.form.email.email && error.push('Email Invalid');
-            /*if(!this.$v.form.email.required){
+            if(!this.$v.form.email.required){
                 error.push("Email required");
                 return error;
             }else if(!this.$v.form.email.email){
                 error.push("Email invalid");
                 return error;
-            }*/
+            }
             return error;
         },
         password_error(){
