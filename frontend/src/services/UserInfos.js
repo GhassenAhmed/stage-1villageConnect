@@ -16,5 +16,8 @@ export default {
     UpdateStatus(info){
         return Axios.post("UpdateStatus",info);
     },
+    UpdateStatusRole(id){
+        return Axios.post("updateStatus?id="+id);
+    },
 
 }
