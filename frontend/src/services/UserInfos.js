@@ -19,5 +19,8 @@ export default {
     UpdateStatusRole(id){
         return Axios.post("updateStatus?id="+id);
     },
+    deleteUser(id){
+        return Axios.delete("deleteUser?id="+id);
+    }
 
 }

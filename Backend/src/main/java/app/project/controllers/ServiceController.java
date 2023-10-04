@@ -201,8 +201,13 @@ public class ServiceController {
 		  
 		  @DeleteMapping("/deleteService")
 		  public ResponseEntity<?> deleteService(@RequestParam("id") Long id){
-			  serviceRepository.deleteById(id);
-			  return  ResponseEntity.ok().body("Service supprimer");
+			  Service service = serviceRepository.getById(id);
+			  if(service != null) {
+				  serviceRepository.deleteById(id);
+				  return  ResponseEntity.ok().body("Service supprimer");
+			  }
+			  return  ResponseEntity.ok().body("Service non trouvé ");
+			  
 		  }
 		  
 		  

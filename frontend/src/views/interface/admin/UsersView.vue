@@ -57,8 +57,12 @@
               max-width="600"
               >
               <template v-slot:activator="{ on, attrs }">
-              <v-icon color="red" v-bind="attrs"
+                <v-btn text
+                   @click="snackbar_delete = true"
+                >
+                  <v-icon color="red" v-bind="attrs"
                   v-on="on">mdi-delete</v-icon>
+                </v-btn>
               </template>
               <template v-slot:default="dialog">
               <v-card>
@@ -71,7 +75,7 @@
                   class="float-end ml-15"
                   color="green"
                       text
-                      @click="dialog.value = false"
+                      @click="dialog.value = false,deleteUser(user.id)"
                   >Supprimer</v-btn>
               </v-toolbar>
               </v-card>
@@ -133,9 +137,10 @@ data(){
         users:[],
         snackbar: false,
         timeout: 2000,
-        message_update_status:""
-       
-        
+        message_update_status:"",
+        snackbar_delete: false,
+        timeout_delete: 2000,
+        message_delete_user:"",
     }
 },
 methods:{
@@ -150,6 +155,15 @@ methods:{
     updateStatus(id){
       userInfos.UpdateStatusRole(id).then((res)=>{
         this.message_update_status=res.data;
+        console.log(res.data);
+      }).catch((err)=>{
+        console.log(err);
+      })
+    },
+    deleteUser(id){
+      console.log(id);
+      userInfos.deleteUser(id).then((res)=>{
+        this.message_delete_user=res.data;
         console.log(res.data);
       }).catch((err)=>{
         console.log(err);

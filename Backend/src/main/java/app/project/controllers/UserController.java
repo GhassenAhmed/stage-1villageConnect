@@ -152,30 +152,16 @@ public class UserController {
 	    @DeleteMapping("/deleteUser")
 	    public ResponseEntity<?> deleteUser(@RequestParam("id") Long id){
 	    	User user = userRepository.getUserById(id);
-	    	List<UserRole> userRoles = userRoleRepository.getUserRoles(id);
-	    	List<app.project.entities.Service> services=serviceRepository.getServicesById(id);
+	    	/*List<UserRole> userRoles = userRoleRepository.getUserRoles(id);
+	    	List<app.project.entities.Service> services=serviceRepository.getServicesById(id);*/
 	    	if(user!=null) {
-	    		for(UserRole userRole:userRoles) {
-	    			userRoleRepository.delete(userRole);
-	    			
-	    		}
-	    		userRoles.clear();
-	    		for(app.project.entities.Service service:services) {
-	    			serviceRepository.delete(service);
-	    		}
-	    		services.clear();
-	    		if(userRoles.isEmpty() && services.isEmpty()) {
-	    			userRepository.delete(user);
-		    		return  ResponseEntity.ok().body("Utilisateur supprimé !");
-	    		}else {
-	    			return  ResponseEntity.ok().body("Error dans la suppresion  !");
-
-	    		}
+    			userRepository.delete(user);
+	    		return  ResponseEntity.ok().body("Utilisateur supprimé !");
 	    		
 	    	}else {
 	    		return  ResponseEntity.ok().body("Utilisateur non trouvé !");
 	    	}
-	    	 	
+	    	
 	    }
 	    
 	    @PostMapping("/updateStatus")

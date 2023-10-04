@@ -78,7 +78,7 @@ public class Service implements Serializable {
 	@JoinColumn(name="categorie_id")
 	private Categorie categorie;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
 	
