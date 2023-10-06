@@ -417,7 +417,6 @@ export default {
                 if(res.data==false){
                     this.services=null;
                 }else{
-
                     this.services=res.data;
                     this.categorieName=this.services[0].categorie['categorieName'];
                     if(this.search!=0){

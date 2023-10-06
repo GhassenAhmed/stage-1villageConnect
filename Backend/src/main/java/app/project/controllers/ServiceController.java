@@ -141,6 +141,7 @@ public class ServiceController {
 		 newService.setAdresse(bodyRequest.getService().getAdresse());
 		 newService.setMinPrice(bodyRequest.getService().getMinPrice());
 		 newService.setMaxPrice(bodyRequest.getService().getMaxPrice());
+		 newService.setPhone(bodyRequest.getService().getPhone());
 		 newService.setThumbnailUrl(bodyRequest.getService().getThumbnailUrl());
 		 newService.setYearsInBusiness(bodyRequest.getService().getYearsInBusiness());
 		 newService.setPhoto(bodyRequest.getService().getPhoto());

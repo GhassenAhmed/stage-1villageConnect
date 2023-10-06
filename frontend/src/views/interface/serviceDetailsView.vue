@@ -466,9 +466,7 @@ export default {
             console.log(this.rate);
             ServiceServices.addRate(this.id,this.rate).then((res)=>{
                 console.log(res.data);
-                setTimeout(() => {
-                    this.$route.go();
-                }, 3000);
+               
 
             }).catch((err)=>{
                 console.log(err);
